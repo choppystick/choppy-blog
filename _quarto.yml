@@ -1,0 +1,30 @@
+project:
+  type: website
+  output-dir: _site
+ 
+website:
+  title: "Samuel's Math Blog"
+  description: "Notes and journal entries from learning and teaching mathematics."
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About
+      - href: gallery.qmd
+        text: Gallery
+    right:
+      - icon: github
+        href: https://github.com/
+  page-footer:
+    center: "Built with Quarto"
+ 
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    code-fold: true
+    #code-tools: true
+    lightbox: true
+    include-after-body: calendar-include.html

@@ -1,0 +1,34 @@
+---
+title: "About"
+image: images/profile.png
+about:
+  template: jolla
+  image-shape: round
+  links:
+    - icon: github
+      text: GitHub
+      href: https://github.com/choppystick
+---
+
+I'm a data scientist and amateur musician. Here is where I write up the math and statistics I'm learning as an educational piece — proofs, derivations, the occasional simulation in Python or R — mostly as a way of forcing myself to actually understand something rather than just recognize it. Right now that means working through Bayesian learning and inference, alongside classical piano and electric guitar on the side.
+
+I also enjoy learning music theory, philosophy, political theory, and theology. Not an expert by any means — I'm mostly interested in how an argument develops and how structure glues together.
+
+This is mostly a journal, not a polished blog. Expect worked-through problems, half-finished intuitions, and the occasional political or philosophical tangent — posted as I go, not on a schedule.
+
+## Currently working on
+
+- Classical piano repertoire, including Chopin's Ballade No. 1
+- Nozick's "Anarchy, State and Utopia"
+- A machine learning approach to sheet reading and musical analysis
+
+## Outside of math
+
+I enjoy watching movies and TV, listening to and playing music (classical, rock, J-Pop, jazz), reading novels, writing short stories, drawing and painting, taking photos, and playing with cats.
+
+- **Favorite movie:** Schindler's List
+- **Favorite TV show:** Game of Thrones
+- **Favorite J-Pop band:** Zutomayo
+
+See my photos and art on the [Gallery](gallery.qmd) page.
+

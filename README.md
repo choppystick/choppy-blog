@@ -1,1 +1,1 @@
-# choppy-blog
+Personal blog. 

@@ -1,0 +1,23 @@
+---
+title: "Gallery"
+page-layout: full
+title-block-banner: false
+---
+
+<div class="photo-grid">
+
+![](images/gallery/photo1.jpg){group="gallery" description="A short caption for this photo."}
+
+![](images/gallery/photo2.jpg){group="gallery" description="Another caption."}
+
+![](images/gallery/photo3.png){group="gallery" description="Caption three."}
+
+</div>
+
+<!--
+To add a new photo:
+1. Drop the image file into images/gallery/
+2. Add a new line above in the same format:
+   ![](images/gallery/your-file.jpg){group="gallery" description="Caption."}
+3. The grid and lightbox (click-to-enlarge) are automatic — no other changes needed.
+-->
