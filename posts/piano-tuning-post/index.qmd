@@ -1,0 +1,6 @@
+---
+title: "Why Can't A Piano Be Tuned Perfectly - A Mathematical & Physical Approach"
+date: 2026-08-01
+categories: [music, number-theory, physics]
+---
+

@@ -1,0 +1,48 @@
+---
+title: "A simulation example"
+date: 2026-09-02
+categories: [probability, simulation]
+---
+
+Sometimes a post needs both a derivation and a simulation to check it.
+Quarto will run the code block below at render time and drop the output
+image directly into the page — no manual screenshotting needed.
+
+## Claim
+
+Let $X_1, \dots, X_n \overset{iid}{\sim} \text{Uniform}(0,1)$. By the CLT,
+
+$$
+\sqrt{n}\left(\bar{X}_n - \tfrac{1}{2}\right) \xrightarrow{d} \mathcal{N}\!\left(0, \tfrac{1}{12}\right).
+$$
+
+## Check it with a simulation
+
+```{python}
+#| eval: false
+#| echo: true
+# Set eval: true (and have matplotlib/numpy installed) to actually run this
+# at render time. Left as eval: false here so the starter repo builds
+# instantly with no dependencies.
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+n, trials = 30, 10000
+means = np.mean(np.random.uniform(0, 1, size=(trials, n)), axis=1)
+scaled = np.sqrt(n) * (means - 0.5)
+
+plt.hist(scaled, bins=50, density=True)
+plt.title("Simulated distribution vs. CLT prediction")
+plt.show()
+```
+
+If you don't want to run code at all for a given post, just leave the code
+block out entirely, or set `eval: false` as above and paste in a screenshot
+or gif instead:
+
+```{python}
+#| eval: false
+# example only — not run
+```
+
