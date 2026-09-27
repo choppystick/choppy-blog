@@ -3,8 +3,8 @@ project:
   output-dir: _site
  
 website:
-  title: "Samuel's Math Blog"
-  description: "Notes and journal entries from learning and teaching mathematics."
+  title: "Writing is a Joy"
+  description: "A blog about writing and documenting all kinds of things"
   navbar:
     left:
       - href: index.qmd
@@ -27,4 +27,4 @@ format:
     code-fold: true
     #code-tools: true
     lightbox: true
-    include-after-body: calendar-include.html
+    include-after-body: [calendar-include.html, tags-include.html]

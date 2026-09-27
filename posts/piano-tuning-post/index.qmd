@@ -1,6 +1,7 @@
 ---
-title: "Why Can't A Piano Be Tuned Perfectly - A Mathematical & Physical Approach"
+title: "Your Piano is Out of Tune. Always."
 date: 2026-08-01
 categories: [music, number-theory, physics]
 ---
 
+Your piano is out of tune. Always. Even if you just had it tuned yesterday, it is already out of tune and no it's not because the technician was bad, or there's something wrong with your ears. 

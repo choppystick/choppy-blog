@@ -18,9 +18,9 @@ This is mostly a journal, not a polished blog. Expect worked-through problems, h
 
 ## Currently working on
 
-- Classical piano repertoire, including Chopin's Ballade No. 1
-- Nozick's "Anarchy, State and Utopia"
-- A machine learning approach to sheet reading and musical analysis
+- Playing the piano and guitar consistently... 
+- Been reading Nozick's "Anarchy, State and Utopia". It's a slough of a book, but I'm getting there.
+- Econometrics. Thinking of changing career to a quant.
 
 ## Outside of math
 

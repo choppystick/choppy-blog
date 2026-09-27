@@ -32,14 +32,91 @@ body.page-layout-article {
   margin: 0;
 }
 
+.listing-categories::before {
+  content: "Tags:\00a0";
+  color: inherit;
+}
+
+.listing-category {
+  display: inline !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  background: none !important;
+  border-radius: 0 !important;
+  text-transform: none !important;
+  font-size: inherit !important;
+  color: #2780e3 !important;
+  transition: color 0.15s ease-in-out;
+}
+
+.listing-category:not(:last-child)::after {
+  content: ",\00a0";
+  color: inherit;
+}
+
+.listing-category:hover {
+  background: none !important;
+  border: none !important;
+  color: #1a5490 !important;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.listing-category.tag-active {
+  background: none !important;
+  border: none !important;
+  color: #1a5490 !important;
+  text-decoration: underline;
+}
+
 /* Breathing room between listing titles and category tags */
 .quarto-listing .listing-title {
   margin-bottom: 0.6rem;
+  font-size: 1.6rem;
+}
+
+.quarto-listing .listing-title a {
+  color: #2780e3;
+}
+
+.quarto-listing .listing-title a:hover {
+  color: #1a5490;
+  text-decoration: underline;
 }
 
 .quarto-listing .listing-categories {
   margin-top: 0.4rem;
   margin-bottom: 0.75rem;
+}
+
+.quarto-categories::before {
+  content: "Tags:\00a0";
+  color: inherit;
+}
+
+.quarto-category {
+  display: inline !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  background: none !important;
+  border-radius: 0 !important;
+  text-transform: none !important;
+  font-size: inherit !important;
+  opacity: 1 !important;
+  color: #2780e3 !important;
+}
+
+.quarto-category:not(:last-child)::after {
+  content: ",\00a0";
+  color: inherit;
+}
+
+.quarto-category:hover {
+  text-decoration: underline;
+  color: #1a5490 !important;
+  cursor: pointer;
 }
 
 /* Sidebar calendar — highlights days with posts, click to filter the listing */
@@ -138,5 +215,15 @@ div.quarto-post .metadata {
 
 .quarto-post .thumbnail {
   display: none;
+}
+
+/* Only the title and tags stay clickable; description/date text is plain
+   and selectable (their <a> wrappers no longer intercept clicks/drag). */
+.quarto-post .listing-description a,
+.quarto-post .metadata a {
+  pointer-events: none;
+  color: inherit;
+  text-decoration: none;
+  cursor: text;
 }
 

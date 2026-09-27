@@ -1,0 +1,46 @@
+<script>
+(function () {
+  function normalize(text) {
+    return (text || '').trim().toLowerCase();
+  }
+
+  function stripCount(text) {
+    return text.replace(/\s*\(\d+\)\s*$/, '');
+  }
+
+  function setActiveTagsByText(text) {
+    document.querySelectorAll('.listing-category').forEach(function (el) {
+      el.classList.toggle('tag-active', !!text && normalize(el.textContent) === text);
+    });
+  }
+
+  function initTagActiveState() {
+    var tags = document.querySelectorAll('.listing-category');
+    if (!tags.length) return;
+
+    tags.forEach(function (el) {
+      el.addEventListener('click', function () {
+        setActiveTagsByText(normalize(el.textContent));
+      });
+    });
+
+    document.querySelectorAll('.quarto-listing-category .category').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var isAll = el.getAttribute('data-category') === '';
+        setActiveTagsByText(isAll ? '' : normalize(stripCount(el.textContent)));
+      });
+    });
+
+    var title = document.querySelector('.quarto-listing-category-title');
+    if (title) {
+      title.addEventListener('click', function () {
+        setActiveTagsByText('');
+      });
+    }
+
+    // Sync with a category already active on load (e.g. from a URL hash)
+    var alreadyActive = document.querySelector(
+      '.quarto-listing-category .category.active:not([data-category=""])'
+    );
+    if (alreadyActive) {
+      setActiveTagsByText(normalize(stripCount(alreadyActive.textContent)));

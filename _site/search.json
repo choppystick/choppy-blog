@@ -1,24 +1,17 @@
 [
   {
-    "objectID": "posts/welcome-post/index.html",
-    "href": "posts/welcome-post/index.html",
-    "title": "Welcome — and a first proof",
+    "objectID": "posts/piano-tuning-post/index.html",
+    "href": "posts/piano-tuning-post/index.html",
+    "title": "Your Piano is Out of Tune. Always.",
     "section": "",
-    "text": "This is the first post. The idea: journal what I’m learning, write it up carefully enough that it also teaches someone else, and use this as a LaTeX-friendly notebook."
-  },
-  {
-    "objectID": "posts/welcome-post/index.html#a-warm-up-the-cauchy-schwarz-inequality",
-    "href": "posts/welcome-post/index.html#a-warm-up-the-cauchy-schwarz-inequality",
-    "title": "Welcome — and a first proof",
-    "section": "A warm-up: the Cauchy-Schwarz inequality",
-    "text": "A warm-up: the Cauchy-Schwarz inequality\nFor vectors \\(u, v\\) in an inner product space,\n\\[\n|\\langle u, v \\rangle| \\leq \\|u\\| \\, \\|v\\|\n\\]\nProof sketch. If \\(v = 0\\) the inequality is trivial. Otherwise, for any \\(t \\in \\mathbb{R}\\),\n\\[\n0 \\leq \\|u - t v\\|^2 = \\|u\\|^2 - 2t \\langle u, v \\rangle + t^2 \\|v\\|^2.\n\\]\nThis is a quadratic in \\(t\\) that is always non-negative, so its discriminant must be \\(\\leq 0\\):\n\\[\n4 \\langle u, v \\rangle^2 - 4 \\|u\\|^2 \\|v\\|^2 \\leq 0,\n\\]\nwhich rearranges to the claim. \\(\\blacksquare\\)\nInline math works too, e.g. \\(\\int_0^1 x^2\\,dx = \\tfrac{1}{3}\\), without any extra setup — Quarto ships with MathJax on by default."
+    "text": "Your piano is out of tune. Always. Even if you just had it tuned yesterday, it is already out of tune."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Home",
     "section": "",
-    "text": "A simulation example\n\n\n\nprobability\n\nsimulation\n\n\n\n\n\n\n\n\n\nSep 2, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nWhy Can’t A Piano Be Tuned Perfectly - A Mathematical & Physical Approach\n\n\n\nmusic\n\nnumber-theory\n\nphysics\n\n\n\n\n\n\n\n\n\nAug 1, 2026\n\n\n\n\n\nNo matching items"
+    "text": "A simulation example\n\n\n\nprobability\n\nsimulation\n\n\n\n\n\n\n\n\n\nSep 2, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nYour Piano is Out of Tune. Always.\n\n\n\nmusic\n\nnumber-theory\n\nphysics\n\n\n\n\n\n\n\n\n\nAug 1, 2026\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -26,6 +19,27 @@
     "title": "About",
     "section": "",
     "text": "I’m a data scientist and amateur musician. Here is where I write up the math and statistics I’m learning as an educational piece — proofs, derivations, the occasional simulation in Python or R — mostly as a way of forcing myself to actually understand something rather than just recognize it. Right now that means working through Bayesian learning and inference, alongside classical piano and electric guitar on the side.\nI also enjoy learning music theory, philosophy, political theory, and theology. Not an expert by any means — I’m mostly interested in how an argument develops and how structure glues together.\nThis is mostly a journal, not a polished blog. Expect worked-through problems, half-finished intuitions, and the occasional political or philosophical tangent — posted as I go, not on a schedule."
+  },
+  {
+    "objectID": "about.html#currently-working-on",
+    "href": "about.html#currently-working-on",
+    "title": "About",
+    "section": "Currently working on",
+    "text": "Currently working on\n\nPlaying the piano and guitar consistently…\nBeen reading Nozick’s “Anarchy, State and Utopia”. It’s a slough of a book, but I’m getting there.\nEconometrics. Thinking of changing career to a quant."
+  },
+  {
+    "objectID": "about.html#outside-of-math",
+    "href": "about.html#outside-of-math",
+    "title": "About",
+    "section": "Outside of math",
+    "text": "Outside of math\nI enjoy watching movies and TV, listening to and playing music (classical, rock, J-Pop, jazz), reading novels, writing short stories, drawing and painting, taking photos, and playing with cats.\n\nFavorite movie: Schindler’s List\nFavorite TV show: Game of Thrones\nFavorite J-Pop band: Zutomayo\n\nSee my photos and art on the Gallery page."
+  },
+  {
+    "objectID": "gallery.html",
+    "href": "gallery.html",
+    "title": "Gallery",
+    "section": "",
+    "text": "A short caption for this photo.\n\n\nAnother caption.\n\n\nCaption three."
   },
   {
     "objectID": "posts/example-latex-post/index.html",
@@ -47,33 +61,5 @@
     "title": "A simulation example",
     "section": "Check it with a simulation",
     "text": "Check it with a simulation\n\n\nCode\n# Set eval: true (and have matplotlib/numpy installed) to actually run this\n# at render time. Left as eval: false here so the starter repo builds\n# instantly with no dependencies.\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nn, trials = 30, 10000\nmeans = np.mean(np.random.uniform(0, 1, size=(trials, n)), axis=1)\nscaled = np.sqrt(n) * (means - 0.5)\n\nplt.hist(scaled, bins=50, density=True)\nplt.title(\"Simulated distribution vs. CLT prediction\")\nplt.show()\n\n\nIf you don’t want to run code at all for a given post, just leave the code block out entirely, or set eval: false as above and paste in a screenshot or gif instead:\n\n\nCode\n# example only — not run"
-  },
-  {
-    "objectID": "gallery.html",
-    "href": "gallery.html",
-    "title": "Gallery",
-    "section": "",
-    "text": "A short caption for this photo.\n\n\nAnother caption.\n\n\nCaption three."
-  },
-  {
-    "objectID": "about.html#currently-working-on",
-    "href": "about.html#currently-working-on",
-    "title": "About",
-    "section": "Currently working on",
-    "text": "Currently working on\n\nClassical piano repertoire, including Chopin’s Ballade No. 1\nNozick’s “Anarchy, State and Utopia”\nA machine learning approach to sheet reading and musical analysis"
-  },
-  {
-    "objectID": "about.html#outside-of-math",
-    "href": "about.html#outside-of-math",
-    "title": "About",
-    "section": "Outside of math",
-    "text": "Outside of math\nI enjoy watching movies and TV, listening to and playing music (classical, rock, J-Pop, jazz), reading novels, writing short stories, drawing and painting, taking photos, and playing with cats.\n\nFavorite movie: Schindler’s List\nFavorite TV show: Game of Thrones\nFavorite J-Pop band: Zutomayo\n\nSee my photos and art on the Gallery page."
-  },
-  {
-    "objectID": "posts/piano-tuning-post/index.html",
-    "href": "posts/piano-tuning-post/index.html",
-    "title": "Why Can’t A Piano Be Tuned Perfectly - A Mathematical & Physical Approach",
-    "section": "",
-    "text": "When was the last time you tuned your piano?"
   }
 ]

@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2026-08-01">
 
-<title>Why Can’t A Piano Be Tuned Perfectly - A Mathematical &amp; Physical Approach – Samuel's Math Blog</title>
+<title>Your Piano is Out of Tune. Always. – Writing is a Joy</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -87,7 +87,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">Samuel’s Math Blog</span>
+    <span class="navbar-title">Writing is a Joy</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -134,7 +134,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Why Can’t A Piano Be Tuned Perfectly - A Mathematical &amp; Physical Approach</h1>
+<h1 class="title">Your Piano is Out of Tune. Always.</h1>
   <div class="quarto-categories">
     <div class="quarto-category">music</div>
     <div class="quarto-category">number-theory</div>
@@ -162,197 +162,473 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>When was the last time you tuned your piano?</p>
+<p>Your piano is out of tune. Always. Even if you just had it tuned yesterday, it is already out of tune.</p>
 
 
 
 </main> <!-- /main -->
 <script>
+
 (function () {
+
   function initCalendar() {
+
     var marginSidebar = document.querySelector('#quarto-margin-sidebar');
+
     var listingEl = document.querySelector('#listing-listing .list');
+
     if (!marginSidebar || !listingEl) return; // not a listing page, skip
 
+
+
     // Quarto bakes each post's date into this timestamp using the render
+
     // machine's LOCAL timezone (not UTC) — so we must read it back with
+
     // local date components too, not UTC ones, or dates shift by a day
+
     // for anyone rendering outside UTC (e.g. Singapore, UTC+8).
+
     function toDateKey(ts) {
+
       var d = new Date(Number(ts));
+
       var y = d.getFullYear();
+
       var m = String(d.getMonth() + 1).padStart(2, '0');
+
       var day = String(d.getDate()).padStart(2, '0');
+
       return y + '-' + m + '-' + day;
+
     }
+
+
 
     // Collect post dates from Quarto's own listing data attributes —
+
     // no manual date list to maintain, this stays in sync automatically.
+
     var postEls = Array.prototype.slice.call(document.querySelectorAll('.quarto-post'));
+
     var postsByDate = {};
+
     postEls.forEach(function (el) {
+
       var ts = el.getAttribute('data-listing-date-sort');
+
       if (!ts) return;
+
       var dateStr = toDateKey(ts);
+
       if (!postsByDate[dateStr]) postsByDate[dateStr] = [];
+
       postsByDate[dateStr].push(el);
+
     });
 
+
+
     var dateKeys = Object.keys(postsByDate).sort();
+
     if (dateKeys.length === 0) return;
 
+
+
     // Default view: the month of the most recent post
+
     var latest = new Date(dateKeys[dateKeys.length - 1] + 'T00:00:00Z');
+
     var viewYear = latest.getUTCFullYear();
+
     var viewMonth = latest.getUTCMonth(); // 0-indexed
+
     var activeDate = null;
 
+
+
     var container = document.createElement('div');
+
     container.id = 'blog-calendar';
+
     container.className = 'blog-calendar';
+
     marginSidebar.appendChild(container);
 
+
+
     var monthNames = ['January','February','March','April','May','June',
+
       'July','August','September','October','November','December'];
 
+
+
     function filterByDate(dateStr) {
+
       var list = window['quarto-listings'] && window['quarto-listings']['listing-listing'];
+
       if (!list) return;
+
       if (!dateStr) {
+
         list.filter();
+
         return;
+
       }
+
       list.filter(function (item) {
+
         var el = item.elm;
+
         var ts = el.getAttribute('data-listing-date-sort');
+
         if (!ts) return false;
+
         return toDateKey(ts) === dateStr;
+
       });
+
     }
 
+
+
     function render() {
+
       container.innerHTML = '';
 
+
+
       var header = document.createElement('div');
+
       header.className = 'blog-calendar-header';
 
+
+
       var prevBtn = document.createElement('button');
+
       prevBtn.type = 'button';
+
       prevBtn.className = 'blog-calendar-nav';
+
       prevBtn.setAttribute('aria-label', 'Previous month');
+
       prevBtn.textContent = '\u2039';
+
       prevBtn.onclick = function () {
+
         viewMonth -= 1;
+
         if (viewMonth < 0) { viewMonth = 11; viewYear -= 1; }
+
         render();
+
       };
+
+
 
       var nextBtn = document.createElement('button');
+
       nextBtn.type = 'button';
+
       nextBtn.className = 'blog-calendar-nav';
+
       nextBtn.setAttribute('aria-label', 'Next month');
+
       nextBtn.textContent = '\u203a';
+
       nextBtn.onclick = function () {
+
         viewMonth += 1;
+
         if (viewMonth > 11) { viewMonth = 0; viewYear += 1; }
+
         render();
+
       };
 
+
+
       var label = document.createElement('span');
+
       label.className = 'blog-calendar-label';
+
       label.textContent = monthNames[viewMonth] + ' ' + viewYear;
 
+
+
       header.appendChild(prevBtn);
+
       header.appendChild(label);
+
       header.appendChild(nextBtn);
+
       container.appendChild(header);
 
+
+
       var grid = document.createElement('div');
+
       grid.className = 'blog-calendar-grid';
 
+
+
       ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(function (d) {
+
         var cell = document.createElement('div');
+
         cell.className = 'blog-calendar-dow';
+
         cell.textContent = d;
+
         grid.appendChild(cell);
+
       });
 
+
+
       var firstOfMonth = new Date(Date.UTC(viewYear, viewMonth, 1));
+
       var startDow = firstOfMonth.getUTCDay();
+
       var daysInMonth = new Date(Date.UTC(viewYear, viewMonth + 1, 0)).getUTCDate();
 
+
+
       for (var i = 0; i < startDow; i++) {
+
         var blank = document.createElement('div');
+
         blank.className = 'blog-calendar-day blog-calendar-day-empty';
+
         grid.appendChild(blank);
+
       }
+
+
 
       for (var day = 1; day <= daysInMonth; day++) {
+
         var dateStr = viewYear + '-' + String(viewMonth + 1).padStart(2, '0') +
+
           '-' + String(day).padStart(2, '0');
+
         var cell = document.createElement('div');
+
         cell.className = 'blog-calendar-day';
+
         cell.textContent = String(day);
 
+
+
         if (postsByDate[dateStr]) {
+
           cell.classList.add('has-post');
+
           if (dateStr === activeDate) cell.classList.add('active');
+
           cell.setAttribute('role', 'button');
+
           cell.setAttribute('tabindex', '0');
+
           cell.title = postsByDate[dateStr].length === 1
+
             ? '1 post on this day — click to filter'
+
             : postsByDate[dateStr].length + ' posts on this day — click to filter';
 
+
+
           (function (ds) {
+
             cell.onclick = function () {
+
               if (activeDate === ds) {
+
                 activeDate = null;
+
                 filterByDate(null);
+
               } else {
+
                 activeDate = ds;
+
                 filterByDate(ds);
+
               }
+
               render();
+
             };
+
             cell.onkeydown = function (e) {
+
               if (e.key === 'Enter' || e.key === ' ') {
+
                 e.preventDefault();
+
                 cell.onclick();
+
               }
+
             };
+
           })(dateStr);
+
         }
 
+
+
         grid.appendChild(cell);
+
       }
+
+
 
       container.appendChild(grid);
 
+
+
       if (activeDate) {
+
         var resetBtn = document.createElement('button');
+
         resetBtn.type = 'button';
+
         resetBtn.className = 'blog-calendar-reset';
+
         resetBtn.textContent = 'Show all posts';
+
         resetBtn.onclick = function () {
+
           activeDate = null;
+
           filterByDate(null);
+
           render();
+
         };
+
         container.appendChild(resetBtn);
+
       }
+
     }
 
+
+
     render();
+
   }
 
+
+
   if (document.readyState === 'loading') {
+
     document.addEventListener('DOMContentLoaded', initCalendar);
+
   } else {
+
     initCalendar();
+
   }
+
 })();
+
 </script>
-<script id="quarto-html-after-body" type="application/javascript">
+
+<script>
+
+(function () {
+
+  function normalize(text) {
+
+    return (text || '').trim().toLowerCase();
+
+  }
+
+
+
+  function stripCount(text) {
+
+    return text.replace(/\s*\(\d+\)\s*$/, '');
+
+  }
+
+
+
+  function setActiveTagsByText(text) {
+
+    document.querySelectorAll('.listing-category').forEach(function (el) {
+
+      el.classList.toggle('tag-active', !!text && normalize(el.textContent) === text);
+
+    });
+
+  }
+
+
+
+  function initTagActiveState() {
+
+    var tags = document.querySelectorAll('.listing-category');
+
+    if (!tags.length) return;
+
+
+
+    tags.forEach(function (el) {
+
+      el.addEventListener('click', function () {
+
+        setActiveTagsByText(normalize(el.textContent));
+
+      });
+
+    });
+
+
+
+    document.querySelectorAll('.quarto-listing-category .category').forEach(function (el) {
+
+      el.addEventListener('click', function () {
+
+        var isAll = el.getAttribute('data-category') === '';
+
+        setActiveTagsByText(isAll ? '' : normalize(stripCount(el.textContent)));
+
+      });
+
+    });
+
+
+
+    var title = document.querySelector('.quarto-listing-category-title');
+
+    if (title) {
+
+      title.addEventListener('click', function () {
+
+        setActiveTagsByText('');
+
+      });
+
+    }
+
+
+
+    // Sync with a category already active on load (e.g. from a URL hash)
+
+    var alreadyActive = document.querySelector(
+
+      '.quarto-listing-category .category.active:not([data-category=""])'
+
+    );
+
+    if (alreadyActive) {
+
+      setActiveTagsByText(normalize(stripCount(alreadyActive.textContent)));
+<script id = "quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
