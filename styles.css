@@ -3,6 +3,19 @@ body.page-layout-article {
   max-width: 800px;
 }
 
+/* Body text matches beamilz.com: system UI sans stack, 1.5 line height,
+   1rem gap between paragraphs. Headings keep the cosmo font. */
+#quarto-document-content p,
+#quarto-document-content li,
+#quarto-document-content blockquote {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  line-height: 1.5;
+}
+
+#quarto-document-content p {
+  margin-bottom: 1rem;
+}
+
 .quarto-title-banner {
   margin-bottom: 1rem;
 }
@@ -88,6 +101,10 @@ body.page-layout-article {
 .quarto-listing .listing-categories {
   margin-top: 0.4rem;
   margin-bottom: 0.75rem;
+}
+
+.quarto-title .quarto-categories {
+  column-gap: 0;
 }
 
 .quarto-categories::before {

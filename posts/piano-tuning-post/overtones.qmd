@@ -1,0 +1,172 @@
+---
+title: "On Harmonics."
+date: 2026-08-12
+categories: [music, number-theory, physics]
+bibliography: references.bib
+csl: ieee.csl
+jupyter: python3
+---
+
+Pluck the open A string on a guitar, and a tuner will tell you it's 110 Hz, meaning the string swings up and down 110 times every second. This count is called the *frequency*. 
+
+But run the same sound through a spectrum analyzer, a tool that splits a sound into its separate frequencies, and it turns out that a single note contains several frequencies at once: not just 110 Hz, but 220, 330 Hz, and so on. The lowest of these, 110 Hz, is the *fundamental*, and it sets the pitch you hear. The rest, at whole-number multiples of it, are the *harmonics*, and are colors that set instruments apart.
+
+This naturally raises two questions:
+
+1. **Why are the harmonics whole-number multiples of the fundamental?** 
+
+2. **Why can a plucked string produce so many harmonics, instead of just the fundamental?** 
+
+We will start with the first question, as its answer will be helpful for the second question.
+
+```{python}
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+from IPython.display import Audio, display
+
+plt.rcParams.update({"figure.dpi": 110, "axes.spines.top": False, "axes.spines.right": False})
+integrate = getattr(np, "trapezoid", None) or np.trapz  
+
+L = 1.0        # string length
+f1 = 110.0     # open A string, in Hz
+fs = 44100     # audio sample rate
+```
+
+## A rope example
+
+Before tackling harmonics head on, it may be helpful to think of a guitar string as a rope tied to a post, with you holding the other end and shaking it. 
+
+If you shake it at just the right rhythm, the whole rope swings as one big loop. Shake twice as often and it snaps into two loops, with a point in the middle that stays still. Three times as often gives three loops. At any rates in between, no clean pattern builds up and the rope just jiggles. How often you shake is a frequency, and these special frequencies are exactly the fundamental and its harmonics.
+
+In physics, these patterns are called *modes*, and the points that never move, including the two ends, are called *nodes*. An up-loop followed by a down-loop makes one full wave, and its length is called the *wavelength* $\lambda$. So one loop is half a wavelength.
+
+The figure below shows each mode as a snapshot. In reality, each loop keeps flipping between up and down, while the dots stay perfectly still.
+
+```{python}
+#| echo: false
+#| fig-cap: "The first four modes of a string with a fundamental $f_1$ of 110 Hz. The dots are nodes, and $n$ is the number of loops. Each color marks one full wavelength, so at $n = 1$ the string holds only half a wavelength."
+
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
+
+L, f1 = 1.0, 110
+BLUE, ORANGE = "#2F6FDE", "#E8833A"
+WAVE_COLORS = [BLUE, ORANGE]  # 1st wavelength blue, 2nd wavelength orange
+
+
+def plot_by_wavelength(ax, x, y, wavelength, **kw):
+    """Draw y(x), coloring each successive wavelength differently."""
+    n_waves = int(np.ceil(round(x[-1] / wavelength, 9)))
+    for j in range(n_waves):
+        m = (x >= j * wavelength) & (x <= (j + 1) * wavelength)
+        ax.plot(x[m], y[m], color=WAVE_COLORS[j % 2], solid_capstyle="butt", **kw)
+
+
+def style_axes(ax, bottom=False):
+    ax.axvline(0, color="gray", lw=1.5, clip_on=False)  # fixed ends of the string
+    ax.axvline(L, color="gray", lw=1.5, clip_on=False)
+    ax.axhline(0, color="gray", lw=0.8, ls="--")  # resting position
+    ax.set_ylim(-1.7, 1.7)
+    ax.set_yticks([-1, 0, 1])
+    ax.tick_params(labelsize=8)
+    for s in ("top", "right"):
+        ax.spines[s].set_visible(False)
+    if not bottom:
+        ax.spines["bottom"].set_visible(False)
+        ax.tick_params(bottom=False)
+
+
+def add_legend(fig):
+    handles = [
+        Line2D([], [], color=BLUE, lw=2.5, label="1st wavelength"),
+        Line2D([], [], color=ORANGE, lw=2.5, label="2nd wavelength"),
+        Line2D([], [], color="black", marker="o", ls="", ms=5, label="node"),
+    ]
+    fig.legend(handles=handles, loc="upper center", ncol=3, frameon=False, fontsize=9)
+
+x = np.linspace(0, L, 1000)
+fig, axes = plt.subplots(4, 1, figsize=(7, 6.5), sharex=True)
+for n, ax in enumerate(axes, start=1):
+    lam = 2 * L / n
+    plot_by_wavelength(ax, x, np.sin(n * np.pi * x / L), lam, lw=2.5)
+    ax.plot(np.arange(n + 1) * L / n, np.zeros(n + 1), "o", color="black", ms=5, zorder=3,
+            clip_on=False)
+    style_axes(ax, bottom=(n == 4))
+    ax.set_xlim(0, L)  # the string starts exactly at x = 0
+    ax.spines["left"].set_visible(False)  # the wall at x = 0 acts as the y-axis
+    name = f"n = {n}"
+    ax.text(1.04, 0.5, f"{name}\n{n * f1} Hz",
+            transform=ax.transAxes, va="center", fontsize=9)
+axes[-1].set_xticks([0, L / 2, L])
+axes[-1].set_xticklabels(["0", "L/2", "L"])
+axes[-1].set_xlabel("position along the string", fontsize=9)
+fig.supylabel("displacement", fontsize=9)
+add_legend(fig)
+plt.tight_layout(rect=[0.02, 0, 0.82, 0.94])
+plt.show()
+```
+
+:::{.callout-note collapse="true"}
+## Watch this for a visual demonstration.
+{{< video https://www.youtube.com/watch?v=cnH2ltfW48U&start=154 >}}
+:::
+
+Notice that the frequencies in the graph, 110, 220, 330, 440 Hz, are all multiples of 110. So then, why specifically multiples?
+
+Suppose the string has length $L$. Both ends are held fixed on the *resting line*, the straight line the string lies along when it's still, so the wave pattern has to start and end on the ends.
+
+Starting from the resting line at the left end, the pattern only returns to it at the end of each loop. **If the string's length ended partway through a loop, the right end would be sitting above or below the line**, which is physically impossible, as the ends are fixed.
+
+```{python}
+#| echo: false
+#| fig-cap: "Top: a pattern with 2 loops starts and ends on the resting line, so it fits the string. Bottom: a pattern with 2.5 loops ends at a peak, leaving the right end displaced (arrow)."
+fig, axes = plt.subplots(2, 1, figsize=(5, 4.2), sharex=True)
+for ax, loops in zip(axes, [2.0, 2.5]):
+    lam = 2 * L / loops
+    plot_by_wavelength(ax, x, np.sin(loops * np.pi * x / L), lam, lw=2.5)
+    ax.plot([0, L], [0, 0], "o", color="black", ms=5, zorder=3, clip_on=False)
+    style_axes(ax, bottom=(loops == 2.5))
+    ax.spines["left"].set_visible(False)  # the wall at x = 0 acts as the y-axis
+ax = axes[1]
+ax.plot([L], [1], "o", color=ORANGE, ms=5, zorder=3)
+ax.annotate("", xy=(L + 0.03, 0.95), xytext=(L + 0.03, 0.05),
+            arrowprops=dict(arrowstyle="<->", color="black", lw=1))
+ax.set_xlim(0, 1.06)  # starts exactly at 0; small room on the right for the gap arrow
+ax.set_xticks([0, L / 2, L])
+ax.set_xticklabels(["0", "L/2", "L"])
+ax.set_xlabel("position along the string", fontsize=9)
+fig.supylabel("displacement", fontsize=9)
+add_legend(fig)
+plt.tight_layout(rect=[0.02, 0, 1, 0.92])
+plt.show()
+```
+
+**So a mode must contain a whole number of loops.** To write this as a formula, recall that one loop is half a wavelength. A mode with $n$ loops therefore fills the string when:
+
+$$
+L = n \cdot \frac{\lambda}{2}
+\quad\Rightarrow\quad
+\lambda = \frac{2L}{n}
+$$
+
+Waves travel along a string at one fixed speed $v$, determined by the string's tightness and weight. This is why turning a tuning peg changes the pitch: **tightening the string makes waves travel faster and as waves travel faster, frequency increases**. 
+
+For any wave, frequency is speed divided by wavelength: the faster the wave moves, or the shorter it is, the more times it vibrates each second. For mode $n$, whose wavelength is $\lambda_n = 2L/n$:
+
+$$
+f_n = \frac{v}{\lambda_n} = \frac{v}{2L/n} = n \cdot \frac{v}{2L} = n f_1,
+\qquad\text{where } f_1 = \frac{v}{2L}.
+$$
+
+The speed $v$ and the length $L$ are fixed by the string, so only $n$ changes from mode to mode. For an ideal string, mode 2 therefore vibrates at exactly twice the frequency of mode 1, mode 3 at three times, and so on. (Real strings are slightly stiff, which nudges the higher harmonics a bit higher in frequency.) For our 110 Hz string, that gives 110, 220, 330 Hz.
+
+That settles the first question: a string can only vibrate cleanly at $f_1, 2f_1, 3f_1, \ldots$. But our example string only show these patterns one at a time, at a rhythm we chose. When we pluck a string, all these modes appear at the same time and each at different strength. So **what's happening?**
+
+## Why are there multiple harmonics concurrently?
+
+When you pluck a string, you don't pick a mode. You hook the string with your finger, pull it into a triangle, and let go.
+
+A triangle isn't any of those clean patterns. Its straight sides aren't bent at all, so they feel no pull, while the corner feels a lot. So how does a triangle vibrate?
+
