@@ -25,11 +25,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 from IPython.display import Audio, display
 
-plt.rcParams.update({"figure.dpi": 110, "axes.spines.top": False, "axes.spines.right": False})
+plt.rcParams.update({"figure.dpi": 110, "axes.spines.top": False, "axes.spines.right": False, "animation.embed_limit": 40})
 integrate = getattr(np, "trapezoid", None) or np.trapz  
 
 L = 1.0        # string length
+h  = 1.0      # how far you pull the string
 f1 = 110.0     # open A string, in Hz
+T  = 1 / f1   # one period, about 9.1 ms
+x  = np.linspace(0, L, 1001)
 fs = 44100     # audio sample rate
 ```
 
@@ -151,7 +154,7 @@ L = n \cdot \frac{\lambda}{2}
 \lambda = \frac{2L}{n}
 $$
 
-Waves travel along a string at one fixed speed $v$, determined by the string's tightness and weight. This is why turning a tuning peg changes the pitch: **tightening the string makes waves travel faster and as waves travel faster, frequency increases**. 
+Even though the loops seem to stay in place, each pattern is really made of ripples running back and forth along the string, bouncing off the fixed ends. These ripples travel at one fixed speed $v$, determined by the string's tightness and weight.
 
 For any wave, frequency is speed divided by wavelength: the faster the wave moves, or the shorter it is, the more times it vibrates each second. For mode $n$, whose wavelength is $\lambda_n = 2L/n$:
 
@@ -162,11 +165,126 @@ $$
 
 The speed $v$ and the length $L$ are fixed by the string, so only $n$ changes from mode to mode. For an ideal string, mode 2 therefore vibrates at exactly twice the frequency of mode 1, mode 3 at three times, and so on. (Real strings are slightly stiff, which nudges the higher harmonics a bit higher in frequency.) For our 110 Hz string, that gives 110, 220, 330 Hz.
 
-That settles the first question: a string can only vibrate cleanly at $f_1, 2f_1, 3f_1, \ldots$. But our example string only show these patterns one at a time, at a rhythm we chose. When we pluck a string, all these modes appear at the same time and each at different strength. So **what's happening?**
+This is also why turning a tuning peg changes the pitch: **tightening the string makes waves travel faster, which raises $v$, and with it every $f_n$**.
 
-## Why are there multiple harmonics concurrently?
+That settles the first question: a string can only vibrate cleanly at $f_1, 2f_1, 3f_1, \ldots$. But in the rope example we only saw these patterns one at a time, each at a rhythm we chose. When we pluck a string, all these modes appear at the same time, each at a different strength. So **what's happening?**
 
-When you pluck a string, you don't pick a mode. You hook the string with your finger, pull it into a triangle, and let go.
+## Where are the harmonics coming from?
 
-A triangle isn't any of those clean patterns. Its straight sides aren't bent at all, so they feel no pull, while the corner feels a lot. So how does a triangle vibrate?
+In the rope example, each pattern needed its own shaking rhythm: one loop at one rhythm, two loops at twice that. But a pluck has no rhythm at all. You pull once and let go. So where do all those modes come from?
 
+If you've seen those viral clips of a guitar string vibrating in slow, lazy waves, you might now think the rope example is exactly what a guitar string does. And now you are demanding a refund of your time from me, because if guitar vibrates like the rope, then how can there be harmonics when a wave can only vibrate at one frequency?!?!
+
+Hear me out before you get your pitchfork. It's not quite like that. Many of those clips are filmed on a phone held inside the guitar, and the ripples are an illusion. Many of those clips are filmed on a phone held inside the guitar, and a phone camera captures the picture line by line rather than all at once, so different parts of the string are photographed at slightly different moments.
+
+:::{.callout-note collapse="true"}
+## Watch this video at 01:46 to see the illusion.
+{{< video https://youtu.be/sYdXa_yp0fc?si=hYVm48Ne-3fn7DVE >}}
+:::
+
+So what does a plucked string really look like? Think about what your finger does. You are not shaking the string. You hook it with your finger, pull and let go. At that moment, the string forms a triangle: no longer a smooth curve, but two straight lines meeting at a corner, right where your finger is.
+
+```{python}
+#| echo: false
+#| fig.cap: "A guitar string is actually a triangle now?"
+def triangle(x, p, h=h):
+    return np.where(x <= p, h * x / p, h * (L - x) / (L - p))
+
+p = 0.2
+fig, ax = plt.subplots(figsize=(6, 3))
+ax.plot(x, triangle(x, p), color="k", lw=2)
+ax.plot([0, L], [0, 0], "ko", ms=6)
+ax.annotate("your finger", (p, h), (p + 0.12, h * 0.95), arrowprops=dict(arrowstyle="->"))
+ax.set_xlabel("position along string"); ax.set_ylabel("displacement")
+ax.set_ylim(-0.1, 1.2)
+plt.show()
+```
+
+That corner is the key to unlocking the mystery behind harmonics. To see why, we first need a closer look at how a mode moves.
+
+A mode only ever gets taller, shorter, or flipped upside down. Freeze it at any moment and you'll see the same curve, just scaled. Why can a sine wave do this?
+
+A tight string naturally wants to straighten itself because of tension. Wherever it's bent, it gets pulled toward the inside of the bend, and the sharper the bend, the harder the pull. A straight stretch feels no pull at all.
+
+For a string to keep its shape, the pull has to be strongest where the string is farthest out and fade to nothing where it crosses the middle, so that every point reaches the resting line at the same time. The sine wave is exactly that shape: most sharply bent at its peaks, perfectly straight where it crosses the line.
+
+Now look at the triangle. Its straight sides feel no pull at all; the only bend is at the corner. So the corner should start moving while the sides wait, and the triangle should not keep its shape.
+
+Let's test this prediction by releasing two strings side by side: one shaped like mode 3, and one shaped like the triangle.
+
+```{python}
+#|echo: false
+#|fig.cap: "Both strings over one full period of the open A string. The dashed line is each string's starting position."
+from matplotlib.animation import FuncAnimation
+from IPython.display import HTML
+period = 1 / f1            # one full cycle of the fundamental, in seconds
+c = 2 * L * f1             # wave speed, from f1 = c / 2L
+
+def extend(shape, s):
+    """Continue the starting shape past the ends: flipped upside down
+    beyond each fixed end, repeating every 2L."""
+    s = np.mod(s, 2 * L)
+    return np.where(s <= L, shape(s), -shape(2 * L - s))
+
+def string_at(shape, x, t):
+    """Exact shape of a string released from rest: half the starting shape
+    sliding right plus half sliding left, flipping at the fixed ends."""
+    return 0.5 * (extend(shape, x - c * t) + extend(shape, x + c * t))
+
+xs = np.linspace(0, L, 501)
+times = np.linspace(0, period, 61)          # 61 snapshots across one period
+shapes = [lambda s: np.sin(3 * np.pi * s / L),
+          lambda s: triangle(s, p)]
+
+fig, axes = plt.subplots(1, 2, figsize=(9, 3), sharey=True, dpi=80)
+lines = []
+for ax, shape, title in zip(axes, shapes, ["start as a sine", "start as a triangle"]):
+    ax.plot(xs, shape(xs), color="grey", lw=1, ls="--", label="starting shape")
+    line, = ax.plot([], [], color="k", lw=2.2, label="string now")
+    ax.set_xlim(0, L); ax.set_ylim(-1.15, 1.15)
+    ax.set_title(title, fontsize=10, loc="left")
+    ax.set_xlabel("position along string")
+    lines.append(line)
+axes[0].set_ylabel("displacement")
+axes[1].legend(fontsize=8, frameon=False, loc="lower left")
+clock = fig.suptitle("", fontsize=10)
+fig.tight_layout()
+
+def draw(i):
+    t = times[i]
+    for line, shape in zip(lines, shapes):
+        line.set_data(xs, string_at(shape, xs, t))
+    clock.set_text(f"{t * 1000:.2f} ms after release")
+    return lines
+
+anim = FuncAnimation(fig, draw, frames=len(times), interval=80)
+plt.close(fig)                      
+display(HTML(anim.to_jshtml(default_mode="loop")))
+```
+
+The sine string behaves exactly as predicted: it only ever gets taller, shorter, or flipped. However, the triangle does not. When let go, the corner splits into two corners that run off in opposite directions, and the straight parts only start moving once a corner reaches them. Freeze it at any moment and you'll see a different shape, not a scaled triangle.
+
+But also, watch the clock. After exactly one period, about 9.1 ms, the two corners have bounced off the ends and met again where they started, and the triangle is back to its original shape.
+
+So the triangle isn't a mode, yet its motion repeats at exactly the fundamental's rhythm that is a multiple of every mode. That is a hint of what the triangle is.
+
+## Fourier Series
+
+Recall that each mode is a sine wave with $n$ loops. We can describe a mode with the below formula (Unless you are interested, you can take it as granted.)
+
+$$
+X_n(x) = \sin\left(\frac{n\pi x}{L}\right)
+$$
+
+:::{.callout-note collapse="true"}
+## Derivation of the frequency formula:
+
+:::
+
+In the 1750s, Daniel Bernoulli proposed that the motion of a string fixed at both ends is a sum of its modes. In the early 1800s, Joseph Fourier argued that essentially any shape can be written this way, including our triangle:
+
+$$
+\text{triangle}(x) = b_1 \sin\!\left(\frac{\pi x}{L}\right) + b_2 \sin\!\left(\frac{2\pi x}{L}\right) + b_3 \sin\!\left(\frac{3\pi x}{L}\right) + \cdots = \sum_{n=1}^{\infty} b_n \sin\!\left(\frac{n\pi x}{L}\right)
+$$
+
+Each $b_n$ describes how much of mode $n$ is in the triangle. 
