@@ -1,7 +1,7 @@
 ---
 title: "On Harmonics."
 date: 2026-08-12
-categories: [music, number-theory, physics]
+categories: [music, physics]
 bibliography: references.bib
 csl: ieee.csl
 jupyter: python3
@@ -29,11 +29,46 @@ plt.rcParams.update({"figure.dpi": 110, "axes.spines.top": False, "axes.spines.r
 integrate = getattr(np, "trapezoid", None) or np.trapz  
 
 L = 1.0        # string length
-h  = 1.0      # how far you pull the string
+h  = 1.0       # how far you pull the string
 f1 = 110.0     # open A string, in Hz
-T  = 1 / f1   # one period, about 9.1 ms
+T  = 1 / f1    # one period, about 9.1 ms
 x  = np.linspace(0, L, 1001)
 fs = 44100     # audio sample rate
+
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
+
+L, f1 = 1.0, 110
+COLORS = ["#2F6FDE", "#E8833A"]  # alternate per wavelength: blue, orange
+
+def draw_string(ax, k, nodes):
+    """One panel: k half-wavelengths on a string fixed at 0 and L."""
+    lam = 2 * L / k
+    for j, x0 in enumerate(np.arange(0, L, lam)):  # one segment per wavelength
+        x = np.linspace(x0, min(x0 + lam, L), 300)
+        ax.plot(x, np.sin(k * np.pi * x / L), color=COLORS[j % 2], lw=2.5, solid_capstyle="butt")
+    ax.plot(nodes, np.zeros_like(nodes), "ko", ms=5, zorder=3, clip_on=False)
+    for xv in (0, L):
+        ax.axvline(xv, color="gray", lw=1.5, clip_on=False)  # fixed ends
+    ax.axhline(0, color="gray", lw=0.8, ls="--")              # rest position
+    ax.set(ylim=(-1.7, 1.7), yticks=[-1, 0, 1])
+    ax.tick_params(labelsize=8)
+    ax.spines[["top", "right", "left"]].set_visible(False)
+
+
+def finish(fig, axes):
+    """Shared x-axis, labels and legend."""
+    for ax in axes[:-1]:
+        ax.spines["bottom"].set_visible(False)
+        ax.tick_params(bottom=False)
+    axes[-1].set_xticks([0, L / 2, L], ["0", "L/2", "L"])
+    axes[-1].set_xlabel("position along the string", fontsize=9)
+    fig.supylabel("displacement", fontsize=9)
+    handles = [Line2D([], [], color=c, lw=2.5, label=f"{o} wavelength")
+               for c, o in zip(COLORS, ["1st", "2nd"])]
+    handles.append(Line2D([], [], color="k", marker="o", ls="", ms=5, label="node"))
+    fig.legend(handles=handles, loc="upper center", ncol=3, frameon=False, fontsize=9)
 ```
 
 ## A rope example
@@ -49,64 +84,12 @@ The figure below shows each mode as a snapshot. In reality, each loop keeps flip
 ```{python}
 #| echo: false
 #| fig-cap: "The first four modes of a string with a fundamental $f_1$ of 110 Hz. The dots are nodes, and $n$ is the number of loops. Each color marks one full wavelength, so at $n = 1$ the string holds only half a wavelength."
-
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.lines import Line2D
-
-L, f1 = 1.0, 110
-BLUE, ORANGE = "#2F6FDE", "#E8833A"
-WAVE_COLORS = [BLUE, ORANGE]  # 1st wavelength blue, 2nd wavelength orange
-
-
-def plot_by_wavelength(ax, x, y, wavelength, **kw):
-    """Draw y(x), coloring each successive wavelength differently."""
-    n_waves = int(np.ceil(round(x[-1] / wavelength, 9)))
-    for j in range(n_waves):
-        m = (x >= j * wavelength) & (x <= (j + 1) * wavelength)
-        ax.plot(x[m], y[m], color=WAVE_COLORS[j % 2], solid_capstyle="butt", **kw)
-
-
-def style_axes(ax, bottom=False):
-    ax.axvline(0, color="gray", lw=1.5, clip_on=False)  # fixed ends of the string
-    ax.axvline(L, color="gray", lw=1.5, clip_on=False)
-    ax.axhline(0, color="gray", lw=0.8, ls="--")  # resting position
-    ax.set_ylim(-1.7, 1.7)
-    ax.set_yticks([-1, 0, 1])
-    ax.tick_params(labelsize=8)
-    for s in ("top", "right"):
-        ax.spines[s].set_visible(False)
-    if not bottom:
-        ax.spines["bottom"].set_visible(False)
-        ax.tick_params(bottom=False)
-
-
-def add_legend(fig):
-    handles = [
-        Line2D([], [], color=BLUE, lw=2.5, label="1st wavelength"),
-        Line2D([], [], color=ORANGE, lw=2.5, label="2nd wavelength"),
-        Line2D([], [], color="black", marker="o", ls="", ms=5, label="node"),
-    ]
-    fig.legend(handles=handles, loc="upper center", ncol=3, frameon=False, fontsize=9)
-
-x = np.linspace(0, L, 1000)
 fig, axes = plt.subplots(4, 1, figsize=(7, 6.5), sharex=True)
 for n, ax in enumerate(axes, start=1):
-    lam = 2 * L / n
-    plot_by_wavelength(ax, x, np.sin(n * np.pi * x / L), lam, lw=2.5)
-    ax.plot(np.arange(n + 1) * L / n, np.zeros(n + 1), "o", color="black", ms=5, zorder=3,
-            clip_on=False)
-    style_axes(ax, bottom=(n == 4))
-    ax.set_xlim(0, L)  # the string starts exactly at x = 0
-    ax.spines["left"].set_visible(False)  # the wall at x = 0 acts as the y-axis
-    name = f"n = {n}"
-    ax.text(1.04, 0.5, f"{name}\n{n * f1} Hz",
-            transform=ax.transAxes, va="center", fontsize=9)
-axes[-1].set_xticks([0, L / 2, L])
-axes[-1].set_xticklabels(["0", "L/2", "L"])
-axes[-1].set_xlabel("position along the string", fontsize=9)
-fig.supylabel("displacement", fontsize=9)
-add_legend(fig)
+    draw_string(ax, n, nodes=np.linspace(0, L, n + 1))
+    ax.text(1.04, 0.5, f"n = {n}\n{n * f1} Hz", transform=ax.transAxes, va="center", fontsize=9)
+axes[0].set_xlim(0, L)
+finish(fig, axes)
 plt.tight_layout(rect=[0.02, 0, 0.82, 0.94])
 plt.show()
 ```
@@ -126,22 +109,13 @@ Starting from the resting line at the left end, the pattern only returns to it a
 #| echo: false
 #| fig-cap: "Top: a pattern with 2 loops starts and ends on the resting line, so it fits the string. Bottom: a pattern with 2.5 loops ends at a peak, leaving the right end displaced (arrow)."
 fig, axes = plt.subplots(2, 1, figsize=(5, 4.2), sharex=True)
-for ax, loops in zip(axes, [2.0, 2.5]):
-    lam = 2 * L / loops
-    plot_by_wavelength(ax, x, np.sin(loops * np.pi * x / L), lam, lw=2.5)
-    ax.plot([0, L], [0, 0], "o", color="black", ms=5, zorder=3, clip_on=False)
-    style_axes(ax, bottom=(loops == 2.5))
-    ax.spines["left"].set_visible(False)  # the wall at x = 0 acts as the y-axis
-ax = axes[1]
-ax.plot([L], [1], "o", color=ORANGE, ms=5, zorder=3)
-ax.annotate("", xy=(L + 0.03, 0.95), xytext=(L + 0.03, 0.05),
-            arrowprops=dict(arrowstyle="<->", color="black", lw=1))
-ax.set_xlim(0, 1.06)  # starts exactly at 0; small room on the right for the gap arrow
-ax.set_xticks([0, L / 2, L])
-ax.set_xticklabels(["0", "L/2", "L"])
-ax.set_xlabel("position along the string", fontsize=9)
-fig.supylabel("displacement", fontsize=9)
-add_legend(fig)
+for ax, k in zip(axes, [2, 2.5]):
+    draw_string(ax, k, nodes=np.array([0, L]))
+axes[1].plot(L, 1, "o", color=COLORS[1], ms=5, zorder=3)  # where the end lands instead of 0
+axes[1].annotate("", xy=(L + 0.03, 0.95), xytext=(L + 0.03, 0.05),
+                 arrowprops=dict(arrowstyle="<->", color="k", lw=1))
+axes[0].set_xlim(0, 1.06)
+finish(fig, axes)
 plt.tight_layout(rect=[0.02, 0, 1, 0.92])
 plt.show()
 ```
@@ -202,13 +176,18 @@ plt.show()
 
 That corner is the key to unlocking the mystery behind harmonics. To see why, we first need a closer look at how a mode moves.
 
-A mode only ever gets taller, shorter, or flipped upside down. Freeze it at any moment and you'll see the same curve, just scaled. Why can a sine wave do this?
+A mode only ever gets taller, shorter, or flipped upside down. Freeze it at any moment and you'll see the same curve, just scaled. But at the end, it must return back to how it started. Therefore, **a mode at any moment is a scaled version of its initial and final displacement.** A sine wave is the only curve that has this special property.
 
+:::{.callout-note collapse="false"}
+## Why only a sine wave?
 A tight string naturally wants to straighten itself because of tension. Wherever it's bent, it gets pulled toward the inside of the bend, and the sharper the bend, the harder the pull. A straight stretch feels no pull at all.
 
-For a string to keep its shape, the pull has to be strongest where the string is farthest out and fade to nothing where it crosses the middle, so that every point reaches the resting line at the same time. The sine wave is exactly that shape: most sharply bent at its peaks, perfectly straight where it crosses the line.
+For a string to keep its shape, the pull has to be strongest where the string is farthest out and fade to nothing where it crosses the middle, so that every point reaches the resting line at the same time.
 
-Now look at the triangle. Its straight sides feel no pull at all; the only bend is at the corner. So the corner should start moving while the sides wait, and the triangle should not keep its shape.
+A sine wave has the special property where the bend at every position is proportional to its height. It is most sharply bent at its peaks, and perfectly straight where it crosses the line. Therefore, **the force exerted toward the resting line is proportional to the height.**
+:::
+
+However, the triangle does not. Look at the triangle, its straight sides feel no pull at all; the only bend is at the corner. As only at a bend is a force induced, the corner should start moving while the sides wait, and the triangle should not keep its shape.
 
 Let's test this prediction by releasing two strings side by side: one shaped like mode 3, and one shaped like the triangle.
 
@@ -262,7 +241,7 @@ plt.close(fig)
 display(HTML(anim.to_jshtml(default_mode="loop")))
 ```
 
-The sine string behaves exactly as predicted: it only ever gets taller, shorter, or flipped. However, the triangle does not. When let go, the corner splits into two corners that run off in opposite directions, and the straight parts only start moving once a corner reaches them. Freeze it at any moment and you'll see a different shape, not a scaled triangle.
+The sine string behaves exactly as predicted: it only ever gets taller, shorter, or flipped. However, when the triangle is let go, its corner splits into two that run off in opposite directions, and the straight parts only start moving once a corner reaches them. Freeze it at any moment and you'll see a different shape, not a scaled triangle.
 
 But also, watch the clock. After exactly one period, about 9.1 ms, the two corners have bounced off the ends and met again where they started, and the triangle is back to its original shape.
 
@@ -270,7 +249,7 @@ So the triangle isn't a mode, yet its motion repeats at exactly the fundamental'
 
 ## Fourier Series
 
-Recall that each mode is a sine wave with $n$ loops. We can describe a mode with the below formula (Unless you are interested, you can take it as granted.)
+Recall that each mode is a sine wave with $n$ loops. We can describe a mode with the formula below.
 
 $$
 X_n(x) = \sin\left(\frac{n\pi x}{L}\right)
@@ -281,10 +260,10 @@ $$
 
 :::
 
-In the 1750s, Daniel Bernoulli proposed that the motion of a string fixed at both ends is a sum of its modes. In the early 1800s, Joseph Fourier argued that essentially any shape can be written this way, including our triangle:
+In the 1750s, Daniel Bernoulli proposed that the motion of a string fixed at both ends is a sum of its modes. In the early 1800s, Joseph Fourier argued that essentially any shape can be written this way, including our triangle. This is called a Fourier series.
 
 $$
 \text{triangle}(x) = b_1 \sin\!\left(\frac{\pi x}{L}\right) + b_2 \sin\!\left(\frac{2\pi x}{L}\right) + b_3 \sin\!\left(\frac{3\pi x}{L}\right) + \cdots = \sum_{n=1}^{\infty} b_n \sin\!\left(\frac{n\pi x}{L}\right)
 $$
 
-Each $b_n$ describes how much of mode $n$ is in the triangle. 
+Each $b_n$ describes how much of mode $n$ is in the triangle.   
