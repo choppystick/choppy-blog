@@ -149,7 +149,7 @@ In the rope example, each pattern needed its own shaking rhythm: one loop at one
 
 If you've seen those viral clips of a guitar string vibrating in slow, lazy waves, you might now think the rope example is exactly what a guitar string does. And now you are demanding a refund of your time from me, because if guitar vibrates like the rope, then how can there be harmonics when a wave can only vibrate at one frequency?!?!
 
-Hear me out before you get your pitchfork. It's not quite like that. Many of those clips are filmed on a phone held inside the guitar, and the ripples are an illusion. Many of those clips are filmed on a phone held inside the guitar, and a phone camera captures the picture line by line rather than all at once, so different parts of the string are photographed at slightly different moments.
+Hear me out before you get your pitchfork. It's not quite like that. Many of those clips are filmed on a phone held inside the guitar, and those ripples are an illusion. Phone camera captures the picture line by line rather than all at once, so different parts of the string are photographed at slightly different moments.
 
 :::{.callout-note collapse="true"}
 ## Watch this video at 01:46 to see the illusion.
@@ -240,7 +240,6 @@ def animate_release(shapes, n_frames=60, interval=80):
     plt.close(fig)
     return anim
 
-
 shapes = {
     "start as a sine":     lambda s: np.sin(3 * np.pi * s / L),
     "start as a triangle": lambda s: triangle(s, p, h),
@@ -252,7 +251,7 @@ The sine string behaves exactly as predicted: it only ever gets taller, shorter,
 
 But also, watch the clock. After exactly one period, about 9.1 ms, the two corners have bounced off the ends and met again where they started, and the triangle is back to its original shape.
 
-So the triangle isn't a mode, yet its motion repeats at exactly the fundamental's rhythm that is a multiple of every mode. That is a hint of what the triangle is.
+So the triangle isn't a mode, yet its motion repeats at exactly the fundamental's rhythm. That is a hint of what the triangle is.
 
 ## Fourier Series
 
@@ -267,10 +266,12 @@ $$
 
 :::
 
-In the 1750s, Daniel Bernoulli proposed that the motion of a string fixed at both ends is a sum of its modes. In the early 1800s, Joseph Fourier argued that essentially any shape can be written this way, including our triangle. This is called a Fourier series.
+In the 1750s, Daniel Bernoulli proposed that the motion of a string fixed at both ends is a sum of its modes. Then in the early 1800s, Joseph Fourier further refined the proposition. He argued that essentially any shape can be written this way, including our triangle. Mathematicians now call this a Fourier series.
 
 $$
 \text{triangle}(x) = b_1 \sin\!\left(\frac{\pi x}{L}\right) + b_2 \sin\!\left(\frac{2\pi x}{L}\right) + b_3 \sin\!\left(\frac{3\pi x}{L}\right) + \cdots = \sum_{n=1}^{\infty} b_n \sin\!\left(\frac{n\pi x}{L}\right)
 $$
 
-Each $b_n$ describes how much of mode $n$ is in the triangle.   
+Each $b_n$ describes how much of mode $n$ is in the triangle. 
+
+To find one of them, say $b_3$, we need to isolate the third mode from all the others. The modes have a useful property here. If you multiply two different modes together and add up the product along the string, you get exactly zero. Their ups and downs cancel. A mode multiplied by itself gives $L/2$. So multiplying the whole sum by $\sin(3\pi x/L)$ and adding along the string wipes out every term except the third:
