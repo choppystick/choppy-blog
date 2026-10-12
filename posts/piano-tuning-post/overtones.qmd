@@ -272,6 +272,38 @@ $$
 \text{triangle}(x) = b_1 \sin\!\left(\frac{\pi x}{L}\right) + b_2 \sin\!\left(\frac{2\pi x}{L}\right) + b_3 \sin\!\left(\frac{3\pi x}{L}\right) + \cdots = \sum_{n=1}^{\infty} b_n \sin\!\left(\frac{n\pi x}{L}\right)
 $$
 
-Each $b_n$ describes how much of mode $n$ is in the triangle. 
+Each $b_n$ describes how much of mode $n$ is in the triangle. In our case, we would like to find the different modes that together construct our triangle.
 
-To find one of them, say $b_3$, we need to isolate the third mode from all the others. The modes have a useful property here. If you multiply two different modes together and add up the product along the string, you get exactly zero. Their ups and downs cancel. A mode multiplied by itself gives $L/2$. So multiplying the whole sum by $\sin(3\pi x/L)$ and adding along the string wipes out every term except the third:
+To find one of them, say $b_3$, we need to isolate the third mode from all the others. 
+
+The modes have a useful property called *orthogonality*. 
+
+:::{.callout-note collapse="true"}
+## what is orthogonality?
+Given functions $f,g$, we define the inner product $\langle f,g \rangle$ as $\int_D f(x)g(x) dx$, where $D$ is the shared domain of $f,g$.
+
+If $\langle f,g> = 0 \rangle$, then $f$ and $g$ are orthogonal.
+
+For those familiar with linear algebra, you may know orthogonality as the property where given a dot operator, we have $\textbf{u} \cdot \textbf{v} = 0$. 
+
+As an exercise, you can show that a set of functions form a vector space by verifying it satisfies the vector sapce axioms.
+:::
+
+If you multiply two different modes together and add up the product along the string, you get exactly zero. Their ups and downs cancel. A mode multiplied by itself gives $L/2$. So multiplying the whole sum by $\sin(3\pi x/L)$ and adding along the string wipes out every term except the third:
+
+:::{.callout-note collapse="true"}
+## An analogy in vector spaces.
+Given a vector $\textbf{v} \in \mathbb{R}^3$, such that $\textbf{v} = v_1 \textbf{e}_1 + v_2 \textbf{e}_2 + v_3 \textbf{e}_3$, where $\textbf{e}_1,\textbf{e}_2,\textbf{e}_3$ are basis vectors and $v_1,v_2,v_3$ are scalar multiples.
+
+We can recover $v_2$ by finding $\textbf{v} \cdot \textbf{e}_2$, as 
+
+$$
+\textbf{v} \cdot \textbf{e}_2 = v_1 (\textbf{e}_1 \cdot \textbf{e}_2) + v_2 (\textbf{e}_2 \cdot \textbf{e}_2) + v_3 (\textbf{e}_3 \cdot \textbf{e}_2)
+$$
+
+As $\textbf{e}_i$ are decomposition of the vector $v$ into its basis vectors, we have that the vectors are linearly independent.  Therefore, $\textbf{e}_i \cdot \textbf{e}_j = 0$, for all $i \neq j$, and $\textbf{e}_i \cdot \textbf{e}_j = 1$ if $i = j$.
+:::
+
+:::{.callout-note collapse="true"}
+## Proof that 
+:::
