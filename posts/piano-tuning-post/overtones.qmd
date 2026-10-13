@@ -206,7 +206,7 @@ For a string to keep its shape, the pull has to be strongest where the string is
 A sine wave has the special property where the bend at every position is proportional to its height. It is most sharply bent at its peaks, and perfectly straight where it crosses the line. Therefore, **the force exerted toward the resting line is proportional to the height.**
 :::
 
-However, the triangle does not. Look at the triangle, its straight sides feel no pull at all; the only bend is at the corner. As only at a bend is a force induced, the corner should start moving while the sides wait, and the triangle should not keep its shape.
+However, the triangle is not a sine wave. Look at the triangle, its straight sides feel no pull at all; the only bend is at the corner. As only at a bend is a force induced, the corner should start moving while the sides wait, and the triangle should not keep its shape.
 
 Let's test this prediction by releasing two strings side by side: one shaped like mode 3, and one shaped like the triangle.
 
@@ -255,18 +255,32 @@ So the triangle isn't a mode, yet its motion repeats at exactly the fundamental'
 
 ## Fourier Series
 
-Recall that each mode is a sine wave with $n$ loops. We can describe a mode with the formula below.
+For some bookkeeping, we would introduce a few formula.
+
+Suppose we pluck the string at position $p$, pulling it up to height $h$. The starting shape is a triangle (as shown in the demonstration before):
+
+$$
+\text{triangle}(x) =
+\begin{cases}
+\dfrac{h\,x}{p}, & 0 \le x \le p \\[1.5ex]
+\dfrac{h\,(L - x)}{L - p}, & p < x \le L
+\end{cases}
+$$
+
+Recall that each mode is a sine wave with $n$ loops. The starting shape can be described as below:
 
 $$
 X_n(x) = \sin\left(\frac{n\pi x}{L}\right)
 $$
 
 :::{.callout-note collapse="true"}
-## Derivation of the frequency formula:
+## Derivation of the shape formula:
 
 :::
 
-In the 1750s, Daniel Bernoulli proposed that the motion of a string fixed at both ends is a sum of its modes. Then in the early 1800s, Joseph Fourier further refined the proposition. He argued that essentially any shape can be written this way, including our triangle. Mathematicians now call this a Fourier series.
+In the 1750s, Daniel Bernoulli proposed that the motion of a string fixed at both ends is a sum of its modes. Not everyone was convinced. Euler and d'Alembert objected: how could smooth sine waves ever add up to a shape with a sharp corner, like a plucked string? 
+
+In the early 1800s, while studying how heat spreads, Joseph Fourier made an even bolder claim. He proposed that **any shape can be written as a sum of sines, including our triangle**. Mathematicians now call this a Fourier series.
 
 $$
 \text{triangle}(x) = b_1 \sin\!\left(\frac{\pi x}{L}\right) + b_2 \sin\!\left(\frac{2\pi x}{L}\right) + b_3 \sin\!\left(\frac{3\pi x}{L}\right) + \cdots = \sum_{n=1}^{\infty} b_n \sin\!\left(\frac{n\pi x}{L}\right)
@@ -274,36 +288,197 @@ $$
 
 Each $b_n$ describes how much of mode $n$ is in the triangle. In our case, we would like to find the different modes that together construct our triangle.
 
-To find one of them, say $b_3$, we need to isolate the third mode from all the others. 
-
-The modes have a useful property called *orthogonality*. 
+To find one of them, say $b_3$, we need to isolate the third mode from all the others. We do this by exploiting a property of modes called *orthogonality*. 
 
 :::{.callout-note collapse="true"}
-## what is orthogonality?
-Given functions $f,g$, we define the inner product $\langle f,g \rangle$ as $\int_D f(x)g(x) dx$, where $D$ is the shared domain of $f,g$.
+## What is orthogonality?
+Take two functions $f$ and $g$ on the string, $0 \le x \le L$. Multiply their values at each point along the string, then add up all the results. This gives a single number, called the *inner product* $\langle f, g \rangle$, defined as the integral $\langle f, g \rangle = \int_0^L f(x)\,g(x)\,dx$. If $\langle f, g \rangle = 0$, we say $f$ and $g$ are *orthogonal*.
 
-If $\langle f,g> = 0 \rangle$, then $f$ and $g$ are orthogonal.
+The modes are orthogonal to each other: for two different modes, the positive and negative products cancel out exactly when added up. A mode paired with itself gives $\langle X_n, X_n \rangle = L/2$.
 
-For those familiar with linear algebra, you may know orthogonality as the property where given a dot operator, we have $\textbf{u} \cdot \textbf{v} = 0$. 
-
-As an exercise, you can show that a set of functions form a vector space by verifying it satisfies the vector sapce axioms.
+For those familiar with linear algebra, this is the dot product $\mathbf{u} \cdot \mathbf{v} = \sum_i u_i v_i$, applied to functions. As an exercise, you can show that the continuous functions on $[0, L]$ form a vector space, and that $\langle \cdot, \cdot \rangle$ behaves like a dot product.
 :::
 
-If you multiply two different modes together and add up the product along the string, you get exactly zero. Their ups and downs cancel. A mode multiplied by itself gives $L/2$. So multiplying the whole sum by $\sin(3\pi x/L)$ and adding along the string wipes out every term except the third:
+Due to this special property, if we multiply the whole sum by $\sin\!\left(\frac{3\pi x}{L}\right)$ and add up the result along the string, every term except the third adds up to zero:
+
+$$
+\langle \text{triangle}, X_3 \rangle = b_3 \langle X_3, X_3 \rangle
+\quad\Longrightarrow\quad
+b_3 = \frac{\langle \text{triangle}, X_3 \rangle}{\langle X_3, X_3 \rangle} = \frac{\langle \text{triangle}, X_3 \rangle}{L/2}
+$$
 
 :::{.callout-note collapse="true"}
 ## An analogy in vector spaces.
-Given a vector $\textbf{v} \in \mathbb{R}^3$, such that $\textbf{v} = v_1 \textbf{e}_1 + v_2 \textbf{e}_2 + v_3 \textbf{e}_3$, where $\textbf{e}_1,\textbf{e}_2,\textbf{e}_3$ are basis vectors and $v_1,v_2,v_3$ are scalar multiples.
+Let $\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3$ be the standard basis of $\mathbb{R}^3$. They are orthonormal: $\mathbf{e}_i \cdot \mathbf{e}_j = 0$ for $i \neq j$, and $\mathbf{e}_i \cdot \mathbf{e}_i = 1$. Any vector can be written as $\mathbf{v} = v_1 \mathbf{e}_1 + v_2 \mathbf{e}_2 + v_3 \mathbf{e}_3$, where $v_1, v_2, v_3$ are the scalar multiples.
 
-We can recover $v_2$ by finding $\textbf{v} \cdot \textbf{e}_2$, as 
+We can recover $v_2$ by taking the dot product with $\mathbf{e}_2$:
 
 $$
-\textbf{v} \cdot \textbf{e}_2 = v_1 (\textbf{e}_1 \cdot \textbf{e}_2) + v_2 (\textbf{e}_2 \cdot \textbf{e}_2) + v_3 (\textbf{e}_3 \cdot \textbf{e}_2)
+\begin{aligned}
+\mathbf{v} \cdot \mathbf{e}_2 &= v_1 (\mathbf{e}_1 \cdot \mathbf{e}_2) + v_2 (\mathbf{e}_2 \cdot \mathbf{e}_2) + v_3 (\mathbf{e}_3 \cdot \mathbf{e}_2) \\
+                              &= v_1 (0) + v_2 (1) + v_3 (0) = v_2
+\end{aligned}
+$$
+:::
+
+The same trick works for every mode, so we can find each $b_n$ one at a time:
+
+$$
+b_n = \frac{2}{L}\int_0^L \varphi(x)\,\sin\!\left(\frac{n\pi x}{L}\right)dx 
 $$
 
-As $\textbf{e}_i$ are decomposition of the vector $v$ into its basis vectors, we have that the vectors are linearly independent.  Therefore, $\textbf{e}_i \cdot \textbf{e}_j = 0$, for all $i \neq j$, and $\textbf{e}_i \cdot \textbf{e}_j = 1$ if $i = j$.
-:::
+Solving the integral numerically, we can now find out what are the different modes that contribute to our triangle.
 
-:::{.callout-note collapse="true"}
-## Proof that 
-:::
+## Simulating the harmonics
+
+Here are the first 16 mode for a string plucked a quarter of the way along, each scaled by its $b_n$. The black line is the triangle we want to build:
+
+```{python}
+#| echo: false
+#| fig-cap: "The first 16 modes for a string plucked at 0.25, each scaled by its $b_n$. The black line is the triangle."
+N_MAX = 16
+MODES = np.array([np.sin(n * np.pi * x / L) for n in range(1, N_MAX + 1)])  # row n-1 = mode n
+tab20 = plt.cm.tab20.colors
+COLORS = list(tab20[0::2]) + list(tab20[1::2])     # 10 strong colours, then 10 lighter ones
+
+def coefficients(p, h=h):
+    """b_n for n = 1..N_MAX by numerical integration; numerical noise set to exactly 0."""
+    y0 = triangle(x, p, h)
+    b = np.array([2 / L * integrate(y0 * mode, x) for mode in MODES])
+    b[np.abs(b) < 1e-6] = 0.0
+    return b
+
+
+def b_exact(n, p, h=h):
+    """Exact b_n from the hand-derived formula. Accepts an array of mode numbers."""
+    return 2 * h * L**2 / (np.pi**2 * n**2 * p * (L - p)) * np.sin(n * np.pi * p / L)
+
+
+def partial_sum(p, N, xs, chunk=500):
+    """First N modes added together at the points xs, using exact b_n.
+    Built 500 modes at a time so memory stays small even for N = 10,000."""
+    total = np.zeros_like(xs)
+    for start in range(1, N + 1, chunk):
+        n = np.arange(start, min(start + chunk, N + 1))[:, None]
+        total += (b_exact(n, p) * np.sin(n * np.pi * xs / L)).sum(axis=0)
+    return total
+
+
+def plot_modes(ax, p):
+    """Each mode scaled by its b_n, drawn high to low so mode 1 ends up on top."""
+    b = coefficients(p)
+    for n in reversed(range(N_MAX)):
+        if b[n]:
+            ax.plot(x, b[n] * MODES[n], color=COLORS[n], lw=1.6)
+    ax.plot(x, triangle(x, p), color="k", lw=1)
+    ax.axhline(0, color="0.6", lw=0.6)
+    ax.set_xlim(0, L)
+
+
+def plot_partials(ax, p, lw=1.2):
+    """Running totals: curve N is the first N modes added together."""
+    partials = np.cumsum(coefficients(p)[:, None] * MODES, axis=0)
+    for n, y in enumerate(partials):
+        ax.plot(x, y, color=COLORS[n], lw=lw)
+    ax.plot(x, triangle(x, p), color="k", lw=1.5, zorder=0, label="exact triangle")
+    ax.set_xlim(0, L); ax.set_ylim(0, 1.2)
+
+
+def plot_many_modes(ax, p, xs, Ns):
+    """Partial sums for each N in Ns, with the exact triangle drawn thinly on top."""
+    for N, c in zip(Ns, COLORS):
+        ax.plot(xs, partial_sum(p, N, xs), color=c, lw=1.4, label=f"{N:,} modes")
+    ax.plot(xs, triangle(xs, p), color="k", lw=0.6, zorder=3, label="exact triangle")
+    ax.set_xlim(xs[0], xs[-1])
+```
+
+```{python}
+#| echo: false
+#| fig-cap: "The first 16 mode for a string plucked at 0.25, each scaled by its $b_n$. The black line is the triangle."
+p_single = 0.25
+fig, ax = plt.subplots(figsize=(7, 3))
+
+plot_modes(ax, p_single)
+ax.set(xlabel="position along string", ylabel="displacement of string")
+
+plt.tight_layout(); plt.show()
+```
+
+The fundamental, the blue hump, is the largest, but it peaks in the middle of the string, not at the pluck point. This where the other modes, or harmonics come into play.
+
+The 2nd mode, in orange, is much smaller. It is positive on the left half and negative on the right, so it pushes the shape up near the pluck point and down on the far side. The third mode is smaller again, and the higher harmonics shrink quickly. By the 16th they are barely visible.
+
+Now let see what happens if we add the modes one at a time. Every curve below adds one more mode to the curve before it. We should see that it starts converging into a triangle shape.
+
+```{python}
+#| echo: false
+#| fig-cap: "Each curve adds one more mode to the curve before it. The black line is the exact triangle."
+fig, ax = plt.subplots(figsize=(7, 3))
+
+plot_partials(ax, p_single, lw=1)
+ax.set(xlabel="position along string", ylabel="displacement of string")
+ax.legend(fontsize=8, frameon=False, loc="upper right")
+
+plt.tight_layout(); plt.show()
+```
+
+The fundamental alone is a poor match for the triangle, but adding the 2nd mode pulls the peak towards the pluck point. Every mode after that makes a smaller adjustment, which slowly pulls the string to the side of the triangle.
+
+The last part to form is the corner. Even with 16 modes, the peak is still slightly rounded. Whereas the smooth sides of the triangle need only a few modes, the sharp corner needs many high modes working together. This was the heart of Euler and d'Alembert's objection: no finite number of smooth sine waves can ever make a perfectly sharp corner. 
+
+But Fourier's answer is that **you never have to stop**. We only have to keep adding more and more modes.
+
+But $b_n$ also depend on where the string is plucked. Change where you pluck and you change how much of each mode contributes to the triangle. 
+
+```{python}
+#| echo: false
+#| fig-cap: "Adding modes 1 to 16 for three pluck points. Plucked in the middle, the curves settle almost immediately. Plucked near the end, many high modes are needed before the sharp corner forms."
+
+pluck_points = [0.5, 0.75, 0.95]
+fig, axes = plt.subplots(3, 1, figsize=(7, 7), sharex=True)
+
+for ax, pp in zip(axes, pluck_points):
+    plot_partials(ax, pp, lw=1.4)
+    ax.set_title(f"plucked at {pp}", fontsize=10, loc="left")
+
+axes[0].legend(fontsize=8, frameon=False, loc="upper right")
+axes[1].set_ylabel("displacement of string")
+axes[-1].set_xlabel("position along string")
+
+plt.tight_layout(); plt.show()
+```
+
+You can try this right now at your guitar! 
+
+Pluck an open string right next to the bridge and you get a harsh, pinched, twangy "eeee". The reason being that pluck point excites lots of high harmonics as the sharp corner is at the end of the string, just like the bottom panel shows. The fundamental carries a smaller share of the shape, and the higher harmonics carry much more, which together forms harshness.
+
+Now pluck the same string over the 12th fret, exactly halfway along. As every even harmonics has a note at the middle of the string, there is barely any even harmonics. The sound is dominated by the fundamental with little odds harmonics, and the curves settle onto the triangle almost immediately: this leads to a softer, rounder, hollow sound.
+
+let's take Fourier's advice to heart. While we cannot compute the sum to infinite modes, we can compute the sum until a very large value:
+
+```{python}
+#| echo: false
+#| fig-cap: "Adding modes 1 to 16 for three pluck points. Plucked in the middle, the curves settle almost immediately. Plucked near the end, many high modes are needed before the sharp corner forms."
+Ns = [100, 1000, 10000]
+x_full = np.linspace(0, L, 2001)
+half_width = 0.01                                   # zoom: pluck point +/- 1% of the string
+
+fig, axes = plt.subplots(3, 2, figsize=(10, 8), gridspec_kw={"width_ratios": [2, 1]})
+for (ax_full, ax_zoom), pp in zip(axes, pluck_points):
+    x_zoom = np.linspace(pp - half_width, pp + half_width, 4001)   
+    plot_many_modes(ax_full, pp, x_full, Ns)
+    plot_many_modes(ax_zoom, pp, x_zoom, Ns)
+    ax_full.axvspan(x_zoom[0], x_zoom[-1], color="0.88", zorder=-1)
+    ax_full.set_ylim(0, 1.1)
+    ax_full.set_title(f"plucked at {pp}", fontsize=10, loc="left")
+    ax_zoom.set_ylim(0.97, 1.003)
+    ax_zoom.set_title("zoom on the corner", fontsize=10, loc="left")
+axes[0, 1].legend(fontsize=8, frameon=False, loc="lower center")
+axes[1, 0].set_ylabel("displacement of string")
+for ax in axes[-1]:
+    ax.set_xlabel("position along string")
+fig.suptitle(f"Adding {Ns[0]:,} to {Ns[-1]:,} modes for three pluck points", fontsize=11)
+plt.tight_layout(); plt.show()
+```
+
+All it takes is just 10,000 modes and we are pretty much exact.
