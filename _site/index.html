@@ -85,9 +85,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-author','listing-subtitle','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -187,7 +187,7 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div><div class="category" data-category="bXVzaWM=">music <span class="quarto-category-count">(2)</span></div><div class="category" data-category="bnVtYmVyLXRoZW9yeQ==">number-theory <span class="quarto-category-count">(2)</span></div><div class="category" data-category="cGh5c2ljcw==">physics <span class="quarto-category-count">(2)</span></div><div class="category" data-category="cHJvYmFiaWxpdHk=">probability <span class="quarto-category-count">(1)</span></div><div class="category" data-category="c2ltdWxhdGlvbg==">simulation <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(4)</span></div><div class="category" data-category="bXVzaWM=">music <span class="quarto-category-count">(2)</span></div><div class="category" data-category="bnVtYmVyLXRoZW9yeQ==">number-theory <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGh5c2ljcw==">physics <span class="quarto-category-count">(2)</span></div><div class="category" data-category="cHJvYmFiaWxpdHk=">probability <span class="quarto-category-count">(1)</span></div><div class="category" data-category="c2ltdWxhdGlvbg==">simulation <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content column-page-left" id="quarto-document-content">
 
@@ -216,7 +216,29 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="cHJvYmFiaWxpdHklMkNzaW11bGF0aW9u" data-listing-date-sort="1788278400000" data-listing-file-modified-sort="1790424318492" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="151">
+<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1791993470120" data-listing-reading-time-sort="20" data-listing-word-count-sort="3837">
+<div class="thumbnail"><a href="./posts/piano-tuning-post/plucked-string.html" class="no-external">
+
+<p class="card-img-top"><img loading='lazy' src="posts\piano-tuning-post\plucked-string_files\figure-html\cell-3-output-1.png" alt="The string just before release, plucked a fifth of the way along."  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/piano-tuning-post/plucked-string.html" class="no-external">What a plucked string actually does</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/piano-tuning-post/plucked-string.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="./posts/piano-tuning-post/plucked-string.html" class="no-external">
+You hook a finger under a guitar string, pull it sideways and let go. Just before release the string is two straight lines meeting at your finger: a triangle. A tenth of a…
+</a></div>
+</div>
+<div class="metadata">
+<a href="./posts/piano-tuning-post/plucked-string.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="cHJvYmFiaWxpdHklMkNzaW11bGF0aW9u" data-listing-date-sort="1788278400000" data-listing-file-modified-sort="1790424318492" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="151">
 <div class="thumbnail"><a href="./posts/example-latex-post/index.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -226,6 +248,9 @@ window.Quarto = {
 <h3 class="no-anchor listing-title">
 <a href="./posts/example-latex-post/index.html" class="no-external">A simulation example</a>
 </h3>
+<div class="listing-subtitle">
+<a href="./posts/example-latex-post/index.html" class="no-external"></a>
+</div>
 <div class="listing-categories">
 
 <div class="listing-category" onclick="window.quartoListingCategory('cHJvYmFiaWxpdHk='); return false;">probability</div>
@@ -245,21 +270,22 @@ Sep 2, 2026
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="bXVzaWMlMkNudW1iZXItdGhlb3J5JTJDcGh5c2ljcw==" data-listing-date-sort="1786464000000" data-listing-file-modified-sort="1791392563773" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="21" data-listing-word-count-sort="4104">
+<div class="quarto-post image-right" data-index="2" data-categories="bXVzaWMlMkNwaHlzaWNz" data-listing-date-sort="1786464000000" data-listing-file-modified-sort="1791997229936" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="28" data-listing-word-count-sort="5596">
 <div class="thumbnail"><a href="./posts/piano-tuning-post/overtones.html" class="no-external">
 
-<p class="card-img-top"><img loading='lazy' src="posts\piano-tuning-post\overtones_files\figure-html\cell-3-output-1.png" alt="The first four modes of a string with a fundamental f_1 of 110 Hz. The dots are nodes, and n is the number of loops. Each color marks one full wavelength, so at n = 1 the string holds only half a wavelength."  class="thumbnail-image card-img"/></p>
+<p class="card-img-top"><img loading='lazy' src="posts\piano-tuning-post\overtones_files\figure-html\cell-4-output-1.png" alt="Spectrogram of the recorded A string. Dashed lines mark the fundamental f_1 and harmonics f_k = kf_1."  class="thumbnail-image card-img"/></p>
 
 </a></div>
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="./posts/piano-tuning-post/overtones.html" class="no-external">On Harmonics.</a>
 </h3>
+<div class="listing-subtitle">
+<a href="./posts/piano-tuning-post/overtones.html" class="no-external">‘Abstract concepts are as invisible as a straight line, they are only visible when they are made concrete.’ - Søren Kierkegaard</a>
+</div>
 <div class="listing-categories">
 
 <div class="listing-category" onclick="window.quartoListingCategory('bXVzaWM='); return false;">music</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('bnVtYmVyLXRoZW9yeQ=='); return false;">number-theory</div>
 
 <div class="listing-category" onclick="window.quartoListingCategory('cGh5c2ljcw=='); return false;">physics</div>
 
@@ -276,7 +302,7 @@ Aug 12, 2026
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="bXVzaWMlMkNudW1iZXItdGhlb3J5JTJDcGh5c2ljcw==" data-listing-date-sort="1785513600000" data-listing-file-modified-sort="1791367876350" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="775">
+<div class="quarto-post image-right" data-index="3" data-categories="bXVzaWMlMkNudW1iZXItdGhlb3J5JTJDcGh5c2ljcw==" data-listing-date-sort="1785513600000" data-listing-file-modified-sort="1791367876350" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="775">
 <div class="thumbnail"><a href="./posts/piano-tuning-post/index.html" class="no-external">
 
 <p class="card-img-top"><img loading='lazy' src="posts\piano-tuning-post\index_files\figure-html\cell-2-output-1.png" alt="Two waves over one second. The lower one has twice the frequency."  class="thumbnail-image card-img"/></p>
@@ -286,6 +312,9 @@ Aug 12, 2026
 <h3 class="no-anchor listing-title">
 <a href="./posts/piano-tuning-post/index.html" class="no-external">On Piano Tuning.</a>
 </h3>
+<div class="listing-subtitle">
+<a href="./posts/piano-tuning-post/index.html" class="no-external"></a>
+</div>
 <div class="listing-categories">
 
 <div class="listing-category" onclick="window.quartoListingCategory('bXVzaWM='); return false;">music</div>

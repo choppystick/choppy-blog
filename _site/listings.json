@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/piano-tuning-post/plucked-string.html",
       "/posts/example-latex-post/index.html",
       "/posts/piano-tuning-post/overtones.html",
       "/posts/piano-tuning-post/index.html"

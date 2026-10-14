@@ -3,8 +3,6 @@ title: "On Piano Tuning."
 date: 2026-08-01
 categories: [music, number-theory, physics]
 bibliography: references.bib
-csl: ieee.csl
-jupyter: python3
 ---
 
 ## Introduction 
@@ -112,4 +110,4 @@ Two things stand out:
 
 2. **Higher harmonics are weaker and shorter-lived.** Most of the energy sits below about 1000 Hz, and the upper bands fade within a second or so while the low ones ring on.
 
-For why harmonics exist, see my writing on the physics of harmonics in [On Harmonics](overtones.qmd).
+For why harmonics exist, see my writing on the physics of harmonics in [On Harmonics](../harmonics/index.qmd).

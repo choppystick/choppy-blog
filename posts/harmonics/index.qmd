@@ -4,13 +4,71 @@ subtitle: "'Abstract concepts are as invisible as a straight line, they are only
 date: 2026-08-12
 categories: [music, physics]
 bibliography: references.bib
-csl: ieee.csl
-jupyter: python3
 ---
 
 Pluck the open A string on a guitar, and a tuner will tell you it's 110 Hz, meaning the string swings up and down 110 times every second. This count is called the *frequency*. 
 
-But run the same sound through a spectrum analyzer, a tool that splits a sound into its separate frequencies, and it turns out that a single note contains several frequencies at once: not just 110 Hz, but 220, 330 Hz, and so on. The lowest of these, 110 Hz, is the *fundamental*, and it sets the pitch you hear. The rest, at whole-number multiples of it, are the *harmonics*, and are colors that set instruments apart.
+But run the same sound through a spectrum analyzer, a tool that splits a sound into its separate frequencies, and it turns out that a single note contains several frequencies at once: not just 110 Hz, but 220, 330 Hz, and so on.
+
+```{python}
+#| echo: false
+#| warning: false
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import signal
+from IPython.display import Audio, display
+import soundfile as sf
+
+plt.rcParams.update({"figure.dpi": 110, "axes.spines.top": False, "axes.spines.right": False})
+integrate = getattr(np, "trapezoid", None) or np.trapz
+
+L = 1.0        # string length
+f1 = 110.0     # open A string, in Hz
+fs = 44100     # audio sample rate
+```
+
+Here is a recording of an open A string, plucked three times. Its fundamental $f_1$ is 110 Hz, so we expect energy at $f_1, 2f_1, 3f_1, 4f_1, \ldots$, or at 110, 220, 330, 440 Hz and so on respectively.
+
+```{python}
+#| echo: false
+#| warning: false
+audio_path = "record.mp3"
+samples, record_fs = sf.read(audio_path, always_2d=False)
+if samples.ndim > 1:
+    samples = samples.mean(axis=1)
+
+display(Audio(audio_path))
+```
+
+A spectrogram shows which frequencies are present at each moment, and brighter indicates higher energy. The dashed lines mark where the theoretical harmonics should be:
+
+```{python}
+#| echo: false
+#| warning: false
+#| fig-cap: "Spectrogram of the recorded A string. Dashed lines mark the fundamental $f_1$ and harmonics $f_k = kf_1$."
+freqs, t, Sxx = signal.spectrogram(samples, fs=record_fs, nperseg=4096, noverlap=3072, window="hann")
+Sxx_db = 10 * np.log10(Sxx + 1e-12)
+f0 = 110
+
+fig, ax = plt.subplots(figsize=(8, 4))
+mesh = ax.pcolormesh(
+    t, freqs, Sxx_db, shading="gouraud", cmap="magma",
+    vmin=np.percentile(Sxx_db, 25), vmax=Sxx_db.max(),
+)
+
+ax.set_ylim(0, 4000)
+ax.set_xlabel("Time (s)")
+ax.set_ylabel("Frequency (Hz)")
+fig.colorbar(mesh, ax=ax, label="Energy (dB)")
+
+for n in range(1, int(4000 / f0) + 1):
+    ax.axhline(n * f0, color="white", linestyle="--", linewidth=0.6, alpha=0.5)
+    ax.text(t[-1], n * f0, f"  {n}×f0", color="white", va="center", fontsize=7)
+
+plt.show()
+```
+
+The lowest of these, 110 Hz, is the *fundamental*, and it sets the pitch you hear. The rest, at whole-number multiples of it, are the *harmonics*, and are colors that set instruments apart.
 
 This naturally raises two questions:
 
@@ -66,8 +124,7 @@ def finish(fig, axes):
     axes[-1].set_xticks([0, L / 2, L], ["0", "L/2", "L"])
     axes[-1].set_xlabel("position along the string", fontsize=9)
     fig.supylabel("displacement", fontsize=9)
-    handles = [Line2D([], [], color=c, lw=2.5, label=f"{o} wavelength")
-               for c, o in zip(COLORS, ["1st", "2nd"])]
+    handles = [Line2D([], [], color=c, lw=2.5, label=f"{o} wavelength") for c, o in zip(COLORS, ["1st", "2nd"])]
     handles.append(Line2D([], [], color="k", marker="o", ls="", ms=5, label="node"))
     fig.legend(handles=handles, loc="upper center", ncol=3, frameon=False, fontsize=9)
 ```
@@ -113,8 +170,7 @@ fig, axes = plt.subplots(2, 1, figsize=(5, 4.2), sharex=True)
 for ax, k in zip(axes, [2, 2.5]):
     draw_string(ax, k, nodes=np.array([0, L]))
 axes[1].plot(L, 1, "o", color=COLORS[1], ms=5, zorder=3)  # where the end lands instead of 0
-axes[1].annotate("", xy=(L + 0.03, 0.95), xytext=(L + 0.03, 0.05),
-                 arrowprops=dict(arrowstyle="<->", color="k", lw=1))
+axes[1].annotate("", xy=(L + 0.03, 0.95), xytext=(L + 0.03, 0.05), arrowprops=dict(arrowstyle="<->", color="k", lw=1))
 axes[0].set_xlim(0, 1.06)
 finish(fig, axes)
 plt.tight_layout(rect=[0.02, 0, 1, 0.92])
@@ -281,10 +337,9 @@ Transcribing to Latex will take forever.
 
 In the 1750s, Daniel Bernoulli proposed that the motion of a string fixed at both ends is a sum of its modes. Not everyone was convinced, and Leonhard Euler and Jean d'Alembert certainly weren't. 
 
-D’Alembert doubted that a corner was even allowed, since the equation for a vibrating string needs the string to be smoothly curved everywhere. Euler was happy to allow corners, after all, strings are plucked and harmonics are heard, but he couldn’t see how smooth sine waves could ever add up to one discontinued corners. If a finite sum of sines is mooth, then how can an infinite sum suddenly turn non-smooth?
+D’Alembert doubted that a corner was even allowed, since the equation for a vibrating string needs the string to be smoothly curved everywhere. Euler was happy to allow corners, after all, strings are plucked and harmonics are heard, but he couldn’t see how smooth sine waves could ever add up to one discontinued corners. If a finite sum of sines is smooth, then how can an infinite sum suddenly turn non-smooth? @papadopoulos2017riemann
 
-In the early 1800s, while studying how temperature changes over time inside a solid body, Joseph Fourier made an even bolder claim. He observed that  He proposed that **any shape can be written as a sum of sines, including our triangle**. Mathematicians now call this a Fourier series.
-
+In the early 1800s, while studying how temperature changes over time inside a solid body, Joseph Fourier made an even bolder claim. He proposed that **any shape can be written as a sum of sines, including our triangle**. Mathematicians now call this a Fourier series.
 $$
 \text{triangle}(x) = b_1 \sin\!\left(\frac{\pi x}{L}\right) + b_2 \sin\!\left(\frac{2\pi x}{L}\right) + b_3 \sin\!\left(\frac{3\pi x}{L}\right) + \cdots = \sum_{n=1}^{\infty} b_n \sin\!\left(\frac{n\pi x}{L}\right)
 $$
@@ -463,7 +518,7 @@ Ns = [100, 1000, 10000]
 x_full = np.linspace(0, L, 2001)
 half_width = 0.01
 
-fig, axes = plt.subplots(3, 2, figsize=(9, 7), gridspec_kw={"width_ratios": [2, 1]})
+fig, axes = plt.subplots(3, 2, figsize=(6.8, 5.6), gridspec_kw={"width_ratios": [1, 1.4]})
 for (ax_full, ax_zoom), pp in zip(axes, pluck_points):
     x_zoom = np.linspace(pp - half_width, pp + half_width, 4001)   
     plot_many_modes(ax_full, pp, x_full, Ns)
@@ -472,7 +527,7 @@ for (ax_full, ax_zoom), pp in zip(axes, pluck_points):
     ax_full.set_ylim(0, 1.1)
     ax_full.set_title(f"plucked at {pp}", fontsize=10, loc="left")
     ax_zoom.set_ylim(0.959, 1.003)
-    ax_zoom.set_title("zoom on the corner", fontsize=10, loc="left")
+axes[0, 1].set_title("zoom on the corner", fontsize=10, loc="left")
 axes[0, 1].legend(fontsize=8, frameon=False, loc="lower center")
 axes[1, 0].set_ylabel("displacement of string")
 for ax in axes[-1]:
@@ -493,7 +548,7 @@ Now I hear you ask: Are there really infinite modes in real life? Does infinity 
 For existence of infinity, I recommend you to consult your nearest philosophy professor. But I can answer the first question.
 
 :::{.callout-warning}
-## Beware. Heavy maths here.
+## Beware. Heavy maths.
 :::
 Short answer: No, but for our ears it is good enough. Here's the long answer:
 
@@ -521,7 +576,7 @@ $$
 
 and we recover the harmonic series $f_m = mf_1$. Only when $m$ gets close enough to $N$ and the wavelength shrinks to just a few atoms, does the error become non-negligible.
 
-So how close is "close enough"? 
+**So how close is "close enough"?**
 
 Take a 65 cm guitar string and assume that it is perfectly elastic. Its atoms are about 0.25 nm apart, so $N \approx 2.6 \times 10^9$. As the number of atoms determine the number of modes, the string only has a few billion modes. 
 
@@ -537,7 +592,7 @@ So yea, infinite mode is a fiction, but it's an extraordinarily good one.
 
 :::{.callout-note collapse="true"}
 ## I can't help it baby. Here's a probability detour.
-For those with experience in probabilistic measure theory, the mass density function is in fact within the same family of functions as the probability density function commonly used in statistics:
+For those with experience in probabilistic measure theory, the mass density function is within the same family of functions as the probability density function:
 
 $$
 P(a \leq X \leq b) = \int_{a}^{b} f(x)\,dx
@@ -551,7 +606,7 @@ $$
 f(x) = \frac{\mu(x)}{M}
 $$
 
-which is the distribution of where a random point mass of a string might be located in. 
+which is the distribution of where a random bit of string's mass might be located in. 
 
 Under this translation, it allows us to reinterpret key physical concepts with familiar statistics:
 
@@ -583,3 +638,45 @@ for pairwise disjoint Borel sets $B_1, B_2,\dots$
 
 End of detour.
 :::
+
+## Conclusion
+
+We conclude with this beauty here.
+
+```{python}
+#| echo: false
+#| fig-cap: 'One full period of an ideal string. Top: the string (black) and the sum of the first 1, 3, and 12 modes. Bottom: the first 16 modes, each oscillating at $n \times 110$ Hz.'
+n_modes, n_frames = 16, 72
+sum_Ns = [1, 3, 12]
+times = np.linspace(0, T, n_frames, endpoint=False)
+n = np.arange(1, n_modes + 1)
+string = string_at(lambda s: triangle(s, p_single, h), x, times[:, None])
+swing = np.cos(2 * np.pi * f1 * np.outer(times, n))
+shapes = b_exact(n, p_single)[:, None] * np.sin(np.outer(n, np.pi * x / L))
+sums = np.cumsum(swing[:, :, None] * shapes, axis=1)[:, np.array(sum_Ns) - 1]
+
+fig, (top, bot) = plt.subplots(2, 1, figsize=(9, 7), sharex=True, dpi=80, gridspec_kw={"height_ratios": [1.3, 1]})
+top.plot(x, triangle(x, p_single, h), color="grey", lw=1, ls="--")
+sum_lines = [top.plot(x, y, color=c, lw=1.6, label=f"{N} mode{'s' * (N > 1)}")[0] for N, y, c in zip(sum_Ns, sums[0], COLORS)]
+line, = top.plot(x, string[0], "k", lw=1.2, zorder=3, label="string")
+top.set(xlim=(0, L), ylim=(-1.15, 1.15), ylabel="string")
+top.legend(fontsize=8, frameon=False, loc="upper right", ncol=len(sum_Ns) + 1)
+mode_lines = [bot.plot(x, shape, color=COLORS[k], lw=1.6)[0] for k, shape in enumerate(shapes[:n_modes])]
+bot.set(ylim=(-0.8, 0.8), ylabel="modes", xlabel="position along string")
+clock = fig.suptitle("", fontsize=10)
+fig.tight_layout()
+
+def draw(i):
+    line.set_ydata(string[i])
+    for sl, y in zip(sum_lines, sums[i]):
+        sl.set_ydata(y)
+    for ml, shape, a in zip(mode_lines, shapes, swing[i]):
+        ml.set_ydata(a * shape)
+    clock.set_text(f"{times[i] * 1e3:.2f} ms after release")
+
+anim = FuncAnimation(fig, draw, frames=n_frames, interval=60)
+plt.close(fig)
+HTML(anim.to_jshtml(default_mode="loop"))
+```
+
+This is why a plucked string sounds the way it does. The string doesn't sound one frequency, but it sounds all of its harmonics at once: 110, 220, 330 Hz and up. The fundamental sets the pitch you hear, and the mix of the others, decided by where and how the string is plucked, sets its colour.
