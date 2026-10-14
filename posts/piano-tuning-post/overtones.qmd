@@ -1,5 +1,6 @@
 ---
 title: "On Harmonics."
+subtitle: "'Abstract concepts are as invisible as a straight line, they are only visible when they are made concrete.' - Søren Kierkegaard"
 date: 2026-08-12
 categories: [music, physics]
 bibliography: references.bib
@@ -156,11 +157,11 @@ Hear me out before you get your pitchfork. It's not quite like that. Many of tho
 {{< video https://youtu.be/sYdXa_yp0fc?si=hYVm48Ne-3fn7DVE >}}
 :::
 
-So what does a plucked string really look like? Think about what your finger does. You are not shaking the string. You hook it with your finger, pull and let go. At that moment, the string forms a triangle: no longer a smooth curve, but two straight lines meeting at a corner, right where your finger is.
+So what does a plucked string really look like? Think about what your finger does. You are not shaking the string. You hook it with your finger, pull and let go. At that moment, the string forms a triangle: it is no longer a smooth curve, but two straight lines meeting at a corner, right where your finger is.
 
 ```{python}
 #| echo: false
-#| fig.cap: "A guitar string is actually a triangle now?"
+#| fig-cap: "A guitar string is actually a triangle now?"
 from matplotlib.animation import FuncAnimation
 from IPython.display import HTML
 
@@ -206,13 +207,13 @@ For a string to keep its shape, the pull has to be strongest where the string is
 A sine wave has the special property where the bend at every position is proportional to its height. It is most sharply bent at its peaks, and perfectly straight where it crosses the line. Therefore, **the force exerted toward the resting line is proportional to the height.**
 :::
 
-However, the triangle is not a sine wave. Look at the triangle, its straight sides feel no pull at all; the only bend is at the corner. As only at a bend is a force induced, the corner should start moving while the sides wait, and the triangle should not keep its shape.
+**However, the triangle is not a sine wave.** Look at the triangle, its straight sides feel no pull at all; the only bend is at the corner. As only at a bend is a force induced, the corner should start moving while the sides wait, and the triangle should not keep its shape.
 
-Let's test this prediction by releasing two strings side by side: one shaped like mode 3, and one shaped like the triangle.
+Let's test this prediction by releasing two strings side by side: one shaped like the third mode, and one shaped like the triangle.
 
 ```{python}
 #|echo: false
-#|fig.cap: "Both strings over one full period of the open A string. The dashed line is each string's starting position."
+#|fig-cap: "Both strings over one full period of the open A string. The dashed line is each string's starting position."
 def animate_release(shapes, n_frames=60, interval=80):
     """Animate one period of motion for each initial shape in `shapes`."""
     xs = np.linspace(0, L, 501)
@@ -249,13 +250,13 @@ HTML(animate_release(shapes).to_jshtml(default_mode="loop"))
 
 The sine string behaves exactly as predicted: it only ever gets taller, shorter, or flipped. However, when the triangle is let go, its corner splits into two that run off in opposite directions, and the straight parts only start moving once a corner reaches them. Freeze it at any moment and you'll see a different shape, not a scaled triangle.
 
-But also, watch the clock. After exactly one period, about 9.1 ms, the two corners have bounced off the ends and met again where they started, and the triangle is back to its original shape.
+But also, watch the clock. After exactly one period, about 9.1 ms, the two corners have bounced off the ends and met again where they started, and the triangle is back to its original shape again.
 
-So the triangle isn't a mode, yet its motion repeats at exactly the fundamental's rhythm. That is a hint of what the triangle is.
+So the triangle isn't a mode, yet its motion repeats at exactly the fundamental's rhythm like how a fundamental would. That is a hint of what the triangle is.
 
 ## Fourier Series
 
-For some bookkeeping, we would introduce a few formula.
+For some bookkeeping, we need to introduce a few formula.
 
 Suppose we pluck the string at position $p$, pulling it up to height $h$. The starting shape is a triangle (as shown in the demonstration before):
 
@@ -275,12 +276,14 @@ $$
 
 :::{.callout-note collapse="true"}
 ## Derivation of the shape formula:
-
+Transcribing to Latex will take forever.
 :::
 
-In the 1750s, Daniel Bernoulli proposed that the motion of a string fixed at both ends is a sum of its modes. Not everyone was convinced. Euler and d'Alembert objected: how could smooth sine waves ever add up to a shape with a sharp corner, like a plucked string? 
+In the 1750s, Daniel Bernoulli proposed that the motion of a string fixed at both ends is a sum of its modes. Not everyone was convinced, and Leonhard Euler and Jean d'Alembert certainly weren't. 
 
-In the early 1800s, while studying how heat spreads, Joseph Fourier made an even bolder claim. He proposed that **any shape can be written as a sum of sines, including our triangle**. Mathematicians now call this a Fourier series.
+D’Alembert doubted that a corner was even allowed, since the equation for a vibrating string needs the string to be smoothly curved everywhere. Euler was happy to allow corners, after all, strings are plucked and harmonics are heard, but he couldn’t see how smooth sine waves could ever add up to one discontinued corners. If a finite sum of sines is mooth, then how can an infinite sum suddenly turn non-smooth?
+
+In the early 1800s, while studying how temperature changes over time inside a solid body, Joseph Fourier made an even bolder claim. He observed that  He proposed that **any shape can be written as a sum of sines, including our triangle**. Mathematicians now call this a Fourier series.
 
 $$
 \text{triangle}(x) = b_1 \sin\!\left(\frac{\pi x}{L}\right) + b_2 \sin\!\left(\frac{2\pi x}{L}\right) + b_3 \sin\!\left(\frac{3\pi x}{L}\right) + \cdots = \sum_{n=1}^{\infty} b_n \sin\!\left(\frac{n\pi x}{L}\right)
