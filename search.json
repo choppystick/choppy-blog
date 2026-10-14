@@ -1,26 +1,5 @@
 [
   {
-    "objectID": "posts/piano-tuning/index.html",
-    "href": "posts/piano-tuning/index.html",
-    "title": "On Piano Tuning.",
-    "section": "",
-    "text": "Press any C on a piano, then count the keys before you reach the next one. Twelve notes: seven white keys, five black. I’ve played this layout for decades, and only recently did it strike me as strange. Why twelve? Why not ten, fifteen or even fifty-three (wink)?\nThe easy answer is convenience. A few more notes per octave would add around twenty keys (the horror). But convenience explains why we don’t have fifty-three notes per octave; but not why don’t we do ten, or seven, which would be even easier. And tuning systems with 19, 24, even 31 notes per octave exist, just glance at Wikipedia [1] on this topic. So, again: why twelve?\nMy suspicion is that the magic number comes from something deeper: hidden within the arithmetic of musical intervals. This article document my journey of discovering this truth. Beware: there will be mathematics."
-  },
-  {
-    "objectID": "posts/piano-tuning/index.html#introduction",
-    "href": "posts/piano-tuning/index.html#introduction",
-    "title": "On Piano Tuning.",
-    "section": "",
-    "text": "Press any C on a piano, then count the keys before you reach the next one. Twelve notes: seven white keys, five black. I’ve played this layout for decades, and only recently did it strike me as strange. Why twelve? Why not ten, fifteen or even fifty-three (wink)?\nThe easy answer is convenience. A few more notes per octave would add around twenty keys (the horror). But convenience explains why we don’t have fifty-three notes per octave; but not why don’t we do ten, or seven, which would be even easier. And tuning systems with 19, 24, even 31 notes per octave exist, just glance at Wikipedia [1] on this topic. So, again: why twelve?\nMy suspicion is that the magic number comes from something deeper: hidden within the arithmetic of musical intervals. This article document my journey of discovering this truth. Beware: there will be mathematics."
-  },
-  {
-    "objectID": "posts/piano-tuning/index.html#the-physics-of-pitches",
-    "href": "posts/piano-tuning/index.html#the-physics-of-pitches",
-    "title": "On Piano Tuning.",
-    "section": "The Physics of Pitches",
-    "text": "The Physics of Pitches\nWe must first start by introducing the fundamental unit of music - a note. Physically, a note is just air pressure wobbling back and forth. What sets apart notes are its pitches, measured in frequency.\n\n\n\n\n\n\nNoteWhat are frequencies?\n\n\n\n\n\nFrequency is how many times something repeats each second. A vibrating string swings back and forth, and one full back-and-forth is a cycle. The number of cycles per second is measured in hertz (Hz). A 3 Hz wave completes 3 cycles every second, and a 6 Hz wave completes 6, so it repeats twice as fast.\n\n\n\n\n\nTwo waves over one second. The lower one has twice the frequency.\n\n\n\n\nFor sound, frequency is pitch: more cycles per second sounds higher. The A string’s 110 Hz means it swings back and forth 110 times every second.\n\n\n\nBut a note is never one frequency. If you pluck the open A string on a guitar, a tuner will tell you it’s 110 Hz. But run the same sound through a spectrum analyzer, and odds are you will be surprised. It turns out that there are multiple frequencies in a note, not just 110 Hz, but 220, 330 Hz, and so on. The lowest of these, 110 Hz, is the fundamental, and it sets the pitch you hear. The rest, at whole-number multiples of it, are the harmonics, or overtones.\nHere is a recording of an open A string, plucked three times. Its fundamental \\(f_0\\) is 110 Hz, so we expect energy at \\(f_0, 2f_0, 3f_0, 4f_0, \\ldots\\), or at 110, 220, 330, 440 Hz and so on respectively.\n\n\n\n                \n                    \n                    Your browser does not support the audio element.\n                \n              \n\n\nA spectrogram shows which frequencies are present at each moment, and brighter indicates higher energy. The dashed lines mark where the theoretical harmonics should be:\n\n\n\n\n\nSpectrogram of the recorded A string. Dashed lines mark the fundamental \\(f_0\\) and harmonics \\(f_n = n f_0\\).\n\n\n\n\nTwo things stand out:\n\nThe bands sit on the dashed lines. Energy is concentrated at whole-number multiples of 110 Hz, just as predicted.\n\n\n\n\n\n\nNoteReal strings are not perfectly elastic!\n\n\n\n\n\nReal harmonics roughly follow \\(f_n \\approx n \\cdot f_0 \\cdot \\sqrt{1 + B n^2}\\), where \\(B\\) is the inharmonicity coefficient. Dashed lines may not be perfectly alligned with the peaks.\n\n\n\nHigher harmonics are weaker and shorter-lived. Most of the energy sits below about 1000 Hz, and the upper bands fade within a second or so while the low ones ring on.\n\nFor why harmonics exist, see my writing on the physics of harmonics in On Harmonics."
-  },
-  {
     "objectID": "posts/example-latex-post/index.html",
     "href": "posts/example-latex-post/index.html",
     "title": "A simulation example",
@@ -67,7 +46,7 @@
     "href": "index.html",
     "title": "Home",
     "section": "",
-    "text": "A simulation example\n\n\n\n\n\n\nprobability\n\nsimulation\n\n\n\n\n\n\n\n\n\nSep 2, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nOn Harmonics.\n\n\n‘Abstract concepts are as invisible as a straight line, they are only visible when they are made concrete.’ - Søren Kierkegaard\n\n\n\nmusic\n\nphysics\n\n\n\n\n\n\n\n\n\nAug 12, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nOn Piano Tuning.\n\n\n\n\n\n\nmusic\n\nnumber-theory\n\nphysics\n\n\n\n\n\n\n\n\n\nAug 1, 2026\n\n\n\n\n\nNo matching items"
+    "text": "A simulation example\n\n\n\n\n\n\nprobability\n\nsimulation\n\n\n\n\n\n\n\n\n\nSep 2, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nOn Harmonics.\n\n\n‘Abstract concepts are as invisible as a straight line, they are only visible when they are made concrete.’ - Søren Kierkegaard\n\n\n\nmusic\n\nphysics\n\n\n\n\n\n\n\n\n\nAug 12, 2026\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/harmonics/index.html",

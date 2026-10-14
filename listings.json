@@ -3,8 +3,7 @@
     "listing": "/index.html",
     "items": [
       "/posts/example-latex-post/index.html",
-      "/posts/harmonics/index.html",
-      "/posts/piano-tuning/index.html"
+      "/posts/harmonics/index.html"
     ]
   }
 ]
