@@ -1,7 +1,7 @@
 ---
 title: "On Harmonics."
 subtitle: "'Abstract concepts are as invisible as a straight line, they are only visible when they are made concrete.' - Søren Kierkegaard"
-date: 2026-08-12
+date: 2026-10-15
 categories: [music, physics]
 bibliography: references.bib
 ---
@@ -276,7 +276,7 @@ def animate_release(shapes, n_frames=60, interval=80):
     times = np.linspace(0, T, n_frames, endpoint=False)
     Y = [string_at(f, xs, times[:, None]) for f in shapes.values()]  # each (n_frames, 501)
 
-    fig, axes = plt.subplots(1, len(shapes), figsize=(9, 3), sharey=True, dpi=80)
+    fig, axes = plt.subplots(1, len(shapes), figsize=(10, 4), sharey=True, dpi=80)
     lines = []
     for ax, (title, f), y in zip(axes, shapes.items(), Y):
         ax.plot(xs, f(xs), color="grey", lw=1, ls="--", label="starting shape")

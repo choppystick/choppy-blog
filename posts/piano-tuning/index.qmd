@@ -105,7 +105,7 @@ Two things stand out:
 1. **The bands sit on the dashed lines.** Energy is concentrated at whole-number multiples of 110 Hz, just as predicted.
 
    :::{.callout-note collapse="true"}
-   ### **Real strings are not perfectly elastic!**
+   ## Real strings are not perfectly elastic!
    Real harmonics roughly follow $f_n \approx n \cdot f_0 \cdot \sqrt{1 + B n^2}$, where $B$ is the inharmonicity coefficient. Dashed lines may not be perfectly alligned with the peaks.
    :::
 

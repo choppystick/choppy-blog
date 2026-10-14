@@ -3,7 +3,7 @@ project:
   output-dir: _site
  
 website:
-  title: "Writing is a Joy"
+  title: "Choppy Waters"
   description: "A blog about writing and documenting all kinds of things"
   navbar:
     left:
