@@ -1,26 +1,5 @@
 [
   {
-    "objectID": "posts/example-latex-post/index.html",
-    "href": "posts/example-latex-post/index.html",
-    "title": "A simulation example",
-    "section": "",
-    "text": "Sometimes a post needs both a derivation and a simulation to check it. Quarto will run the code block below at render time and drop the output image directly into the page — no manual screenshotting needed."
-  },
-  {
-    "objectID": "posts/example-latex-post/index.html#claim",
-    "href": "posts/example-latex-post/index.html#claim",
-    "title": "A simulation example",
-    "section": "Claim",
-    "text": "Claim\nLet \\(X_1, \\dots, X_n \\overset{iid}{\\sim} \\text{Uniform}(0,1)\\). By the CLT,\n\\[\n\\sqrt{n}\\left(\\bar{X}_n - \\tfrac{1}{2}\\right) \\xrightarrow{d} \\mathcal{N}\\!\\left(0, \\tfrac{1}{12}\\right).\n\\]"
-  },
-  {
-    "objectID": "posts/example-latex-post/index.html#check-it-with-a-simulation",
-    "href": "posts/example-latex-post/index.html#check-it-with-a-simulation",
-    "title": "A simulation example",
-    "section": "Check it with a simulation",
-    "text": "Check it with a simulation\n\n\nCode\n# Set eval: true (and have matplotlib/numpy installed) to actually run this\n# at render time. Left as eval: false here so the starter repo builds\n# instantly with no dependencies.\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nn, trials = 30, 10000\nmeans = np.mean(np.random.uniform(0, 1, size=(trials, n)), axis=1)\nscaled = np.sqrt(n) * (means - 0.5)\n\nplt.hist(scaled, bins=50, density=True)\nplt.title(\"Simulated distribution vs. CLT prediction\")\nplt.show()\n\n\nIf you don’t want to run code at all for a given post, just leave the code block out entirely, or set eval: false as above and paste in a screenshot or gif instead:\n\n\nCode\n# example only — not run"
-  },
-  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
@@ -46,7 +25,7 @@
     "href": "index.html",
     "title": "Home",
     "section": "",
-    "text": "A simulation example\n\n\n\n\n\n\nprobability\n\nsimulation\n\n\n\n\n\n\n\n\n\nSep 2, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nOn Harmonics.\n\n\n‘Abstract concepts are as invisible as a straight line, they are only visible when they are made concrete.’ - Søren Kierkegaard\n\n\n\nmusic\n\nphysics\n\n\n\n\n\n\n\n\n\nAug 12, 2026\n\n\n\n\n\nNo matching items"
+    "text": "On Harmonics.\n\n\n‘Abstract concepts are as invisible as a straight line, they are only visible when they are made concrete.’ - Søren Kierkegaard\n\n\n\nmusic\n\nphysics\n\n\n\n\n\n\n\n\n\nOct 15, 2026\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/harmonics/index.html",
