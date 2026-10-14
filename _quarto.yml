@@ -15,7 +15,7 @@ website:
         text: Gallery
     right:
       - icon: github
-        href: https://github.com/
+        href: https://github.com/choppystick
   page-footer:
     center: "Built with Quarto"
  

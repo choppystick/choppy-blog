@@ -3,6 +3,7 @@ title: "On Piano Tuning."
 date: 2026-08-01
 categories: [music, number-theory, physics]
 bibliography: references.bib
+draft: true
 ---
 
 ## Introduction 
