@@ -290,7 +290,7 @@ Each $b_n$ describes how much of mode $n$ is in the triangle. In our case, we wo
 
 To find one of them, say $b_3$, we need to isolate the third mode from all the others. We do this by exploiting a property of modes called *orthogonality*. 
 
-:::{.callout-note collapse="true"}
+:::{.callout-tip collapse="true"}
 ## What is orthogonality?
 Take two functions $f$ and $g$ on the string, $0 \le x \le L$. Multiply their values at each point along the string, then add up all the results. This gives a single number, called the *inner product* $\langle f, g \rangle$, defined as the integral $\langle f, g \rangle = \int_0^L f(x)\,g(x)\,dx$. If $\langle f, g \rangle = 0$, we say $f$ and $g$ are *orthogonal*.
 
@@ -307,7 +307,7 @@ $$
 b_3 = \frac{\langle \text{triangle}, X_3 \rangle}{\langle X_3, X_3 \rangle} = \frac{\langle \text{triangle}, X_3 \rangle}{L/2}
 $$
 
-:::{.callout-note collapse="true"}
+:::{.callout-tip collapse="true"}
 ## An analogy in vector spaces.
 Let $\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3$ be the standard basis of $\mathbb{R}^3$. They are orthonormal: $\mathbf{e}_i \cdot \mathbf{e}_j = 0$ for $i \neq j$, and $\mathbf{e}_i \cdot \mathbf{e}_i = 1$. Any vector can be written as $\mathbf{v} = v_1 \mathbf{e}_1 + v_2 \mathbf{e}_2 + v_3 \mathbf{e}_3$, where $v_1, v_2, v_3$ are the scalar multiples.
 
@@ -426,8 +426,6 @@ The fundamental alone is a poor match for the triangle, but adding the 2nd mode 
 
 The last part to form is the corner. Even with 16 modes, the peak is still slightly rounded. Whereas the smooth sides of the triangle need only a few modes, the sharp corner needs many high modes working together. This was the heart of Euler and d'Alembert's objection: no finite number of smooth sine waves can ever make a perfectly sharp corner. 
 
-But Fourier's answer is that **you never have to stop**. We only have to keep adding more and more modes.
-
 But $b_n$ also depend on where the string is plucked. Change where you pluck and you change how much of each mode contributes to the triangle. 
 
 ```{python}
@@ -462,7 +460,7 @@ Ns = [100, 1000, 10000]
 x_full = np.linspace(0, L, 2001)
 half_width = 0.01
 
-fig, axes = plt.subplots(3, 2, figsize=(10, 8), gridspec_kw={"width_ratios": [2, 1]})
+fig, axes = plt.subplots(3, 2, figsize=(9, 7), gridspec_kw={"width_ratios": [2, 1]})
 for (ax_full, ax_zoom), pp in zip(axes, pluck_points):
     x_zoom = np.linspace(pp - half_width, pp + half_width, 4001)   
     plot_many_modes(ax_full, pp, x_full, Ns)
@@ -484,12 +482,101 @@ All it takes is just 10,000 modes and we are pretty much exact.
 
 At full size, the three curves are indistinguishable from the triangle. The only place they differ is the corner, so the panels on the right zoom in on it. With 100 modes the corner is still visibly rounded. With 1,000, there is only a small ripple . With 10,000 the curve is essentially indistinguishible.
 
-So that settles the old argument. Euler and d'Alembert were right that no finite number of smooth sine waves can make a perfectly sharp corner. But Fourier was right too: we just need infinite of them. By adding enough modes, we can get as close to the corner as we like.
+So that settles the old argument. Euler and d'Alembert were right that no finite number of smooth sine waves can make a perfectly sharp corner. But Fourier was right too: we just need an infinite amount of them.
+
+## What even is infinite modes?
+Now I hear you ask: Are there really infinite modes in real life? Does infinity even exist and what even is that???
+
+For existence of infinity, I recommend you to consult your nearest philosophy professor. But I can answer the first question.
+
+:::{.callout-warning}
+## Beware. Heavy maths here.
+:::
+Short answer: No, but for our ears it is good enough. Here's the long answer:
+
+Our Fourier model treats the string as a *continuum*: matter fills space smoothly, infinitely divisible so we describe it with *densities*. For example, the mass of a piece of string between $a$ and $b$ is described as a mass density function:
+
+$$
+m_{[a,b]} = \int_{a}^{b} \mu(x)\,dx
+$$
+
+Every point $x$ along a continuum can move on its own, so the string has infinitely many degrees of freedom, and therefore infinitely many modes.   
+
+But these are just idealizations. A real string, however, is really atoms held together by electromagnetic forces. 
+
+As a first approximation though, we can model it as a chain of atoms of mass $M$, joined by massless springs with spring constant $\lambda$, with both ends fixed. Each moving atom is one degree of freedom, so **a chain of atoms has exactly as many modes as it has moving atoms**. If $N$ is the number of spacings between atoms, the frequency of mode $m$ is:
+
+$$
+\omega_m = 2\sqrt{\frac{\lambda}{M}}\,\sin\!\left(\frac{m\pi}{2N}\right), \qquad m = 1, 2, \dots, N-1 .
+$$
+
+If we suppose $N$ to be some unimaginably big number, then for $m \ll N$, the chain is essentially smooth and under small-angle approximation, we have $\sin(\theta) \approx \theta$, so 
+
+$$
+\omega_m \approx 2\sqrt{\frac{\lambda}{M}} \cdot \frac{m\pi}{2N} = m \cdot \underbrace{\frac{\pi}{N}\sqrt{\frac{\lambda}{M}}}_{\omega_1} = m \cdot \omega_1
+$$
+
+and we recover the harmonic series $f_m = mf_1$. Only when $m$ gets close enough to $N$ and the wavelength shrinks to just a few atoms, does the error become non-negligible.
+
+So how close is "close enough"? 
+
+Take a 65 cm guitar string and assume that it is perfectly elastic. Its atoms are about 0.25 nm apart, so $N \approx 2.6 \times 10^9$. As the number of atoms determine the number of modes, the string only has a few billion modes. 
+
+In the best case, human hearing reaches about 20,000 Hz, so the highest harmonic you can hear on a 110 Hz string is at around $m = 181$. For that mode, $\theta \approx 1.09 \times 10^{-7}$. Expanding $\sin\theta$ as a Taylor series and taking its third order expansion, the relative error between the chain and the harmonic approximation is:
+
+$$
+\epsilon = \frac{\theta^2}{6} \approx 2.0 \times 10*^{-15}
+$$
+
+When we treat the string as a continuum by taking the harmonic approximation, the error in the audible range is right to 15 decimal places. The error only starts to stack up when we push far into inaudible territory like 1,000 modes or 10,000 modes.
+
+So yea, infinite mode is a fiction, but it's an extraordinarily good one.
 
 :::{.callout-note collapse="true"}
-## Are there really infinite modes when we pluck a string?
-Short answer, no. Long answer, it's possible but no.
+## I can't help it baby. Here's a probability detour.
+For those with experience in probabilistic measure theory, the mass density function is in fact within the same family of functions as the probability density function commonly used in statistics:
 
+$$
+P(a \leq X \leq b) = \int_{a}^{b} f(x)\,dx
+$$
 
+where $f(x)$ is the density of a probability measure on the Borel sets of $\mathbb{R}$, and $\mu(x)$ is the density of a mass measure on the Borel sets of the string, $[0, L]$.
+
+The only difference is in normalization. A mass density integrates to $M$, while a probability density integrates to 1. Interestingly, if we divide the mass density by $M$, we recover a pdf:
+
+$$
+f(x) = \frac{\mu(x)}{M}
+$$
+
+which is the distribution of where a random point mass of a string might be located in. 
+
+Under this translation, it allows us to reinterpret key physical concepts with familiar statistics:
+
+1. **Center of mass as mean**
+$$
+x_{cm} = \frac{1}{M}\int x\mu(x)\,dx = \mathbb{E}[X]
+$$
+
+2. **Moment of inertia about the center of mass as variance**
+
+$$
+I = \int (x-x_{cm})^2\mu(x)\,dx = $M$Var(X)
+$$
+
+As an exercise, you can show that mass is a measure.
+
+Let $\mu : [0, L] \to [0, \infty)$ be a continuous mass density, and for each Borel set $B \subseteq [0, L]$ define
+$$
+m(B) = \int_B \mu(x)\,dx 
+$$
+
+(a) Show that $\mu$ is Borel-measurable.
+
+(b) Using (a), show that $m$ is a measure on the Borel sets by verifying the measure axioms, i.e. that $m(\varnothing) = 0$, $m(B) \ge 0$, and
+$$
+m\Big(\bigcup_{i=1}^{\infty} B_i\Big) = \sum_{i=1}^{\infty} m(B_i)
+$$
+for pairwise disjoint Borel sets $B_1, B_2,\dots$
+
+End of detour.
 :::
-
