@@ -22,9 +22,9 @@ website:
 format:
   html:
     theme: cosmo
-    css: styles.css
+    css: assets/styles.css
     toc: true
     code-fold: true
     #code-tools: true
     lightbox: true
-    include-after-body: [calendar-include.html, tags-include.html]
+    include-after-body: [assets/calendar-include.html, assets/tags-include.html]

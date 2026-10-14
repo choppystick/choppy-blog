@@ -268,8 +268,8 @@ A sine wave has the special property where the bend at every position is proport
 Let's test this prediction by releasing two strings side by side: one shaped like the third mode, and one shaped like the triangle.
 
 ```{python}
-#|echo: false
-#|fig-cap: "Both strings over one full period of the open A string. The dashed line is each string's starting position."
+#| echo: false
+#| fig-cap: "Both strings over one full period of the open A string. The dashed line is each string's starting position."
 def animate_release(shapes, n_frames=60, interval=80):
     """Animate one period of motion for each initial shape in `shapes`."""
     xs = np.linspace(0, L, 501)
