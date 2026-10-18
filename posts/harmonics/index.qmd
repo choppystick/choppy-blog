@@ -8,8 +8,6 @@ bibliography: references.bib
 
 Pluck the open A string on a guitar, and a tuner will tell you it's 110 Hz, meaning the string swings up and down 110 times every second. This count is called the *frequency*.
 
-But run the same sound through a spectrum analyzer, a tool that splits a sound into its separate frequencies, and it turns out that a single note contains several frequencies at once: not just 110 Hz, but 220, 330 Hz, and so on.
-
 ```{python}
 #| echo: false
 #| warning: false
@@ -27,7 +25,7 @@ f1 = 110.0     # open A string, in Hz
 fs = 44100     # audio sample rate
 ```
 
-Here is a recording of an open A string, plucked three times. Its fundamental $f_1$ is 110 Hz, so we expect energy at $f_1, 2f_1, 3f_1, 4f_1, \ldots$, or at 110, 220, 330, 440 Hz and so on respectively.
+Here is a recording of the open A string, plucked three times. Its fundamental $f_1$ is 110 Hz, so we expect energy at $f_1, 2f_1, 3f_1, 4f_1, \ldots$, or at 110, 220, 330, 440 Hz and so on respectively.
 
 ```{python}
 #| echo: false
@@ -68,7 +66,7 @@ for n in range(1, int(4000 / f0) + 1):
 plt.show()
 ```
 
-The lowest of these, 110 Hz, is the *fundamental*, and it sets the pitch you hear. The rest, at whole-number multiples of it, are the *harmonics*, and are colors that set instruments apart.
+The lowest of these, 110 Hz, is the *fundamental*, and it sets the pitch you hear. The rest, at whole-number multiples of it, are the *harmonics*.
 
 This naturally raises two questions:
 
@@ -213,7 +211,7 @@ Hear me out before you get your pitchfork. It's not quite like that. Many of tho
 {{< video https://youtu.be/sYdXa_yp0fc?si=hYVm48Ne-3fn7DVE >}}
 :::
 
-So what does a plucked string really look like? Think about what your finger does. You are not shaking the string. You hook it with your finger, pull and let go. At that moment, the string forms a triangle: it is no longer a smooth curve, but two straight lines meeting at a corner, right where your finger is.
+So what does a plucked string really look like? Think about what your finger does. You are not shaking the string. You hook it with your finger, pull and let go. At that moment, the **string forms a triangle**: it is no longer a smooth curve, but two straight lines meeting at a corner, right where your finger is.
 
 ```{python}
 #| echo: false
@@ -252,7 +250,7 @@ plt.show()
 
 That corner is the key to unlocking the mystery behind harmonics. To see why, we first need a closer look at how a mode moves.
 
-A mode only ever gets taller, shorter, or flipped upside down. Freeze it at any moment and you'll see the same curve, just scaled. But at the end, it must return back to how it started. Therefore, **a mode at any moment is a scaled version of its initial and final displacement.** A sine wave is the only curve that has this special property.
+A mode only ever gets taller, shorter, or flipped upside down. Freeze it at any moment and you'll see the same curve, just scaled. But at the end, it must return back to how it started. Therefore, **a mode at any moment is a scaled version of its initial and final displacement.** And a sine wave is the only curve that has this special property.
 
 ::: {.callout-note collapse="false"}
 ## Why only a sine wave?
@@ -264,7 +262,7 @@ For a string to keep its shape, the pull has to be strongest where the string is
 A sine wave has the special property where the bend at every position is proportional to its height. It is most sharply bent at its peaks, and perfectly straight where it crosses the line. Therefore, **the force exerted toward the resting line is proportional to the height.**
 :::
 
-**However, the triangle is not a sine wave.** Look at the triangle, its straight sides feel no pull at all; the only bend is at the corner. As only at a bend is a force induced, the corner should start moving while the sides wait, and the triangle should not keep its shape.
+**However, the triangle is not a sine wave.** Furthermore, look at the triangle, its straight sides will not feel any pull; the only bend is at the corner. As a force is only induced at a bend, the corner should start moving while the sides wait, and the triangle wouldn't keep its shape.
 
 Let's test this prediction by releasing two strings side by side: one shaped like the third mode, and one shaped like the triangle.
 
@@ -305,49 +303,46 @@ shapes = {
 HTML(animate_release(shapes).to_jshtml(default_mode="loop"))
 ```
 
-The sine string behaves exactly as predicted: it only ever gets taller, shorter, or flipped. However, when the triangle is let go, its corner splits into two that run off in opposite directions, and the straight parts only start moving once a corner reaches them. Freeze it at any moment and you'll see a different shape, not a scaled triangle.
+The sine string behaves exactly as predicted: it only ever gets taller, shorter, or flipped. However, the triangle behaves completely different, its corner splits into two that run off in opposite directions, and the straight parts only start moving once a corner reaches them. Freeze it at any moment and you'll see a different shape, not a scaled triangle.
 
 But also, watch the clock. After exactly one period, about 9.1 ms, the two corners have bounced off the ends and met again where they started, and the triangle is back to its original shape again.
 
-So the triangle isn't a mode, yet its motion repeats at exactly the fundamental's rhythm like how a fundamental would. That is a hint of what the triangle is.
+So the triangle isn't a mode, yet its motion repeats at exactly the fundamental's rhythm like how a mode would. That is a hint of what the triangle might be.
 
 ## Fourier Series
-
 For some bookkeeping, we need to introduce a few formula.
 
 Suppose we pluck the string at position $p$, pulling it up to height $h$. The starting shape is a triangle (as shown in the demonstration before):
-
 $$
-\text{triangle}(x) =
+\varphi(x) = 
 \begin{cases}
 \dfrac{h\,x}{p}, & 0 \le x \le p \\[1.5ex]
 \dfrac{h\,(L - x)}{L - p}, & p < x \le L
 \end{cases}
 $$
-
-Recall that each mode is a sine wave with $n$ loops. The starting shape can be described as below:
+Recall that each mode is a sine wave with $n$ loops. The starting shape can be described as below. For the derivation, see [Appendix A](#appendix-A):
 
 $$
 X_n(x) = \sin\left(\frac{n\pi x}{L}\right)
 $$
 
-See [Appendix A](#appendix-A) for the derivation.
-
 In the 1750s, Daniel Bernoulli proposed that the motion of a string fixed at both ends is a sum of its modes. Not everyone was convinced, and Leonhard Euler and Jean d'Alembert certainly weren't.
 
 D’Alembert doubted that a corner was even allowed, since the equation for a vibrating string needs the string to be smoothly curved everywhere. Euler was happy to allow corners, after all, strings are plucked and harmonics are heard, but he couldn’t see how smooth sine waves could ever add up to one discontinued corners. If a finite sum of sines is smooth, then how can an infinite sum suddenly turn non-smooth? @papadopoulos2017riemann
 
-In the early 1800s, while studying how temperature changes over time inside a solid body, Joseph Fourier made an even bolder claim. He proposed that **any shape can be written as a sum of sines, including our triangle**. Mathematicians now call this a Fourier series. $$
-\text{triangle}(x) = b_1 \sin\!\left(\frac{\pi x}{L}\right) + b_2 \sin\!\left(\frac{2\pi x}{L}\right) + b_3 \sin\!\left(\frac{3\pi x}{L}\right) + \cdots = \sum_{n=1}^{\infty} b_n \sin\!\left(\frac{n\pi x}{L}\right)
+A breakthrough comes in the early 1800s. While studying how temperature changes over time inside a solid body, Joseph Fourier made an even bolder claim. He proposed that **any shape can be written as a sum of sines, including our triangle**. Mathematicians now call this a Fourier series.
+$$
+\varphi(x) = b_1 \sin\!\left(\frac{\pi x}{L}\right) + b_2 \sin\!\left(\frac{2\pi x}{L}\right) + b_3 \sin\!\left(\frac{3\pi x}{L}\right) + \cdots = \sum_{n=1}^{\infty} b_n \sin\!\left(\frac{n\pi x}{L}\right)
 $$
 
-Each $b_n$ describes how much of mode $n$ is in the triangle. In our case, we would like to find the different modes that together construct our triangle.
+Each $b_n$ describes how much of mode $n$ is in the triangle. 
+
+To reconstruct our triangle, we would need to find what is the contribution of each modes.
 
 To find one of them, say $b_3$, we need to isolate the third mode from all the others. We do this by exploiting a property of modes called *orthogonality*.
 
 ::: {.callout-tip collapse="true"}
 ## What is orthogonality?
-
 Take two functions $f$ and $g$ on the string, $0 \le x \le L$. Multiply their values at each point along the string, then add up all the results. This gives a single number, called the *inner product* $\langle f, g \rangle$, defined as the integral $\langle f, g \rangle = \int_0^L f(x)\,g(x)\,dx$. If $\langle f, g \rangle = 0$, we say $f$ and $g$ are *orthogonal*.
 
 The modes are orthogonal to each other: for two different modes, the positive and negative products cancel out exactly when added up. A mode paired with itself gives $\langle X_n, X_n \rangle = L/2$.
@@ -355,12 +350,12 @@ The modes are orthogonal to each other: for two different modes, the positive an
 For those familiar with linear algebra, this is the dot product $\mathbf{u} \cdot \mathbf{v} = \sum_i u_i v_i$, applied to functions. As an exercise, you can show that the continuous functions on $[0, L]$ form a vector space, and that $\langle \cdot, \cdot \rangle$ behaves like a dot product.
 :::
 
-Due to this special property, if we multiply the whole sum by $\sin\!\left(\frac{3\pi x}{L}\right)$ and add up the result along the string, every term except the third adds up to zero:
+Due to orthogonality, if we multiply the whole sum by $\sin\!\left(\frac{3\pi x}{L}\right)$ and add up the result along the string, every term except the third adds up to zero:
 
 $$
-\langle \text{triangle}, X_3 \rangle = b_3 \langle X_3, X_3 \rangle
+\langle \varphi, X_3 \rangle = b_3 \langle X_3, X_3 \rangle
 \quad\Longrightarrow\quad
-b_3 = \frac{\langle \text{triangle}, X_3 \rangle}{\langle X_3, X_3 \rangle} = \frac{\langle \text{triangle}, X_3 \rangle}{L/2}
+b_3 = \frac{\langle \varphi, X_3 \rangle}{\langle X_3, X_3 \rangle} = \frac{\langle \varphi, X_3 \rangle}{L/2}
 $$
 
 ::: {.callout-tip collapse="true"}
@@ -368,8 +363,7 @@ $$
 
 Let $\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3$ be the standard basis of $\mathbb{R}^3$. They are orthonormal: $\mathbf{e}_i \cdot \mathbf{e}_j = 0$ for $i \neq j$, and $\mathbf{e}_i \cdot \mathbf{e}_i = 1$. Any vector can be written as $\mathbf{v} = v_1 \mathbf{e}_1 + v_2 \mathbf{e}_2 + v_3 \mathbf{e}_3$, where $v_1, v_2, v_3$ are the scalar multiples.
 
-We can recover $v_2$ by taking the dot product with $\mathbf{e}_2$:/
-
+We can recover $v_2$ by taking the dot product with $\mathbf{e}_2$:
 $$
 \begin{aligned}
 \mathbf{v} \cdot \mathbf{e}_2 &= v_1 (\mathbf{e}_1 \cdot \mathbf{e}_2) + v_2 (\mathbf{e}_2 \cdot \mathbf{e}_2) + v_3 (\mathbf{e}_3 \cdot \mathbf{e}_2) \\
@@ -378,21 +372,20 @@ $$
 $$
 :::
 
-The same trick works for every mode, so we can find each $b_n$ one at a time:
+The same trick works for every mode, and we can derive a general formula for $b_n$:
 
 $$
 b_n = \frac{2}{L}\int_0^L \varphi(x)\,\sin\!\left(\frac{n\pi x}{L}\right)dx 
 $$
 
-Solving the integral numerically, we can now find out what are the different modes that contribute to our triangle.
+We can now solve this integral to find what each $b_n$ is.
 
 ## Simulating the harmonics
 
-Here are the first 16 mode for a string plucked a quarter of the way along, each scaled by its $b_n$. The black line is the triangle we want to build:
+With the general formula, here are the first 16 modes for a string plucked a quarter of the way along, each scaled by its $b_n$:
 
 ```{python}
 #| echo: false
-#| fig-cap: "The first 16 modes for a string plucked at 0.25, each scaled by its $b_n$. The black line is the triangle."
 N_MAX = 16
 MODES = np.array([np.sin(n * np.pi * x / L) for n in range(1, N_MAX + 1)])  # row n-1 = mode n
 tab20 = plt.cm.tab20.colors
@@ -461,11 +454,11 @@ ax.set(xlabel="position along string", ylabel="displacement of string")
 plt.tight_layout(); plt.show()
 ```
 
-The fundamental, the blue hump, is the largest, but it peaks in the middle of the string, not at the pluck point. This where the other modes, or harmonics come into play.
+The fundamental, the blue hump, is the largest, but it peaks in the middle of the string, not at the pluck point. This is where the other modes, or harmonics come into play.
 
 The 2nd mode, in orange, is much smaller. It is positive on the left half and negative on the right, so it pushes the shape up near the pluck point and down on the far side. The third mode is smaller again, and the higher harmonics shrink quickly. By the 16th they are barely visible.
 
-Now let see what happens if we add the modes one at a time. Every curve below adds one more mode to the curve before it. We should see that it starts converging into a triangle shape.
+Now let see what happens if we add the modes one at a time. Every curve below adds one more mode to the curve before it.
 
 ```{python}
 #| echo: false
@@ -481,7 +474,7 @@ plt.tight_layout(); plt.show()
 
 The fundamental alone is a poor match for the triangle, but adding the 2nd mode pulls the peak towards the pluck point. Every mode after that makes a smaller adjustment, which slowly pulls the string to the side of the triangle.
 
-The last part to form is the corner. Even with 16 modes, the peak is still slightly rounded. Whereas the smooth sides of the triangle need only a few modes, the sharp corner needs many high modes working together. This was the heart of Euler and d'Alembert's objection: no finite number of smooth sine waves can ever make a perfectly sharp corner.
+The last part to form is the corner. Even with 16 modes, the peak is still slightly rounded. Whereas the smooth sides of the triangle need only a few modes, the sharp corner needs many high modes working together. This was the heart of Euler and d'Alembert's objection: no finite number of smooth sine waves can ever make a perfectly sharp corner. At the same time, we see that we are getting closer to a triangle.
 
 But $b_n$ also depend on where the string is plucked. Change where you pluck and you change how much of each mode contributes to the triangle.
 
@@ -504,11 +497,11 @@ plt.tight_layout(); plt.show()
 
 You can try this right now at your guitar!
 
-Pluck an open string right next to the bridge and you get a harsh, pinched, twangy "eeee". The reason being that pluck point excites lots of high harmonics as the sharp corner is at the end of the string, just like the bottom panel shows. The fundamental carries a smaller share of the shape, and the higher harmonics carry much more, which together forms harshness.
+Pluck an open string right next to the bridge and you get a harsh, pinched, twangy "eeee". The reason being that pluck point excites lots of high harmonics as the sharp corner is at the end of the string. The fundamental carries a smaller share of the shape, and the higher harmonics carry much more, which together forms harshness.
 
-Now pluck the same string over the 12th fret, exactly halfway along. As every even harmonics has a note at the middle of the string, there is barely any even harmonics. The sound is dominated by the fundamental with little odds harmonics, and the curves settle onto the triangle almost immediately: this leads to a softer, rounder, hollow sound.
+Now pluck the same string over the 12th fret, exactly halfway along. The sound is dominated by the fundamental with little odds harmonics, and the curves settle onto the triangle almost immediately: this leads to a softer, rounder, hollow sound.
 
-But let's take Fourier's advice to heart and take the sum to infinity. While we cannot compute the sum to infinite modes, we can compute it until a large enough value:
+Remember that Fourier's claim is we must take the sum to infinite terms to make it exactly equal, so let's take his advice to heart and sum the terms to infinity. Of course, it is obvious that we cannot compute an infinite amount of modes, but we can just take it to a large enough term, say 100, 1,000 and 10,000 terms:
 
 ```{python}
 #| echo: false
@@ -535,59 +528,64 @@ fig.suptitle(f"Adding {Ns[0]:,} to {Ns[-1]:,} modes for three pluck points", fon
 plt.tight_layout(); plt.show()
 ```
 
-All it takes is just 10,000 modes and we are pretty much exact.
+All it takes is just 10,000 modes and we are pretty much exact. There wasn't even a need for infinity.
 
-At full size, the three curves are indistinguishable from the triangle. The only place they differ is the corner, so the panels on the right zoom in on it. With 100 modes the corner is still visibly rounded. With 1,000, there is only a small ripple . With 10,000 the curve is essentially indistinguishible.
+At full size, the three curves are indistinguishable from the triangle. The only place they differ is the corner, and it is only visible at 25x zoom. At 100 modes, the corner is still visibly rounded. At 1,000, there is a small ripple but otherwise quite close. At 10,000, the curve is indistinguishible.
 
-So that settles the old argument. Euler and d'Alembert were right that no finite number of smooth sine waves can make a perfectly sharp corner. But Fourier was right too: we just need an infinite amount of them.
+So that settles the old argument. Euler and d'Alembert were right that no finite number of smooth sine waves can make a perfectly sharp corner. But Fourier was right too: we just need an infinite amount of terms, or **at least a large enough amount of terms**.
 
 ## What even is infinite modes?
 
-Now I hear you ask: Are there really infinite modes in real life? Does infinity even exist and what even is that???
+Now I hear you ask: Does nature actually generate infinite modes at plucking? Wait a second, does infinity even exist and if it does, what does it even look like?
 
-For existence of infinity, I recommend you to consult your nearest philosophy professor. But I can answer the first question.
+For existence of infinity, I recommend you to consult your nearest philosophy professor or talk to a psychatrist. But the first question is answerable. We just need do some mathematics (actually physics.)
 
 ::: callout-warning
-## Beware. Heavy maths.
+## Beware. Heavy maths start here.
 :::
 
-Short answer: No, but for our ears it is good enough. Here's the long answer:
+So do infinite modes exist in real life?
 
-Our Fourier model treats the string as a *continuum*: matter fills space smoothly, infinitely divisible so we describe it with *densities*. For example, the mass of a piece of string between $a$ and $b$ is described as a mass density function:
+Short answer: No, but for our ears finite modes is already good enough even at small terms. Here's the long answer:
+
+Our Fourier model treats the string as a *continuum*: a state where matter fills space smoothly, is infinitely divisible and so describable with *densities*. For example, the mass of a piece of string between $a$ and $b$ is modeled as a mass density function:
 
 $$
 m_{[a,b]} = \int_{a}^{b} \mu(x)\,dx
 $$
 
-Every point $x$ along a continuum can move on its own, so the string has infinitely many degrees of freedom, and therefore infinitely many modes.
+Every point $x$ along a continuum can move on its own, such a string has infinitely many degrees of freedom, and therefore infinitely many modes.
 
-But these are just idealizations. A real string, however, is really atoms held together by electromagnetic forces.
+But these are just idealizations. A real string, however, is atoms held together by electromagnetic forces.
 
 As a first approximation though, we can model it as a chain of atoms of mass $M$, joined by massless springs with spring constant $\lambda$, with both ends fixed. Each moving atom is one degree of freedom, so **a chain of atoms has exactly as many modes as it has moving atoms**. If $N$ is the number of spacings between atoms, the frequency of mode $m$ is:
 
+:::{.callout-tip collapse="false"}
+## How is degree of freedom related to modes?
+it may be helpful to think of modes as the number of peaks. A peak can only be formed if there's an atom to create it.
+:::
 $$
 \omega_m = 2\sqrt{\frac{\lambda}{M}}\,\sin\!\left(\frac{m\pi}{2N}\right), \qquad m = 1, 2, \dots, N-1 .
 $$
 
 If we suppose $N$ to be some unimaginably big number, then for $m \ll N$, the chain is essentially smooth and under small-angle approximation, we have $\sin(\theta) \approx \theta$, so
-
 $$
 \omega_m \approx 2\sqrt{\frac{\lambda}{M}} \cdot \frac{m\pi}{2N} = m \cdot \underbrace{\frac{\pi}{N}\sqrt{\frac{\lambda}{M}}}_{\omega_1} = m \cdot \omega_1
 $$
 
-and we recover the harmonic series $f_m = mf_1$. Only when $m$ gets close enough to $N$ and the wavelength shrinks to just a few atoms, does the error become non-negligible.
+and we recover the harmonic series $f_m = mf_1$. It's only when $m$ gets close enough to $N$ and the wavelength shrinks to just a few atoms, does the error become non-negligible.
 
-**So how close is "close enough"?**
+**So how close is "close enough"?** Let's conduct a thought experiment.
 
-Take a 65 cm guitar string and assume that it is perfectly elastic. Its atoms are about 0.25 nm apart, so $N \approx 2.6 \times 10^9$. As the number of atoms determine the number of modes, the string only has a few billion modes.
+Take a 65 cm guitar string and assume that it is perfectly elastic. Its atoms are about 0.25 nm apart, so $N \approx 2.6 \times 10^9$. As the number of atoms determine the number of modes, the string has at most a few billion modes.
 
-In the best case, human hearing reaches about 20,000 Hz, so the highest harmonic you can hear on a 110 Hz string is at around $m = 181$. For that mode, $\theta \approx 1.09 \times 10^{-7}$. Expanding $\sin\theta$ as a Taylor series and taking its third order expansion, the relative error between the chain and the harmonic approximation is:
+In the best case, human hearing reaches about 20,000 Hz, so the highest harmonic you can hear on a 110 Hz string is at around $m = 181$. At that mode, $\theta = \frac{m\pi}{2M}\approx 1.09 \times 10^{-7}$. Expanding $\sin\theta$ as a Taylor series and taking its third order expansion, the relative error between the chain and the harmonic approximation is:
 
 $$
 \epsilon = \frac{\theta^2}{6} \approx 2.0 \times 10*^{-15}
 $$
 
-When we treat the string as a continuum by taking the harmonic approximation, the error in the audible range is right to 15 decimal places. The error only starts to stack up when we push far into inaudible territory like 1,000 modes or 10,000 modes.
+When we treat the string as a continuum by taking the harmonic approximation, the error in the audible range is right to 15 decimal places. The error only starts to stack up when we push far into inaudible territory like 1,000 modes, 10,000 modes, or higher.
 
 So yea, infinite mode is a fiction, but it's an extraordinarily good one.
 
@@ -631,9 +629,11 @@ $$
 
 (a) Show that $\mu$ is Borel-measurable.
 
-(b) Using (a), show that $m$ is a measure on the Borel sets by verifying the measure axioms, i.e. that $m(\varnothing) = 0$, $m(B) \ge 0$, and $$
-    m\Big(\bigcup_{i=1}^{\infty} B_i\Big) = \sum_{i=1}^{\infty} m(B_i)
-    $$ for pairwise disjoint Borel sets $B_1, B_2,\dots$
+(b) Using (a), show that $m$ is a measure on the Borel sets by verifying the measure axioms, i.e. that $m(\varnothing) = 0$, $m(B) \ge 0$, and 
+$$
+m\Big(\bigcup_{i=1}^{\infty} B_i\Big) = \sum_{i=1}^{\infty} m(B_i)
+$$ 
+for pairwise disjoint Borel sets $B_1, B_2,\dots$
 
 End of detour.
 :::
@@ -654,7 +654,7 @@ swing = np.cos(2 * np.pi * f1 * np.outer(times, n))
 shapes = b_exact(n, p_single)[:, None] * np.sin(np.outer(n, np.pi * x / L))
 sums = np.cumsum(swing[:, :, None] * shapes, axis=1)[:, np.array(sum_Ns) - 1]
 
-fig, (top, bot) = plt.subplots(2, 1, figsize=(9, 7), sharex=True, dpi=80, gridspec_kw={"height_ratios": [1.3, 1]})
+fig, (top, bot) = plt.subplots(2, 1, figsize=(10, 7), sharex=True, dpi=80, gridspec_kw={"height_ratios": [1.3, 1]})
 top.plot(x, triangle(x, p_single, h), color="grey", lw=1, ls="--")
 sum_lines = [top.plot(x, y, color=c, lw=1.6, label=f"{N} mode{'s' * (N > 1)}")[0] for N, y, c in zip(sum_Ns, sums[0], COLORS)]
 line, = top.plot(x, string[0], "k", lw=1.2, zorder=3, label="string")
@@ -678,11 +678,11 @@ plt.close(fig)
 HTML(anim.to_jshtml(default_mode="loop"))
 ```
 
-This is why a plucked string sounds the way it does. The string doesn't sound one frequency, but it sounds all of its harmonics at once: 110, 220, 330 Hz and up. The fundamental sets the pitch you hear, and the mix of the others, decided by where and how the string is plucked, sets its color.
+This is why a plucked string sounds the way it does. The string doesn't just sound one frequency, but also all of its harmonics at once: 110, 220, 330 Hz and up. The fundamental sets the pitch you hear, and the mix of the others, decided by where and how the string is plucked, sets its color.
 
 ## Appendix A: The Derivation of The String Formula {#appendix-a} 
 
-### The ideal string formula
+### Setting the initial boundary conditions
 Consider an ideal string of length $L$ and wave speed $v$, with displacement $u(x,t)$ and initial position $\varphi(x)$. A string under uniform tension, fixed at both ends and released from rest, satisfies
 
 $$
