@@ -192,6 +192,17 @@ window.Quarto = {
   <li><a href="#simulating-the-harmonics" id="toc-simulating-the-harmonics" class="nav-link" data-scroll-target="#simulating-the-harmonics">Simulating the harmonics</a></li>
   <li><a href="#what-even-is-infinite-modes" id="toc-what-even-is-infinite-modes" class="nav-link" data-scroll-target="#what-even-is-infinite-modes">What even is infinite modes?</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#appendix-a" id="toc-appendix-a" class="nav-link" data-scroll-target="#appendix-a">Appendix A: The Derivation of The String Formula</a>
+  <ul class="collapse">
+  <li><a href="#the-ideal-string-formula" id="toc-the-ideal-string-formula" class="nav-link" data-scroll-target="#the-ideal-string-formula">The ideal string formula</a></li>
+  <li><a href="#separation-of-variables" id="toc-separation-of-variables" class="nav-link" data-scroll-target="#separation-of-variables">Separation of variables</a></li>
+  <li><a href="#the-eigenvalue-problem" id="toc-the-eigenvalue-problem" class="nav-link" data-scroll-target="#the-eigenvalue-problem">The eigenvalue problem</a></li>
+  <li><a href="#recovering-the-time-component" id="toc-recovering-the-time-component" class="nav-link" data-scroll-target="#recovering-the-time-component">Recovering the time component</a></li>
+  <li><a href="#superposition-of-the-modes" id="toc-superposition-of-the-modes" class="nav-link" data-scroll-target="#superposition-of-the-modes">Superposition of the modes</a></li>
+  <li><a href="#applying-the-fourier-series" id="toc-applying-the-fourier-series" class="nav-link" data-scroll-target="#applying-the-fourier-series">Applying the fourier series</a></li>
+  <li><a href="#computing-a_n" id="toc-computing-a_n" class="nav-link" data-scroll-target="#computing-a_n">Computing <span class="math inline">\(A_n\)</span></a></li>
+  <li><a href="#proving-uniforming-convergence-of-the-series" id="toc-proving-uniforming-convergence-of-the-series" class="nav-link" data-scroll-target="#proving-uniforming-convergence-of-the-series">Proving uniforming convergence of the series</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -231,7 +242,7 @@ window.Quarto = {
 <p>Pluck the open A string on a guitar, and a tuner will tell you it’s 110 Hz, meaning the string swings up and down 110 times every second. This count is called the <em>frequency</em>.</p>
 <p>But run the same sound through a spectrum analyzer, a tool that splits a sound into its separate frequencies, and it turns out that a single note contains several frequencies at once: not just 110 Hz, but 220, 330 Hz, and so on.</p>
 <p>Here is a recording of an open A string, plucked three times. Its fundamental <span class="math inline">\(f_1\)</span> is 110 Hz, so we expect energy at <span class="math inline">\(f_1, 2f_1, 3f_1, 4f_1, \ldots\)</span>, or at 110, 220, 330, 440 Hz and so on respectively.</p>
-<div id="8a7bf6b6" class="cell" data-execution_count="2">
+<div id="4686ae9c" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 
                 <audio controls="controls">
@@ -242,7 +253,7 @@ window.Quarto = {
 </div>
 </div>
 <p>A spectrogram shows which frequencies are present at each moment, and brighter indicates higher energy. The dashed lines mark where the theoretical harmonics should be:</p>
-<div id="34bc157e" class="cell" data-execution_count="3">
+<div id="b5fbcf47" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -265,7 +276,7 @@ window.Quarto = {
 <p>If you shake it at just the right rhythm, the whole rope swings as one big loop. Shake twice as often and it snaps into two loops, with a point in the middle that stays still. Three times as often gives three loops. At any rates in between, no clean pattern builds up and the rope just jiggles. How often you shake is a frequency, and these special frequencies are exactly the fundamental and its harmonics.</p>
 <p>In physics, these patterns are called <em>modes</em>, and the points that never move, including the two ends, are called <em>nodes</em>. An up-loop followed by a down-loop makes one full wave, and its length is called the <em>wavelength</em> <span class="math inline">\(\lambda\)</span>. So one loop is half a wavelength.</p>
 <p>The figure below shows each mode as a snapshot. In reality, each loop keeps flipping between up and down, while the dots stay perfectly still.</p>
-<div id="c877ea49" class="cell" data-execution_count="5">
+<div id="152f36e8" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -294,7 +305,7 @@ window.Quarto = {
 <p>Notice that the frequencies in the graph, 110, 220, 330, 440 Hz, are all multiples of 110. So then, why specifically multiples?</p>
 <p>Suppose the string has length <span class="math inline">\(L\)</span>. Both ends are held fixed on the <em>resting line</em>, the straight line the string lies along when it’s still, so the wave pattern has to start and end on the ends.</p>
 <p>Starting from the resting line at the left end, the pattern only returns to it at the end of each loop. <strong>If the string’s length ended partway through a loop, the right end would be sitting above or below the line</strong>, which is physically impossible, as the ends are fixed.</p>
-<div id="1d551014" class="cell" data-execution_count="6">
+<div id="1bcf12b6" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -317,7 +328,7 @@ f_n = \frac{v}{\lambda_n} = \frac{v}{2L/n} = n \cdot \frac{v}{2L} = n f_1,
 \qquad\text{where } f_1 = \frac{v}{2L}.
 \]</span></p>
 <p>The speed <span class="math inline">\(v\)</span> and the length <span class="math inline">\(L\)</span> are fixed by the string, so only <span class="math inline">\(n\)</span> changes from mode to mode. For an ideal string, mode 2 therefore vibrates at exactly twice the frequency of mode 1, mode 3 at three times, and so on. (Real strings are slightly stiff, which nudges the higher harmonics a bit higher in frequency.) For our 110 Hz string, that gives 110, 220, 330 Hz.</p>
-<p>This is also why turning a tuning peg changes the pitch: <strong>tightening the string makes waves travel faster, which raises <span class="math inline">\(v\)</span>, and with it every <span class="math inline">\(f_n\)</span></strong>.</p>
+<p>This is also why turning a tuning peg changes the pitch: <strong>tightening the string makes waves travel faster, which raises</strong> <span class="math inline">\(v\)</span>, and with it every <span class="math inline">\(f_n\)</span>.</p>
 <p>That settles the first question: a string can only vibrate cleanly at <span class="math inline">\(f_1, 2f_1, 3f_1, \ldots\)</span>. But in the rope example we only saw these patterns one at a time, each at a rhythm we chose. When we pluck a string, all these modes appear at the same time, each at a different strength. So <strong>what’s happening?</strong></p>
 </section>
 <section id="where-are-the-harmonics-coming-from" class="level2">
@@ -342,7 +353,7 @@ f_n = \frac{v}{\lambda_n} = \frac{v}{2L/n} = n \cdot \frac{v}{2L} = n f_1,
 </div>
 </div>
 <p>So what does a plucked string really look like? Think about what your finger does. You are not shaking the string. You hook it with your finger, pull and let go. At that moment, the string forms a triangle: it is no longer a smooth curve, but two straight lines meeting at a corner, right where your finger is.</p>
-<div id="af6b04b7" class="cell" data-execution_count="7">
+<div id="ba97b6e3" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -374,7 +385,7 @@ f_n = \frac{v}{\lambda_n} = \frac{v}{2L/n} = n \cdot \frac{v}{2L} = n f_1,
 </div>
 <p><strong>However, the triangle is not a sine wave.</strong> Look at the triangle, its straight sides feel no pull at all; the only bend is at the corner. As only at a bend is a force induced, the corner should start moving while the sides wait, and the triangle should not keep its shape.</p>
 <p>Let’s test this prediction by releasing two strings side by side: one shaped like the third mode, and one shaped like the triangle.</p>
-<div id="53458744" class="cell" data-execution_count="8">
+<div id="ce104ef9" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display" data-execution_count="8">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -560,36 +571,36 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img0a5b797f1f154b73a0fd7a33c0c473c6">
+  <img id="_anim_imgebee4535a1644e74a535e004beb4b479">
   <div class="anim-controls">
-    <input id="_anim_slider0a5b797f1f154b73a0fd7a33c0c473c6" type="range" class="anim-slider" name="points" min="0" max="1" step="1" value="0" oninput="anim0a5b797f1f154b73a0fd7a33c0c473c6.set_frame(parseInt(this.value));">
+    <input id="_anim_sliderebee4535a1644e74a535e004beb4b479" type="range" class="anim-slider" name="points" min="0" max="1" step="1" value="0" oninput="animebee4535a1644e74a535e004beb4b479.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim0a5b797f1f154b73a0fd7a33c0c473c6.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="animebee4535a1644e74a535e004beb4b479.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim0a5b797f1f154b73a0fd7a33c0c473c6.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="animebee4535a1644e74a535e004beb4b479.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim0a5b797f1f154b73a0fd7a33c0c473c6.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="animebee4535a1644e74a535e004beb4b479.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim0a5b797f1f154b73a0fd7a33c0c473c6.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="animebee4535a1644e74a535e004beb4b479.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim0a5b797f1f154b73a0fd7a33c0c473c6.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="animebee4535a1644e74a535e004beb4b479.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim0a5b797f1f154b73a0fd7a33c0c473c6.play_animation()">
+      <button title="Play" aria-label="Play" onclick="animebee4535a1644e74a535e004beb4b479.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim0a5b797f1f154b73a0fd7a33c0c473c6.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="animebee4535a1644e74a535e004beb4b479.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim0a5b797f1f154b73a0fd7a33c0c473c6.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="animebee4535a1644e74a535e004beb4b479.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim0a5b797f1f154b73a0fd7a33c0c473c6.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="animebee4535a1644e74a535e004beb4b479.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select0a5b797f1f154b73a0fd7a33c0c473c6" class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_0a5b797f1f154b73a0fd7a33c0c473c6">
-      <label for="_anim_radio1_0a5b797f1f154b73a0fd7a33c0c473c6">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_0a5b797f1f154b73a0fd7a33c0c473c6" checked="">
-      <label for="_anim_radio2_0a5b797f1f154b73a0fd7a33c0c473c6">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_0a5b797f1f154b73a0fd7a33c0c473c6">
-      <label for="_anim_radio3_0a5b797f1f154b73a0fd7a33c0c473c6">Reflect</label>
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectebee4535a1644e74a535e004beb4b479" class="anim-state">
+      <input type="radio" name="state" value="once" id="_anim_radio1_ebee4535a1644e74a535e004beb4b479">
+      <label for="_anim_radio1_ebee4535a1644e74a535e004beb4b479">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_ebee4535a1644e74a535e004beb4b479" checked="">
+      <label for="_anim_radio2_ebee4535a1644e74a535e004beb4b479">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_ebee4535a1644e74a535e004beb4b479">
+      <label for="_anim_radio3_ebee4535a1644e74a535e004beb4b479">Reflect</label>
     </form>
   </div>
 </div>
@@ -599,9 +610,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img0a5b797f1f154b73a0fd7a33c0c473c6";
-    var slider_id = "_anim_slider0a5b797f1f154b73a0fd7a33c0c473c6";
-    var loop_select_id = "_anim_loop_select0a5b797f1f154b73a0fd7a33c0c473c6";
+    var img_id = "_anim_imgebee4535a1644e74a535e004beb4b479";
+    var slider_id = "_anim_sliderebee4535a1644e74a535e004beb4b479";
+    var loop_select_id = "_anim_loop_selectebee4535a1644e74a535e004beb4b479";
     var frames = new Array(60);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAAFACAYAAABEGxgbAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -35301,7 +35312,7 @@ iIg8hgEIERERERF5DAMQIiIiIiIST/n/AFhLOnYpW8UvAAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim0a5b797f1f154b73a0fd7a33c0c473c6 = new Animation(frames, img_id, slider_id, 80.0,
+        animebee4535a1644e74a535e004beb4b479 = new Animation(frames, img_id, slider_id, 80.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -35328,22 +35339,7 @@ iIg8hgEIERERERF5DAMQIiIiIiIST/n/AFhLOnYpW8UvAAAAAElFTkSuQmCC\
 <p><span class="math display">\[
 X_n(x) = \sin\left(\frac{n\pi x}{L}\right)
 \]</span></p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Derivation of the shape formula:
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Transcribing to Latex will take forever.</p>
-</div>
-</div>
-</div>
+<p>See <a href="#appendix-A">Appendix A</a> for the derivation.</p>
 <p>In the 1750s, Daniel Bernoulli proposed that the motion of a string fixed at both ends is a sum of its modes. Not everyone was convinced, and Leonhard Euler and Jean d’Alembert certainly weren’t.</p>
 <p>D’Alembert doubted that a corner was even allowed, since the equation for a vibrating string needs the string to be smoothly curved everywhere. Euler was happy to allow corners, after all, strings are plucked and harmonics are heard, but he couldn’t see how smooth sine waves could ever add up to one discontinued corners. If a finite sum of sines is smooth, then how can an infinite sum suddenly turn non-smooth? <span class="citation" data-cites="papadopoulos2017riemann"><a href="#ref-papadopoulos2017riemann" role="doc-biblioref">[1]</a></span></p>
 <p>In the early 1800s, while studying how temperature changes over time inside a solid body, Joseph Fourier made an even bolder claim. He proposed that <strong>any shape can be written as a sum of sines, including our triangle</strong>. Mathematicians now call this a Fourier series. <span class="math display">\[
@@ -35352,7 +35348,7 @@ X_n(x) = \sin\left(\frac{n\pi x}{L}\right)
 <p>Each <span class="math inline">\(b_n\)</span> describes how much of mode <span class="math inline">\(n\)</span> is in the triangle. In our case, we would like to find the different modes that together construct our triangle.</p>
 <p>To find one of them, say <span class="math inline">\(b_3\)</span>, we need to isolate the third mode from all the others. We do this by exploiting a property of modes called <em>orthogonality</em>.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -35361,7 +35357,7 @@ X_n(x) = \sin\left(\frac{n\pi x}{L}\right)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Take two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> on the string, <span class="math inline">\(0 \le x \le L\)</span>. Multiply their values at each point along the string, then add up all the results. This gives a single number, called the <em>inner product</em> <span class="math inline">\(\langle f, g \rangle\)</span>, defined as the integral <span class="math inline">\(\langle f, g \rangle = \int_0^L f(x)\,g(x)\,dx\)</span>. If <span class="math inline">\(\langle f, g \rangle = 0\)</span>, we say <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are <em>orthogonal</em>.</p>
 <p>The modes are orthogonal to each other: for two different modes, the positive and negative products cancel out exactly when added up. A mode paired with itself gives <span class="math inline">\(\langle X_n, X_n \rangle = L/2\)</span>.</p>
@@ -35376,7 +35372,7 @@ X_n(x) = \sin\left(\frac{n\pi x}{L}\right)
 b_3 = \frac{\langle \text{triangle}, X_3 \rangle}{\langle X_3, X_3 \rangle} = \frac{\langle \text{triangle}, X_3 \rangle}{L/2}
 \]</span></p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -35385,10 +35381,10 @@ b_3 = \frac{\langle \text{triangle}, X_3 \rangle}{\langle X_3, X_3 \rangle} = \f
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Let <span class="math inline">\(\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3\)</span> be the standard basis of <span class="math inline">\(\mathbb{R}^3\)</span>. They are orthonormal: <span class="math inline">\(\mathbf{e}_i \cdot \mathbf{e}_j = 0\)</span> for <span class="math inline">\(i \neq j\)</span>, and <span class="math inline">\(\mathbf{e}_i \cdot \mathbf{e}_i = 1\)</span>. Any vector can be written as <span class="math inline">\(\mathbf{v} = v_1 \mathbf{e}_1 + v_2 \mathbf{e}_2 + v_3 \mathbf{e}_3\)</span>, where <span class="math inline">\(v_1, v_2, v_3\)</span> are the scalar multiples.</p>
-<p>We can recover <span class="math inline">\(v_2\)</span> by taking the dot product with <span class="math inline">\(\mathbf{e}_2\)</span>:</p>
+<p>We can recover <span class="math inline">\(v_2\)</span> by taking the dot product with <span class="math inline">\(\mathbf{e}_2\)</span>:/</p>
 <p><span class="math display">\[
 \begin{aligned}
 \mathbf{v} \cdot \mathbf{e}_2 &amp;= v_1 (\mathbf{e}_1 \cdot \mathbf{e}_2) + v_2 (\mathbf{e}_2 \cdot \mathbf{e}_2) + v_3 (\mathbf{e}_3 \cdot \mathbf{e}_2) \\
@@ -35407,7 +35403,7 @@ b_n = \frac{2}{L}\int_0^L \varphi(x)\,\sin\!\left(\frac{n\pi x}{L}\right)dx
 <section id="simulating-the-harmonics" class="level2">
 <h2 class="anchored" data-anchor-id="simulating-the-harmonics">Simulating the harmonics</h2>
 <p>Here are the first 16 mode for a string plucked a quarter of the way along, each scaled by its <span class="math inline">\(b_n\)</span>. The black line is the triangle we want to build:</p>
-<div id="c07a3ed8" class="cell" data-execution_count="10">
+<div id="85261f1e" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -35420,7 +35416,7 @@ b_n = \frac{2}{L}\int_0^L \varphi(x)\,\sin\!\left(\frac{n\pi x}{L}\right)dx
 <p>The fundamental, the blue hump, is the largest, but it peaks in the middle of the string, not at the pluck point. This where the other modes, or harmonics come into play.</p>
 <p>The 2nd mode, in orange, is much smaller. It is positive on the left half and negative on the right, so it pushes the shape up near the pluck point and down on the far side. The third mode is smaller again, and the higher harmonics shrink quickly. By the 16th they are barely visible.</p>
 <p>Now let see what happens if we add the modes one at a time. Every curve below adds one more mode to the curve before it. We should see that it starts converging into a triangle shape.</p>
-<div id="0e1b0e46" class="cell" data-execution_count="11">
+<div id="ea7f6c53" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -35433,7 +35429,7 @@ b_n = \frac{2}{L}\int_0^L \varphi(x)\,\sin\!\left(\frac{n\pi x}{L}\right)dx
 <p>The fundamental alone is a poor match for the triangle, but adding the 2nd mode pulls the peak towards the pluck point. Every mode after that makes a smaller adjustment, which slowly pulls the string to the side of the triangle.</p>
 <p>The last part to form is the corner. Even with 16 modes, the peak is still slightly rounded. Whereas the smooth sides of the triangle need only a few modes, the sharp corner needs many high modes working together. This was the heart of Euler and d’Alembert’s objection: no finite number of smooth sine waves can ever make a perfectly sharp corner.</p>
 <p>But <span class="math inline">\(b_n\)</span> also depend on where the string is plucked. Change where you pluck and you change how much of each mode contributes to the triangle.</p>
-<div id="7a2cf2d8" class="cell" data-execution_count="12">
+<div id="d1e34fde" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -35447,7 +35443,7 @@ b_n = \frac{2}{L}\int_0^L \varphi(x)\,\sin\!\left(\frac{n\pi x}{L}\right)dx
 <p>Pluck an open string right next to the bridge and you get a harsh, pinched, twangy “eeee”. The reason being that pluck point excites lots of high harmonics as the sharp corner is at the end of the string, just like the bottom panel shows. The fundamental carries a smaller share of the shape, and the higher harmonics carry much more, which together forms harshness.</p>
 <p>Now pluck the same string over the 12th fret, exactly halfway along. As every even harmonics has a note at the middle of the string, there is barely any even harmonics. The sound is dominated by the fundamental with little odds harmonics, and the curves settle onto the triangle almost immediately: this leads to a softer, rounder, hollow sound.</p>
 <p>But let’s take Fourier’s advice to heart and take the sum to infinity. While we cannot compute the sum to infinite modes, we can compute it until a large enough value:</p>
-<div id="802edbc2" class="cell" data-execution_count="13">
+<div id="132141ce" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -35503,7 +35499,7 @@ m_{[a,b]} = \int_{a}^{b} \mu(x)\,dx
 <p>When we treat the string as a continuum by taking the harmonic approximation, the error in the audible range is right to 15 decimal places. The error only starts to stack up when we push far into inaudible territory like 1,000 modes or 10,000 modes.</p>
 <p>So yea, infinite mode is a fiction, but it’s an extraordinarily good one.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -35512,7 +35508,7 @@ m_{[a,b]} = \int_{a}^{b} \mu(x)\,dx
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>For those with experience in probabilistic measure theory, the mass density function is within the same family of functions as the probability density function:</p>
 <p><span class="math display">\[
@@ -35552,7 +35548,7 @@ m\Big(\bigcup_{i=1}^{\infty} B_i\Big) = \sum_{i=1}^{\infty} m(B_i)
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 <p>We conclude with this beauty here.</p>
-<div id="c0d8bf69" class="cell" data-execution_count="14">
+<div id="ff1e0906" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display" data-execution_count="14">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -35738,36 +35734,36 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img3e7d6b69987a4ccc933c1a97c69dd8e9">
+  <img id="_anim_imgab8c5d88aba64fb88eaf10b860f497f0">
   <div class="anim-controls">
-    <input id="_anim_slider3e7d6b69987a4ccc933c1a97c69dd8e9" type="range" class="anim-slider" name="points" min="0" max="1" step="1" value="0" oninput="anim3e7d6b69987a4ccc933c1a97c69dd8e9.set_frame(parseInt(this.value));">
+    <input id="_anim_sliderab8c5d88aba64fb88eaf10b860f497f0" type="range" class="anim-slider" name="points" min="0" max="1" step="1" value="0" oninput="animab8c5d88aba64fb88eaf10b860f497f0.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim3e7d6b69987a4ccc933c1a97c69dd8e9.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="animab8c5d88aba64fb88eaf10b860f497f0.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim3e7d6b69987a4ccc933c1a97c69dd8e9.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="animab8c5d88aba64fb88eaf10b860f497f0.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim3e7d6b69987a4ccc933c1a97c69dd8e9.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="animab8c5d88aba64fb88eaf10b860f497f0.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim3e7d6b69987a4ccc933c1a97c69dd8e9.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="animab8c5d88aba64fb88eaf10b860f497f0.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim3e7d6b69987a4ccc933c1a97c69dd8e9.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="animab8c5d88aba64fb88eaf10b860f497f0.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim3e7d6b69987a4ccc933c1a97c69dd8e9.play_animation()">
+      <button title="Play" aria-label="Play" onclick="animab8c5d88aba64fb88eaf10b860f497f0.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim3e7d6b69987a4ccc933c1a97c69dd8e9.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="animab8c5d88aba64fb88eaf10b860f497f0.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim3e7d6b69987a4ccc933c1a97c69dd8e9.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="animab8c5d88aba64fb88eaf10b860f497f0.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim3e7d6b69987a4ccc933c1a97c69dd8e9.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="animab8c5d88aba64fb88eaf10b860f497f0.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select3e7d6b69987a4ccc933c1a97c69dd8e9" class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_3e7d6b69987a4ccc933c1a97c69dd8e9">
-      <label for="_anim_radio1_3e7d6b69987a4ccc933c1a97c69dd8e9">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_3e7d6b69987a4ccc933c1a97c69dd8e9" checked="">
-      <label for="_anim_radio2_3e7d6b69987a4ccc933c1a97c69dd8e9">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_3e7d6b69987a4ccc933c1a97c69dd8e9">
-      <label for="_anim_radio3_3e7d6b69987a4ccc933c1a97c69dd8e9">Reflect</label>
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectab8c5d88aba64fb88eaf10b860f497f0" class="anim-state">
+      <input type="radio" name="state" value="once" id="_anim_radio1_ab8c5d88aba64fb88eaf10b860f497f0">
+      <label for="_anim_radio1_ab8c5d88aba64fb88eaf10b860f497f0">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_ab8c5d88aba64fb88eaf10b860f497f0" checked="">
+      <label for="_anim_radio2_ab8c5d88aba64fb88eaf10b860f497f0">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_ab8c5d88aba64fb88eaf10b860f497f0">
+      <label for="_anim_radio3_ab8c5d88aba64fb88eaf10b860f497f0">Reflect</label>
     </form>
   </div>
 </div>
@@ -35777,9 +35773,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img3e7d6b69987a4ccc933c1a97c69dd8e9";
-    var slider_id = "_anim_slider3e7d6b69987a4ccc933c1a97c69dd8e9";
-    var loop_select_id = "_anim_loop_select3e7d6b69987a4ccc933c1a97c69dd8e9";
+    var img_id = "_anim_imgab8c5d88aba64fb88eaf10b860f497f0";
+    var slider_id = "_anim_sliderab8c5d88aba64fb88eaf10b860f497f0";
+    var loop_select_id = "_anim_loop_selectab8c5d88aba64fb88eaf10b860f497f0";
     var frames = new Array(72);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAtAAAAIwCAYAAACvE1weAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -97948,7 +97944,7 @@ IYQQQgghikACWgghhBBCiCKQgBZCCCGEEKIIJKCFEEIIIYQoAgloIYQQQgghikACWgghhBBCCOw+\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim3e7d6b69987a4ccc933c1a97c69dd8e9 = new Animation(frames, img_id, slider_id, 59.0,
+        animab8c5d88aba64fb88eaf10b860f497f0 = new Animation(frames, img_id, slider_id, 59.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -97956,10 +97952,208 @@ IYQQQgghikACWgghhBBCiCKQgBZCCCGEEKIIJKCFEEIIIYQoAgloIYQQQgghikACWgghhBBCCOw+\
 <p>One full period of an ideal string. Top: the string (black) and the sum of the first 1, 3, and 12 modes. Bottom: the first 16 modes, each oscillating at <span class="math inline">\(n \times 110\)</span> Hz.</p>
 </div>
 </div>
-<p>This is why a plucked string sounds the way it does. The string doesn’t sound one frequency, but it sounds all of its harmonics at once: 110, 220, 330 Hz and up. The fundamental sets the pitch you hear, and the mix of the others, decided by where and how the string is plucked, sets its colour.</p>
+<p>This is why a plucked string sounds the way it does. The string doesn’t sound one frequency, but it sounds all of its harmonics at once: 110, 220, 330 Hz and up. The fundamental sets the pitch you hear, and the mix of the others, decided by where and how the string is plucked, sets its color.</p>
+</section>
+<section id="appendix-a" class="level2">
+<h2 class="anchored" data-anchor-id="appendix-a">Appendix A: The Derivation of The String Formula</h2>
+<section id="the-ideal-string-formula" class="level3">
+<h3 class="anchored" data-anchor-id="the-ideal-string-formula">The ideal string formula</h3>
+<p>Consider an ideal string of length <span class="math inline">\(L\)</span> and wave speed <span class="math inline">\(v\)</span>, with displacement <span class="math inline">\(u(x,t)\)</span> and initial position <span class="math inline">\(\varphi(x)\)</span>. A string under uniform tension, fixed at both ends and released from rest, satisfies</p>
+<p><span id="eq-ibvp"><span class="math display">\[
+\begin{cases}
+\dfrac{\partial^2 u}{\partial t^2} = v^2\dfrac{\partial^2 u}{\partial x^2}, &amp; 0&lt;x&lt;L,\ t&gt;0,\\[1.5ex]
+u(0,t) = u(L,t) = 0, &amp; t \ge 0,\\[1ex]
+u(x,0) = \varphi(x),\quad \dfrac{\partial u}{\partial t}(x,0) = 0, &amp; 0 \le x \le L.
+\end{cases}
+\tag{1}\]</span></span></p>
+<p>We propose an ansatz of the form <span class="math inline">\(u(x,t) = X(x)\,\Theta(t)\)</span>, where <span class="math inline">\(X\)</span> is the shape of the string and <span class="math inline">\(\Theta\)</span> is the scaling of the shape in time.</p>
+</section>
+<section id="separation-of-variables" class="level3">
+<h3 class="anchored" data-anchor-id="separation-of-variables">Separation of variables</h3>
+<p>With <span class="math inline">\(u(x,t) = X(x)\Theta(t)\)</span>, <span class="math display">\[
+\frac{\partial^2 u}{\partial t^2} = X(x)\,\Theta''(t), \qquad \frac{\partial^2 u}{\partial x^2} = X''(x)\,\Theta(t),
+\]</span></p>
+<p>so the wave equation becomes <span class="math display">\[
+X(x)\,\Theta''(t) = v^2\,X''(x)\,\Theta(t).
+\]</span></p>
+<p>Dividing by <span class="math inline">\(v^2 X(x)\Theta(t)\)</span> wherever it is non-zero, <span class="math display">\[
+\frac{X''(x)}{X(x)} = \frac{1}{v^2}\,\frac{\Theta''(t)}{\Theta(t)}.
+\]</span></p>
+<p>The left side depends only on <span class="math inline">\(x\)</span> and the right side only on <span class="math inline">\(t\)</span>.</p>
+<div id="lem-separation" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 1</strong></span> If <span class="math inline">\(g(x) = h(t)\)</span> for all <span class="math inline">\(x\)</span> and <span class="math inline">\(t\)</span>, then <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span> are equal to the same constant.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Fix <span class="math inline">\(x = x_0\)</span>. Then <span class="math inline">\(h(t) = g(x_0) =: a\)</span> for all <span class="math inline">\(t\)</span>. Fix <span class="math inline">\(t = t_0\)</span>. Then <span class="math inline">\(g(x) = h(t_0) =: b\)</span> for all <span class="math inline">\(x\)</span>. Hence <span class="math inline">\(b = g(x) = h(t) = a\)</span>, and <span class="math inline">\(g(x) = h(t) = a\)</span> for all <span class="math inline">\(x, t\)</span>.</p>
+</div>
+<p>By <a href="#lem-separation" class="quarto-xref">Lemma&nbsp;1</a>, both sides equal a constant <span class="math inline">\(\sigma\)</span>: <span class="math display">\[
+X''(x) = \sigma X(x), \qquad \Theta''(t) = \sigma v^2\,\Theta(t).
+\]</span></p>
+<p>The boundary conditions give <span class="math inline">\(X(0)\Theta(t) = X(L)\Theta(t) = 0\)</span> for all <span class="math inline">\(t\)</span>. If <span class="math inline">\(\Theta \equiv 0\)</span> then <span class="math inline">\(u \equiv 0\)</span>, so for a non-trivial solution there is some <span class="math inline">\(t\)</span> with <span class="math inline">\(\Theta(t) \neq 0\)</span>, and therefore <span class="math inline">\(X(0) = X(L) = 0\)</span>. Thus <span class="math inline">\(X\)</span> must satisfy <span id="eq-evp"><span class="math display">\[
+X''(x) = \sigma X(x), \qquad X(0) = X(L) = 0.
+\tag{2}\]</span></span></p>
+</section>
+<section id="the-eigenvalue-problem" class="level3">
+<h3 class="anchored" data-anchor-id="the-eigenvalue-problem">The eigenvalue problem</h3>
+<p><a href="#eq-evp" class="quarto-xref">Equation&nbsp;2</a> always has the trivial solution <span class="math inline">\(X \equiv 0\)</span>, but that gives <span class="math inline">\(u \equiv 0\)</span>, a string that never moves.</p>
+<p>The question is therefore for which values of <span class="math inline">\(\sigma\)</span> there is a solution <span class="math inline">\(X \not\equiv 0\)</span>. This is an eigenvalue problem: writing <span class="math inline">\(D = \mathrm{d}^2/\mathrm{d}x^2\)</span> for the operator acting on functions that vanish at <span class="math inline">\(0\)</span> and <span class="math inline">\(L\)</span>, <a href="#eq-evp" class="quarto-xref">Equation&nbsp;2</a> reads <span class="math inline">\(DX = \sigma X\)</span>, the analogue of <span class="math inline">\(A\mathbf{v} = \lambda\mathbf{v}\)</span> for a matrix. The admissible <span class="math inline">\(\sigma\)</span> are the eigenvalues and the corresponding <span class="math inline">\(X\)</span> the eigenfunctions. We treat three possible cases of <span class="math inline">\(\sigma\)</span> separately and discard cases that leads to the trivial solution of <span class="math inline">\(X \equiv 0\)</span></p>
+<p><strong>Case 1:</strong> <span class="math inline">\(\sigma &gt; 0\)</span>. Write <span class="math inline">\(\sigma = \mu^2\)</span> with <span class="math inline">\(\mu &gt; 0\)</span>. Trying <span class="math inline">\(X = e^{rx}\)</span> gives <span class="math inline">\(r^2 = \mu^2\)</span>, so <span class="math inline">\(r = \pm\mu\)</span>, and the general solution is</p>
+<p><span class="math display">\[
+X(x) = Ce^{\mu x} + De^{-\mu x}.
+\]</span></p>
+<p>Since <span class="math inline">\(\cosh s + \sinh s = e^{s}\)</span> and <span class="math inline">\(\cosh s - \sinh s = e^{-s}\)</span>,</p>
+<p><span class="math display">\[
+X(x) = (C+D)\cosh\mu x + (C-D)\sinh\mu x = A\cosh\mu x + B\sinh\mu x.
+\]</span></p>
+<p>Then <span class="math inline">\(X(0) = A = 0\)</span>, and <span class="math inline">\(X(L) = B\sinh\mu L = 0\)</span>. Since <span class="math inline">\(\mu L &gt; 0\)</span>, <span class="math display">\[
+\sinh\mu L = \frac{e^{\mu L} - e^{-\mu L}}{2} &gt; 0,
+\]</span></p>
+<p>so <span class="math inline">\(B = 0\)</span> and <span class="math inline">\(X \equiv 0\)</span>.</p>
+<p><strong>Case 2:</strong> <span class="math inline">\(\sigma = 0\)</span>. Then <span class="math inline">\(X'' = 0\)</span>, so <span class="math inline">\(X(x) = A + Cx\)</span>. From <span class="math inline">\(X(0) = 0\)</span> we get <span class="math inline">\(A = 0\)</span>, and from <span class="math inline">\(X(L) = CL = 0\)</span> with <span class="math inline">\(L &gt; 0\)</span> we get <span class="math inline">\(C = 0\)</span>. So <span class="math inline">\(X \equiv 0\)</span>.</p>
+<p><strong>Case 3:</strong> <span class="math inline">\(\sigma &lt; 0\)</span>. Write <span class="math inline">\(\sigma = -k^2\)</span> with <span class="math inline">\(k &gt; 0\)</span>. Trying <span class="math inline">\(X = e^{rx}\)</span> gives <span class="math inline">\(r^2 = -k^2\)</span>, so <span class="math inline">\(r = \pm ik\)</span>. By Euler’s formula <span class="math inline">\(e^{\pm ikx} = \cos kx \pm i\sin kx\)</span>,</p>
+<p><span class="math display">\[
+\begin{aligned}
+X(x) &amp;= Ce^{ikx} + De^{-ikx} \\
+&amp;= (C+D)\cos kx + i(C-D)\sin kx \\
+&amp;= A\cos kx + B\sin kx.
+\end{aligned}
+\]</span></p>
+<p>From <span class="math inline">\(X(0) = A = 0\)</span>, and then <span class="math inline">\(X(L) = B\sin kL = 0\)</span>. A non-trivial solution requires <span class="math inline">\(B \neq 0\)</span>, hence <span class="math inline">\(\sin kL = 0\)</span>. The zeros of <span class="math inline">\(\sin\)</span> are exactly the integer multiples of <span class="math inline">\(\pi\)</span>, so <span class="math inline">\(kL = n\pi\)</span>, and since <span class="math inline">\(k &gt; 0\)</span>, <span class="math display">\[
+k = \frac{n\pi}{L}, \qquad n = 1, 2, 3, \dots
+\]</span></p>
+<p>The eigenvalues and eigenfunctions are therefore</p>
+<p><span class="math display">\[
+\sigma_n = -\left(\frac{n\pi}{L}\right)^2, \qquad X_n(x) = \sin\left(\frac{n\pi x}{L}\right), \qquad n = 1, 2, 3, \dots
+\]</span></p>
+</section>
+<section id="recovering-the-time-component" class="level3">
+<h3 class="anchored" data-anchor-id="recovering-the-time-component">Recovering the time component</h3>
+<p>With <span class="math inline">\(\sigma = \sigma_n\)</span>, the time equation is</p>
+<p><span class="math display">\[
+\Theta_n''(t) = \sigma_n v^2\,\Theta_n(t) = -\omega_n^2\,\Theta_n(t), \qquad \omega_n := \frac{n\pi v}{L} &gt; 0,
+\]</span></p>
+<p>with general solution <span class="math display">\[
+\Theta_n(t) = A_n\cos\omega_n t + B_n\sin\omega_n t.
+\]</span></p>
+<p>The initial velocity condition gives <span class="math inline">\(X_n(x)\,\Theta_n'(0) = 0\)</span> for all <span class="math inline">\(x\)</span>, and <span class="math inline">\(X_n \not\equiv 0\)</span>, so <span class="math inline">\(\Theta_n'(0) = 0\)</span>. Since <span class="math display">\[
+\Theta_n'(t) = -A_n\omega_n\sin\omega_n t + B_n\omega_n\cos\omega_n t,
+\]</span></p>
+<p>we have <span class="math inline">\(\Theta_n'(0) = B_n\omega_n = 0\)</span>, and as <span class="math inline">\(\omega_n &gt; 0\)</span>, <span class="math inline">\(B_n = 0\)</span>. Hence <span class="math inline">\(\Theta_n(t) = A_n\cos\omega_n t\)</span>, and each mode is <span class="math display">\[
+u_n(x,t) = A_n\sin\left(\frac{n\pi x}{L}\right)\cos\left(\frac{n\pi v}{L}\,t\right), \qquad n = 1, 2, 3, \dots
+\]</span></p>
+<p>Mode <span class="math inline">\(n\)</span> oscillates at frequency <span class="math inline">\(f_n = \omega_n / 2\pi = nv/2L = n f_1\)</span>.</p>
+</section>
+<section id="superposition-of-the-modes" class="level3">
+<h3 class="anchored" data-anchor-id="superposition-of-the-modes">Superposition of the modes</h3>
+<p>Each <span class="math inline">\(u_n\)</span> satisfies the wave equation, the boundary conditions and the zero initial velocity. Since these are linear and homogeneous, so does any finite sum of the <span class="math inline">\(u_n\)</span>. We seek the solution as <span id="eq-series"><span class="math display">\[
+u(x,t) = \sum_{n=1}^{\infty} A_n\sin\left(\frac{n\pi x}{L}\right)\cos\omega_n t.
+\tag{3}\]</span></span></p>
+<p>At <span class="math inline">\(t = 0\)</span> this requires <span id="eq-initial"><span class="math display">\[
+\varphi(x) = \sum_{n=1}^{\infty} A_n\sin\left(\frac{n\pi x}{L}\right).
+\tag{4}\]</span></span></p>
+<p>For a string plucked to height <span class="math inline">\(h \neq 0\)</span> at the point <span class="math inline">\(x = p\)</span>, with <span class="math inline">\(0 &lt; p &lt; L\)</span>, the initial position is the triangle <span class="math display">\[
+\varphi(x) = \begin{cases}
+hx/p, &amp; 0 \le x \le p,\\
+h(L-x)/(L-p), &amp; p &lt; x \le L.
+\end{cases}
+\]</span></p>
+<p>To compute <span class="math inline">\(A_n\)</span>, we will make sure of the orthogonality of the modes.</p>
+<div id="def-inner-product" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1</strong></span> For continuous functions <span class="math inline">\(f, g\)</span> on <span class="math inline">\([0,L]\)</span>, the inner product is</p>
+<p><span class="math display">\[
+\langle f, g\rangle = \int_0^L f(x)\,g(x)\,\mathrm{d}x.
+\]</span></p>
+<p>If <span class="math inline">\(\langle f, g\rangle = 0\)</span>, then <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are orthogonal.</p>
+</div>
+<div id="lem-orthogonality" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 2</strong></span> For positive integers <span class="math inline">\(m, n\)</span>, <span class="math display">\[
+\int_0^L \sin\left(\frac{m\pi x}{L}\right)\sin\left(\frac{n\pi x}{L}\right)\mathrm{d}x =
+\begin{cases} 0, &amp; m \neq n,\\ L/2, &amp; m = n. \end{cases}
+\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>By the product-to-sum identity <span class="math inline">\(\sin a\sin b = \tfrac12\bigl(\cos(a-b) - \cos(a+b)\bigr)\)</span>, <span class="math display">\[
+\sin\left(\frac{m\pi x}{L}\right)\sin\left(\frac{n\pi x}{L}\right)
+= \frac12\left(\cos\left(\frac{(m-n)\pi x}{L}\right) - \cos\left(\frac{(m+n)\pi x}{L}\right)\right).
+\]</span></p>
+<p>For any non-zero integer <span class="math inline">\(k\)</span>, <span class="math display">\[
+\int_0^L \cos\left(\frac{k\pi x}{L}\right)\mathrm{d}x = \frac{L\sin(k\pi)}{k\pi} = 0.
+\]</span></p>
+<p><em>Case</em> <span class="math inline">\(m \neq n\)</span>. Both <span class="math inline">\(m - n\)</span> and <span class="math inline">\(m + n\)</span> are non-zero integers, so both cosine terms integrate to <span class="math inline">\(0\)</span>.</p>
+<p><em>Case</em> <span class="math inline">\(m = n\)</span>. Then <span class="math inline">\(\cos\bigl((m-n)\pi x/L\bigr) = 1\)</span>, while <span class="math inline">\(m + n = 2n\)</span> is a non-zero integer, so</p>
+<p><span class="math display">\[
+\int_0^L \left(\frac12 - \frac12\cos\left(\frac{2n\pi x}{L}\right)\right)\mathrm{d}x = \frac{L}{2}.
+\]</span></p>
+</div>
+</section>
+<section id="applying-the-fourier-series" class="level3">
+<h3 class="anchored" data-anchor-id="applying-the-fourier-series">Applying the fourier series</h3>
+<p>Define <span class="math inline">\(e_n(x) := \sin(n\pi x/L)\)</span>.</p>
+<div id="thm-fourier" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1 (Convergence of Fourier series)</strong></span> If <span class="math inline">\(F\)</span> is <span class="math inline">\(2L\)</span>-periodic, continuous and piecewise continuously differentiable, then its Fourier series converges to <span class="math inline">\(F\)</span> uniformly on <span class="math inline">\(\mathbb{R}\)</span>.</p>
+</div>
+<p>Let <span class="math inline">\(F\)</span> be the odd <span class="math inline">\(2L\)</span>-periodic extension of <span class="math inline">\(\varphi\)</span>. It is continuous, because <span class="math inline">\(\varphi(0) = \varphi(L) = 0\)</span>, and piecewise linear, with corners only at <span class="math inline">\(x \equiv \pm p \pmod{2L}\)</span>. Since <span class="math inline">\(F\)</span> is odd, its Fourier series contains only sine terms, and on <span class="math inline">\([0,L]\)</span> it takes the form <a href="#eq-initial" class="quarto-xref">Equation&nbsp;4</a>. By <a href="#thm-fourier" class="quarto-xref">Theorem&nbsp;1</a>, therefore, <a href="#eq-initial" class="quarto-xref">Equation&nbsp;4</a> holds, with the series converging uniformly on <span class="math inline">\([0,L]\)</span>.</p>
+<p>Multiply <a href="#eq-initial" class="quarto-xref">Equation&nbsp;4</a> by <span class="math inline">\(e_m(x)\)</span> and integrate over <span class="math inline">\([0,L]\)</span>. Uniform convergence allows term-by-term integration, so by <a href="#lem-orthogonality" class="quarto-xref">Lemma&nbsp;2</a>, <span class="math display">\[
+\int_0^L \varphi(x)\,e_m(x)\,\mathrm{d}x
+= \sum_{n=1}^{\infty} A_n \int_0^L e_n(x)\,e_m(x)\,\mathrm{d}x
+= A_m\cdot\frac{L}{2}.
+\]</span></p>
+<p>Hence, <span id="eq-coefficients"><span class="math display">\[
+A_n = \frac{2}{L}\int_0^L \varphi(x)\sin\left(\frac{n\pi x}{L}\right)\mathrm{d}x.
+\tag{5}\]</span></span></p>
+</section>
+<section id="computing-a_n" class="level3">
+<h3 class="anchored" data-anchor-id="computing-a_n">Computing <span class="math inline">\(A_n\)</span></h3>
+<p>Let <span class="math inline">\(k = n\pi/L\)</span>. On each of <span class="math inline">\([0,p]\)</span> and <span class="math inline">\([p,L]\)</span>, <span class="math inline">\(\varphi\)</span> is linear, so we may integrate by parts on each piece: <span class="math display">\[
+\int_0^L \varphi(x)\sin kx\,\mathrm{d}x
+= \left[-\frac{\varphi(x)\cos kx}{k}\right]_0^p + \left[-\frac{\varphi(x)\cos kx}{k}\right]_p^L
++ \frac{1}{k}\int_0^L \varphi'(x)\cos kx\,\mathrm{d}x.
+\]</span></p>
+<p>The two boundary contributions at <span class="math inline">\(x = p\)</span> cancel because <span class="math inline">\(\varphi\)</span> is continuous there, and those at <span class="math inline">\(x = 0\)</span> and <span class="math inline">\(x = L\)</span> vanish because <span class="math inline">\(\varphi(0) = \varphi(L) = 0\)</span>. Therefore</p>
+<p><span class="math display">\[
+A_n = \frac{2}{Lk}\int_0^L \varphi'(x)\cos kx\,\mathrm{d}x,
+\qquad
+\varphi'(x) = \begin{cases} h/p, &amp; 0 &lt; x &lt; p,\\ -h/(L-p), &amp; p &lt; x &lt; L. \end{cases}
+\]</span></p>
+<p>Using <span class="math inline">\(\sin kL = \sin n\pi = 0\)</span>, <span class="math display">\[
+\begin{aligned}
+A_n &amp;= \frac{2}{Lk}\left[\int_0^p \frac{h}{p}\cos kx\,\mathrm{d}x - \int_p^L \frac{h}{L-p}\cos kx\,\mathrm{d}x\right] \\
+&amp;= \frac{2}{Lk}\left[\frac{h}{p}\cdot\frac{\sin kp}{k} - \frac{h}{L-p}\cdot\frac{\sin kL - \sin kp}{k}\right] \\
+&amp;= \frac{2}{Lk}\left(\frac{h}{p} + \frac{h}{L-p}\right)\frac{\sin kp}{k}.
+\end{aligned}
+\]</span></p>
+<p>Since <span class="math display">\[
+\frac{h}{p} + \frac{h}{L-p} = \frac{h(L-p) + hp}{p(L-p)} = \frac{hL}{p(L-p)},
+\]</span></p>
+<p>we obtain <span id="eq-pluck-coefficients"><span class="math display">\[
+A_n = \frac{2h\sin kp}{p(L-p)\,k^2} = \frac{2hL^2}{n^2\pi^2\,p(L-p)}\sin\left(\frac{n\pi p}{L}\right).
+\tag{6}\]</span></span></p>
+</section>
+<section id="proving-uniforming-convergence-of-the-series" class="level3">
+<h3 class="anchored" data-anchor-id="proving-uniforming-convergence-of-the-series">Proving uniforming convergence of the series</h3>
+<p>To show that the series is indeed uniform converging and the swapping of integraion and sums in <a href="#eq-coefficients" class="quarto-xref">Equation&nbsp;5</a> are justified, we apply the Weierstrass M-test on our series. From <a href="#eq-pluck-coefficients" class="quarto-xref">Equation&nbsp;6</a> and <span class="math inline">\(\left|\sin(n\pi p/L)\right| \le 1\)</span>,</p>
+<p><span class="math display">\[
+|A_n| \le \frac{C}{n^2}, \qquad C := \frac{2|h|L^2}{\pi^2\,p(L-p)}.
+\]</span></p>
+<p>Let <span class="math inline">\(f_n(x,t) := A_n\sin(n\pi x/L)\cos\omega_n t\)</span> denote the terms of <a href="#eq-series" class="quarto-xref">Equation&nbsp;3</a>. Since <span class="math inline">\(|\sin| \le 1\)</span> and <span class="math inline">\(|\cos| \le 1\)</span> and <span class="math inline">\(\sum{n=1}^{\infty}\frac{1}{n^2} = \frac{\pi^2}{6}\)</span>, <span class="math display">\[
+|f_n(x,t)| \le M_n := \frac{C}{n^2} \quad \text{for all } (x,t) \in [0,L]\times[0,\infty),
+\qquad
+\sum_{n=1}^{\infty} M_n = \frac{C\pi^2}{6} &lt; \infty.
+\]</span></p>
+<p>For <span class="math inline">\(N &gt; K\)</span> and every <span class="math inline">\((x,t)\)</span>, <span class="math display">\[
+\left|\sum_{n=K+1}^{N} f_n(x,t)\right| \le \sum_{n=K+1}^{N} M_n,
+\]</span></p>
+<p>so the partial sums are Cauchy at each point and converge to <span class="math inline">\(u(x,t)\)</span>. Letting <span class="math inline">\(N \to \infty\)</span>, <span class="math display">\[
+\left|u(x,t) - \sum_{n=1}^{K} f_n(x,t)\right| \le \sum_{n&gt;K} M_n \xrightarrow[K\to\infty]{} 0,
+\]</span></p>
+<p>and this bound does not depend on <span class="math inline">\((x,t)\)</span>. Hence <a href="#eq-series" class="quarto-xref">Equation&nbsp;3</a> converges uniformly on <span class="math inline">\([0,L]\times[0,\infty)\)</span> by the Weierstrass M-test, and <span class="math inline">\(u\)</span> is continuous as a uniform limit of continuous functions.</p>
+<p>Every term vanishes at <span class="math inline">\(x = 0\)</span> and <span class="math inline">\(x = L\)</span>, so <span class="math inline">\(u(0,t) = u(L,t) = 0\)</span>, and at <span class="math inline">\(t = 0\)</span> the series reduces to <a href="#eq-initial" class="quarto-xref">Equation&nbsp;4</a>, so <span class="math inline">\(u(x,0) = \varphi(x)\)</span>. Generally, the displacement <span class="math inline">\(u(x,t)\)</span> of the plucked string is therefore <span id="eq-string-full"><span class="math display">\[
+u(x,t) = \frac{2hL^2}{\pi^2\,p(L-p)}\sum_{n=1}^{\infty} \frac{1}{n^2}\sin\left(\frac{n\pi p}{L}\right)\sin\left(\frac{n\pi x}{L}\right)\cos\left(\frac{n\pi v}{L}\,t\right).
+\tag{7}\]</span></span></p>
 
 
 
+</section>
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
