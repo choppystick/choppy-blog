@@ -6,7 +6,7 @@ categories: [music, physics]
 bibliography: references.bib
 ---
 
-Pluck the open A string on a guitar, and a tuner will tell you it's 110 Hz, meaning the string swings up and down 110 times every second. This count is called the *frequency*. 
+Pluck the open A string on a guitar, and a tuner will tell you it's 110 Hz, meaning the string swings up and down 110 times every second. This count is called the *frequency*.
 
 But run the same sound through a spectrum analyzer, a tool that splits a sound into its separate frequencies, and it turns out that a single note contains several frequencies at once: not just 110 Hz, but 220, 330 Hz, and so on.
 
@@ -72,9 +72,9 @@ The lowest of these, 110 Hz, is the *fundamental*, and it sets the pitch you hea
 
 This naturally raises two questions:
 
-1. **Why are the harmonics whole-number multiples of the fundamental?** 
+1.  **Why are the harmonics whole-number multiples of the fundamental?**
 
-2. **Why can a plucked string produce so many harmonics, instead of just the fundamental?** 
+2.  **Why can a plucked string produce so many harmonics, instead of just the fundamental?**
 
 We will start with the first question, as its answer will be helpful for the second question.
 
@@ -131,7 +131,7 @@ def finish(fig, axes):
 
 ## A rope example
 
-Before tackling harmonics head on, it may be helpful to think of a guitar string as a rope tied to a post, with you holding the other end and shaking it. 
+Before tackling harmonics head on, it may be helpful to think of a guitar string as a rope tied to a post, with you holding the other end and shaking it.
 
 If you shake it at just the right rhythm, the whole rope swings as one big loop. Shake twice as often and it snaps into two loops, with a point in the middle that stays still. Three times as often gives three loops. At any rates in between, no clean pattern builds up and the rope just jiggles. How often you shake is a frequency, and these special frequencies are exactly the fundamental and its harmonics.
 
@@ -152,8 +152,9 @@ plt.tight_layout(rect=[0.02, 0, 0.82, 0.94])
 plt.show()
 ```
 
-:::{.callout-note collapse="true"}
+::: {.callout-note collapse="true"}
 ## Watch this for a visual demonstration.
+
 {{< video https://www.youtube.com/watch?v=cnH2ltfW48U&start=154 >}}
 :::
 
@@ -196,7 +197,7 @@ $$
 
 The speed $v$ and the length $L$ are fixed by the string, so only $n$ changes from mode to mode. For an ideal string, mode 2 therefore vibrates at exactly twice the frequency of mode 1, mode 3 at three times, and so on. (Real strings are slightly stiff, which nudges the higher harmonics a bit higher in frequency.) For our 110 Hz string, that gives 110, 220, 330 Hz.
 
-This is also why turning a tuning peg changes the pitch: **tightening the string makes waves travel faster, which raises $v$, and with it every $f_n$**.
+This is also why turning a tuning peg changes the pitch: **tightening the string makes waves travel faster, which raises** $v$, and with it every $f_n$.
 
 That settles the first question: a string can only vibrate cleanly at $f_1, 2f_1, 3f_1, \ldots$. But in the rope example we only saw these patterns one at a time, each at a rhythm we chose. When we pluck a string, all these modes appear at the same time, each at a different strength. So **what's happening?**
 
@@ -208,8 +209,9 @@ If you've seen those viral clips of a guitar string vibrating in slow, lazy wave
 
 Hear me out before you get your pitchfork. It's not quite like that. Many of those clips are filmed on a phone held inside the guitar, and those ripples are an illusion. Phone camera captures the picture line by line rather than all at once, so different parts of the string are photographed at slightly different moments.
 
-:::{.callout-note collapse="true"}
+::: {.callout-note collapse="true"}
 ## Watch this video at 01:46 to see the illusion.
+
 {{< video https://youtu.be/sYdXa_yp0fc?si=hYVm48Ne-3fn7DVE >}}
 :::
 
@@ -254,8 +256,9 @@ That corner is the key to unlocking the mystery behind harmonics. To see why, we
 
 A mode only ever gets taller, shorter, or flipped upside down. Freeze it at any moment and you'll see the same curve, just scaled. But at the end, it must return back to how it started. Therefore, **a mode at any moment is a scaled version of its initial and final displacement.** A sine wave is the only curve that has this special property.
 
-:::{.callout-note collapse="false"}
+::: {.callout-note collapse="false"}
 ## Why only a sine wave?
+
 A tight string naturally wants to straighten itself because of tension. Wherever it's bent, it gets pulled toward the inside of the bend, and the sharper the bend, the harder the pull. A straight stretch feels no pull at all.
 
 For a string to keep its shape, the pull has to be strongest where the string is farthest out and fade to nothing where it crosses the middle, so that every point reaches the resting line at the same time.
@@ -330,26 +333,23 @@ $$
 X_n(x) = \sin\left(\frac{n\pi x}{L}\right)
 $$
 
-:::{.callout-note collapse="true"}
-## Derivation of the shape formula:
-Transcribing to Latex will take forever.
-:::
+See [Appendix A](#appendix-A) for the derivation.
 
-In the 1750s, Daniel Bernoulli proposed that the motion of a string fixed at both ends is a sum of its modes. Not everyone was convinced, and Leonhard Euler and Jean d'Alembert certainly weren't. 
+In the 1750s, Daniel Bernoulli proposed that the motion of a string fixed at both ends is a sum of its modes. Not everyone was convinced, and Leonhard Euler and Jean d'Alembert certainly weren't.
 
 D’Alembert doubted that a corner was even allowed, since the equation for a vibrating string needs the string to be smoothly curved everywhere. Euler was happy to allow corners, after all, strings are plucked and harmonics are heard, but he couldn’t see how smooth sine waves could ever add up to one discontinued corners. If a finite sum of sines is smooth, then how can an infinite sum suddenly turn non-smooth? @papadopoulos2017riemann
 
-In the early 1800s, while studying how temperature changes over time inside a solid body, Joseph Fourier made an even bolder claim. He proposed that **any shape can be written as a sum of sines, including our triangle**. Mathematicians now call this a Fourier series.
-$$
+In the early 1800s, while studying how temperature changes over time inside a solid body, Joseph Fourier made an even bolder claim. He proposed that **any shape can be written as a sum of sines, including our triangle**. Mathematicians now call this a Fourier series. $$
 \text{triangle}(x) = b_1 \sin\!\left(\frac{\pi x}{L}\right) + b_2 \sin\!\left(\frac{2\pi x}{L}\right) + b_3 \sin\!\left(\frac{3\pi x}{L}\right) + \cdots = \sum_{n=1}^{\infty} b_n \sin\!\left(\frac{n\pi x}{L}\right)
 $$
 
 Each $b_n$ describes how much of mode $n$ is in the triangle. In our case, we would like to find the different modes that together construct our triangle.
 
-To find one of them, say $b_3$, we need to isolate the third mode from all the others. We do this by exploiting a property of modes called *orthogonality*. 
+To find one of them, say $b_3$, we need to isolate the third mode from all the others. We do this by exploiting a property of modes called *orthogonality*.
 
-:::{.callout-tip collapse="true"}
+::: {.callout-tip collapse="true"}
 ## What is orthogonality?
+
 Take two functions $f$ and $g$ on the string, $0 \le x \le L$. Multiply their values at each point along the string, then add up all the results. This gives a single number, called the *inner product* $\langle f, g \rangle$, defined as the integral $\langle f, g \rangle = \int_0^L f(x)\,g(x)\,dx$. If $\langle f, g \rangle = 0$, we say $f$ and $g$ are *orthogonal*.
 
 The modes are orthogonal to each other: for two different modes, the positive and negative products cancel out exactly when added up. A mode paired with itself gives $\langle X_n, X_n \rangle = L/2$.
@@ -365,11 +365,12 @@ $$
 b_3 = \frac{\langle \text{triangle}, X_3 \rangle}{\langle X_3, X_3 \rangle} = \frac{\langle \text{triangle}, X_3 \rangle}{L/2}
 $$
 
-:::{.callout-tip collapse="true"}
+::: {.callout-tip collapse="true"}
 ## An analogy in vector spaces.
+
 Let $\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3$ be the standard basis of $\mathbb{R}^3$. They are orthonormal: $\mathbf{e}_i \cdot \mathbf{e}_j = 0$ for $i \neq j$, and $\mathbf{e}_i \cdot \mathbf{e}_i = 1$. Any vector can be written as $\mathbf{v} = v_1 \mathbf{e}_1 + v_2 \mathbf{e}_2 + v_3 \mathbf{e}_3$, where $v_1, v_2, v_3$ are the scalar multiples.
 
-We can recover $v_2$ by taking the dot product with $\mathbf{e}_2$:
+We can recover $v_2$ by taking the dot product with $\mathbf{e}_2$:/
 
 $$
 \begin{aligned}
@@ -482,9 +483,9 @@ plt.tight_layout(); plt.show()
 
 The fundamental alone is a poor match for the triangle, but adding the 2nd mode pulls the peak towards the pluck point. Every mode after that makes a smaller adjustment, which slowly pulls the string to the side of the triangle.
 
-The last part to form is the corner. Even with 16 modes, the peak is still slightly rounded. Whereas the smooth sides of the triangle need only a few modes, the sharp corner needs many high modes working together. This was the heart of Euler and d'Alembert's objection: no finite number of smooth sine waves can ever make a perfectly sharp corner. 
+The last part to form is the corner. Even with 16 modes, the peak is still slightly rounded. Whereas the smooth sides of the triangle need only a few modes, the sharp corner needs many high modes working together. This was the heart of Euler and d'Alembert's objection: no finite number of smooth sine waves can ever make a perfectly sharp corner.
 
-But $b_n$ also depend on where the string is plucked. Change where you pluck and you change how much of each mode contributes to the triangle. 
+But $b_n$ also depend on where the string is plucked. Change where you pluck and you change how much of each mode contributes to the triangle.
 
 ```{python}
 #| echo: false
@@ -503,7 +504,7 @@ axes[-1].set_xlabel("position along string")
 plt.tight_layout(); plt.show()
 ```
 
-You can try this right now at your guitar! 
+You can try this right now at your guitar!
 
 Pluck an open string right next to the bridge and you get a harsh, pinched, twangy "eeee". The reason being that pluck point excites lots of high harmonics as the sharp corner is at the end of the string, just like the bottom panel shows. The fundamental carries a smaller share of the shape, and the higher harmonics carry much more, which together forms harshness.
 
@@ -543,13 +544,15 @@ At full size, the three curves are indistinguishable from the triangle. The only
 So that settles the old argument. Euler and d'Alembert were right that no finite number of smooth sine waves can make a perfectly sharp corner. But Fourier was right too: we just need an infinite amount of them.
 
 ## What even is infinite modes?
+
 Now I hear you ask: Are there really infinite modes in real life? Does infinity even exist and what even is that???
 
 For existence of infinity, I recommend you to consult your nearest philosophy professor. But I can answer the first question.
 
-:::{.callout-warning}
+::: callout-warning
 ## Beware. Heavy maths.
 :::
+
 Short answer: No, but for our ears it is good enough. Here's the long answer:
 
 Our Fourier model treats the string as a *continuum*: matter fills space smoothly, infinitely divisible so we describe it with *densities*. For example, the mass of a piece of string between $a$ and $b$ is described as a mass density function:
@@ -558,9 +561,9 @@ $$
 m_{[a,b]} = \int_{a}^{b} \mu(x)\,dx
 $$
 
-Every point $x$ along a continuum can move on its own, so the string has infinitely many degrees of freedom, and therefore infinitely many modes.   
+Every point $x$ along a continuum can move on its own, so the string has infinitely many degrees of freedom, and therefore infinitely many modes.
 
-But these are just idealizations. A real string, however, is really atoms held together by electromagnetic forces. 
+But these are just idealizations. A real string, however, is really atoms held together by electromagnetic forces.
 
 As a first approximation though, we can model it as a chain of atoms of mass $M$, joined by massless springs with spring constant $\lambda$, with both ends fixed. Each moving atom is one degree of freedom, so **a chain of atoms has exactly as many modes as it has moving atoms**. If $N$ is the number of spacings between atoms, the frequency of mode $m$ is:
 
@@ -568,7 +571,7 @@ $$
 \omega_m = 2\sqrt{\frac{\lambda}{M}}\,\sin\!\left(\frac{m\pi}{2N}\right), \qquad m = 1, 2, \dots, N-1 .
 $$
 
-If we suppose $N$ to be some unimaginably big number, then for $m \ll N$, the chain is essentially smooth and under small-angle approximation, we have $\sin(\theta) \approx \theta$, so 
+If we suppose $N$ to be some unimaginably big number, then for $m \ll N$, the chain is essentially smooth and under small-angle approximation, we have $\sin(\theta) \approx \theta$, so
 
 $$
 \omega_m \approx 2\sqrt{\frac{\lambda}{M}} \cdot \frac{m\pi}{2N} = m \cdot \underbrace{\frac{\pi}{N}\sqrt{\frac{\lambda}{M}}}_{\omega_1} = m \cdot \omega_1
@@ -578,7 +581,7 @@ and we recover the harmonic series $f_m = mf_1$. Only when $m$ gets close enough
 
 **So how close is "close enough"?**
 
-Take a 65 cm guitar string and assume that it is perfectly elastic. Its atoms are about 0.25 nm apart, so $N \approx 2.6 \times 10^9$. As the number of atoms determine the number of modes, the string only has a few billion modes. 
+Take a 65 cm guitar string and assume that it is perfectly elastic. Its atoms are about 0.25 nm apart, so $N \approx 2.6 \times 10^9$. As the number of atoms determine the number of modes, the string only has a few billion modes.
 
 In the best case, human hearing reaches about 20,000 Hz, so the highest harmonic you can hear on a 110 Hz string is at around $m = 181$. For that mode, $\theta \approx 1.09 \times 10^{-7}$. Expanding $\sin\theta$ as a Taylor series and taking its third order expansion, the relative error between the chain and the harmonic approximation is:
 
@@ -590,8 +593,9 @@ When we treat the string as a continuum by taking the harmonic approximation, th
 
 So yea, infinite mode is a fiction, but it's an extraordinarily good one.
 
-:::{.callout-note collapse="true"}
+::: {.callout-note collapse="true"}
 ## I can't help it baby. Here's a probability detour.
+
 For those with experience in probabilistic measure theory, the mass density function is within the same family of functions as the probability density function:
 
 $$
@@ -606,16 +610,15 @@ $$
 f(x) = \frac{\mu(x)}{M}
 $$
 
-which is the distribution of where a random bit of string's mass might be located in. 
+which is the distribution of where a random bit of string's mass might be located in.
 
 Under this translation, it allows us to reinterpret key physical concepts with familiar statistics:
 
-1. **Center of mass as mean**
-$$
-x_{cm} = \frac{1}{M}\int x\mu(x)\,dx = \mathbb{E}[X]
-$$
+1.  **Center of mass as mean** $$
+    x_{cm} = \frac{1}{M}\int x\mu(x)\,dx = \mathbb{E}[X]
+    $$
 
-2. **Moment of inertia about the center of mass as variance**
+2.  **Moment of inertia about the center of mass as variance**
 
 $$
 I = \int (x-x_{cm})^2\mu(x)\,dx = $M$Var(X)
@@ -623,18 +626,16 @@ $$
 
 As an exercise, you can show that mass is a measure.
 
-Let $\mu : [0, L] \to [0, \infty)$ be a continuous mass density, and for each Borel set $B \subseteq [0, L]$ define
+Let $\mu : [0, L] \to [0, \infty)$ be a continuous mass density, and for each Borel set $B \subseteq [0, L]$ define 
 $$
 m(B) = \int_B \mu(x)\,dx 
 $$
 
 (a) Show that $\mu$ is Borel-measurable.
 
-(b) Using (a), show that $m$ is a measure on the Borel sets by verifying the measure axioms, i.e. that $m(\varnothing) = 0$, $m(B) \ge 0$, and
-$$
-m\Big(\bigcup_{i=1}^{\infty} B_i\Big) = \sum_{i=1}^{\infty} m(B_i)
-$$
-for pairwise disjoint Borel sets $B_1, B_2,\dots$
+(b) Using (a), show that $m$ is a measure on the Borel sets by verifying the measure axioms, i.e. that $m(\varnothing) = 0$, $m(B) \ge 0$, and $$
+    m\Big(\bigcup_{i=1}^{\infty} B_i\Big) = \sum_{i=1}^{\infty} m(B_i)
+    $$ for pairwise disjoint Borel sets $B_1, B_2,\dots$
 
 End of detour.
 :::
@@ -679,4 +680,278 @@ plt.close(fig)
 HTML(anim.to_jshtml(default_mode="loop"))
 ```
 
-This is why a plucked string sounds the way it does. The string doesn't sound one frequency, but it sounds all of its harmonics at once: 110, 220, 330 Hz and up. The fundamental sets the pitch you hear, and the mix of the others, decided by where and how the string is plucked, sets its colour.
+This is why a plucked string sounds the way it does. The string doesn't sound one frequency, but it sounds all of its harmonics at once: 110, 220, 330 Hz and up. The fundamental sets the pitch you hear, and the mix of the others, decided by where and how the string is plucked, sets its color.
+
+## Appendix A: The Derivation of The String Formula {#appendix-a} 
+
+### The ideal string formula
+Consider an ideal string of length $L$ and wave speed $v$, with displacement $u(x,t)$ and initial position $\varphi(x)$. A string under uniform tension, fixed at both ends and released from rest, satisfies
+
+$$
+\begin{cases}
+\dfrac{\partial^2 u}{\partial t^2} = v^2\dfrac{\partial^2 u}{\partial x^2}, & 0<x<L,\ t>0,\\[1.5ex]
+u(0,t) = u(L,t) = 0, & t \ge 0,\\[1ex]
+u(x,0) = \varphi(x),\quad \dfrac{\partial u}{\partial t}(x,0) = 0, & 0 \le x \le L.
+\end{cases}
+$$ {#eq-ibvp}
+
+We propose an ansatz of the form $u(x,t) = X(x)\,\Theta(t)$, where $X$ is the shape of the string and $\Theta$ is the scaling of the shape in time.
+
+### Separation of variables
+With $u(x,t) = X(x)\Theta(t)$, 
+$$
+\frac{\partial^2 u}{\partial t^2} = X(x)\,\Theta''(t), \qquad \frac{\partial^2 u}{\partial x^2} = X''(x)\,\Theta(t),
+$$ 
+
+so the wave equation becomes 
+$$
+X(x)\,\Theta''(t) = v^2\,X''(x)\,\Theta(t).
+$$ 
+
+Dividing by $v^2 X(x)\Theta(t)$ wherever it is non-zero, 
+$$
+\frac{X''(x)}{X(x)} = \frac{1}{v^2}\,\frac{\Theta''(t)}{\Theta(t)}.
+$$ 
+
+The left side depends only on $x$ and the right side only on $t$.
+
+::: {#lem-separation}
+If $g(x) = h(t)$ for all $x$ and $t$, then $g$ and $h$ are equal to the same constant.
+:::
+
+::: proof
+Fix $x = x_0$. Then $h(t) = g(x_0) =: a$ for all $t$. Fix $t = t_0$. Then $g(x) = h(t_0) =: b$ for all $x$. Hence $b = g(x) = h(t) = a$, and $g(x) = h(t) = a$ for all $x, t$.
+:::
+
+By @lem-separation, both sides equal a constant $\sigma$: 
+$$
+X''(x) = \sigma X(x), \qquad \Theta''(t) = \sigma v^2\,\Theta(t).
+$$
+
+The boundary conditions give $X(0)\Theta(t) = X(L)\Theta(t) = 0$ for all $t$. If $\Theta \equiv 0$ then $u \equiv 0$, so for a non-trivial solution there is some $t$ with $\Theta(t) \neq 0$, and therefore $X(0) = X(L) = 0$. Thus $X$ must satisfy
+$$
+X''(x) = \sigma X(x), \qquad X(0) = X(L) = 0.
+$$ {#eq-evp}
+
+### The eigenvalue problem
+@eq-evp always has the trivial solution $X \equiv 0$, but that gives $u \equiv 0$, a string that never moves. 
+
+The question is therefore for which values of $\sigma$ there is a solution $X \not\equiv 0$. This is an eigenvalue problem: writing $D = \mathrm{d}^2/\mathrm{d}x^2$ for the operator acting on functions that vanish at $0$ and $L$, @eq-evp reads $DX = \sigma X$, the analogue of $A\mathbf{v} = \lambda\mathbf{v}$ for a matrix. The admissible $\sigma$ are the eigenvalues and the corresponding $X$ the eigenfunctions. We treat three possible cases of $\sigma$ separately and discard cases that leads to the trivial solution of $X \equiv 0$
+
+**Case 1:** $\sigma > 0$. Write $\sigma = \mu^2$ with $\mu > 0$. Trying $X = e^{rx}$ gives $r^2 = \mu^2$, so $r = \pm\mu$, and the general solution is 
+
+$$
+X(x) = Ce^{\mu x} + De^{-\mu x}.
+$$ 
+
+Since $\cosh s + \sinh s = e^{s}$ and $\cosh s - \sinh s = e^{-s}$, 
+
+$$
+X(x) = (C+D)\cosh\mu x + (C-D)\sinh\mu x = A\cosh\mu x + B\sinh\mu x.
+$$ 
+
+Then $X(0) = A = 0$, and $X(L) = B\sinh\mu L = 0$. Since $\mu L > 0$,
+$$
+\sinh\mu L = \frac{e^{\mu L} - e^{-\mu L}}{2} > 0,
+$$ 
+
+so $B = 0$ and $X \equiv 0$.
+
+**Case 2:** $\sigma = 0$. Then $X'' = 0$, so $X(x) = A + Cx$. From $X(0) = 0$ we get $A = 0$, and from $X(L) = CL = 0$ with $L > 0$ we get $C = 0$. So $X \equiv 0$.
+
+**Case 3:** $\sigma < 0$. Write $\sigma = -k^2$ with $k > 0$. Trying $X = e^{rx}$ gives $r^2 = -k^2$, so $r = \pm ik$. By Euler's formula $e^{\pm ikx} = \cos kx \pm i\sin kx$, 
+
+$$
+\begin{aligned}
+X(x) &= Ce^{ikx} + De^{-ikx} \\
+&= (C+D)\cos kx + i(C-D)\sin kx \\
+&= A\cos kx + B\sin kx.
+\end{aligned}
+$$ 
+
+From $X(0) = A = 0$, and then $X(L) = B\sin kL = 0$. A non-trivial solution requires $B \neq 0$, hence $\sin kL = 0$. The zeros of $\sin$ are exactly the integer multiples of $\pi$, so $kL = n\pi$, and since $k > 0$, 
+$$
+k = \frac{n\pi}{L}, \qquad n = 1, 2, 3, \dots
+$$
+
+The eigenvalues and eigenfunctions are therefore 
+
+$$
+\sigma_n = -\left(\frac{n\pi}{L}\right)^2, \qquad X_n(x) = \sin\left(\frac{n\pi x}{L}\right), \qquad n = 1, 2, 3, \dots
+$$
+
+### Recovering the time component
+With $\sigma = \sigma_n$, the time equation is 
+
+$$
+\Theta_n''(t) = \sigma_n v^2\,\Theta_n(t) = -\omega_n^2\,\Theta_n(t), \qquad \omega_n := \frac{n\pi v}{L} > 0,
+$$ 
+
+with general solution 
+$$
+\Theta_n(t) = A_n\cos\omega_n t + B_n\sin\omega_n t.
+$$ 
+
+The initial velocity condition gives $X_n(x)\,\Theta_n'(0) = 0$ for all $x$, and $X_n \not\equiv 0$, so $\Theta_n'(0) = 0$. Since 
+$$
+\Theta_n'(t) = -A_n\omega_n\sin\omega_n t + B_n\omega_n\cos\omega_n t,
+$$ 
+
+we have $\Theta_n'(0) = B_n\omega_n = 0$, and as $\omega_n > 0$, $B_n = 0$. Hence $\Theta_n(t) = A_n\cos\omega_n t$, and each mode is 
+$$
+u_n(x,t) = A_n\sin\left(\frac{n\pi x}{L}\right)\cos\left(\frac{n\pi v}{L}\,t\right), \qquad n = 1, 2, 3, \dots
+$$ 
+
+Mode $n$ oscillates at frequency $f_n = \omega_n / 2\pi = nv/2L = n f_1$.
+
+### Superposition of the modes
+Each $u_n$ satisfies the wave equation, the boundary conditions and the zero initial velocity. Since these are linear and homogeneous, so does any finite sum of the $u_n$. We seek the solution as 
+$$
+u(x,t) = \sum_{n=1}^{\infty} A_n\sin\left(\frac{n\pi x}{L}\right)\cos\omega_n t.
+$$ {#eq-series} 
+
+At $t = 0$ this requires 
+$$
+\varphi(x) = \sum_{n=1}^{\infty} A_n\sin\left(\frac{n\pi x}{L}\right).
+$$ {#eq-initial} 
+
+For a string plucked to height $h \neq 0$ at the point $x = p$, with $0 < p < L$, the initial position is the triangle 
+$$
+\varphi(x) = \begin{cases}
+hx/p, & 0 \le x \le p,\\
+h(L-x)/(L-p), & p < x \le L.
+\end{cases}
+$$
+
+To compute $A_n$, we will make sure of the orthogonality of the modes.
+
+::: {#def-inner-product}
+For continuous functions $f, g$ on $[0,L]$, the inner product is 
+
+$$
+\langle f, g\rangle = \int_0^L f(x)\,g(x)\,\mathrm{d}x.
+$$ 
+
+If $\langle f, g\rangle = 0$, then $f$ and $g$ are orthogonal.
+:::
+
+::: {#lem-orthogonality}
+For positive integers $m, n$, 
+$$
+\int_0^L \sin\left(\frac{m\pi x}{L}\right)\sin\left(\frac{n\pi x}{L}\right)\mathrm{d}x =
+\begin{cases} 0, & m \neq n,\\ L/2, & m = n. \end{cases}
+$$
+:::
+
+::: proof
+By the product-to-sum identity $\sin a\sin b = \tfrac12\bigl(\cos(a-b) - \cos(a+b)\bigr)$, 
+$$
+\sin\left(\frac{m\pi x}{L}\right)\sin\left(\frac{n\pi x}{L}\right)
+= \frac12\left(\cos\left(\frac{(m-n)\pi x}{L}\right) - \cos\left(\frac{(m+n)\pi x}{L}\right)\right).
+$$ 
+
+For any non-zero integer $k$, 
+$$
+\int_0^L \cos\left(\frac{k\pi x}{L}\right)\mathrm{d}x = \frac{L\sin(k\pi)}{k\pi} = 0.
+$$
+
+*Case* $m \neq n$. Both $m - n$ and $m + n$ are non-zero integers, so both cosine terms integrate to $0$.
+
+*Case* $m = n$. Then $\cos\bigl((m-n)\pi x/L\bigr) = 1$, while $m + n = 2n$ is a non-zero integer, so 
+
+$$
+\int_0^L \left(\frac12 - \frac12\cos\left(\frac{2n\pi x}{L}\right)\right)\mathrm{d}x = \frac{L}{2}.
+$$
+:::
+
+
+### Applying the fourier series
+Define $e_n(x) := \sin(n\pi x/L)$.
+
+::: {#thm-fourier}
+## Convergence of Fourier series
+If $F$ is $2L$-periodic, continuous and piecewise continuously differentiable, then its Fourier series converges to $F$ uniformly on $\mathbb{R}$.
+:::
+
+Let $F$ be the odd $2L$-periodic extension of $\varphi$. It is continuous, because $\varphi(0) = \varphi(L) = 0$, and piecewise linear, with corners only at $x \equiv \pm p \pmod{2L}$. Since $F$ is odd, its Fourier series contains only sine terms, and on $[0,L]$ it takes the form @eq-initial. By @thm-fourier, therefore, @eq-initial holds, with the series converging uniformly on $[0,L]$.
+
+Multiply @eq-initial by $e_m(x)$ and integrate over $[0,L]$. Uniform convergence allows term-by-term integration, so by @lem-orthogonality, 
+$$
+\int_0^L \varphi(x)\,e_m(x)\,\mathrm{d}x
+= \sum_{n=1}^{\infty} A_n \int_0^L e_n(x)\,e_m(x)\,\mathrm{d}x
+= A_m\cdot\frac{L}{2}.
+$$ 
+
+Hence,
+$$
+A_n = \frac{2}{L}\int_0^L \varphi(x)\sin\left(\frac{n\pi x}{L}\right)\mathrm{d}x.
+$$ {#eq-coefficients}
+
+### Computing $A_n$
+
+Let $k = n\pi/L$. On each of $[0,p]$ and $[p,L]$, $\varphi$ is linear, so we may integrate by parts on each piece: 
+$$
+\int_0^L \varphi(x)\sin kx\,\mathrm{d}x
+= \left[-\frac{\varphi(x)\cos kx}{k}\right]_0^p + \left[-\frac{\varphi(x)\cos kx}{k}\right]_p^L
++ \frac{1}{k}\int_0^L \varphi'(x)\cos kx\,\mathrm{d}x.
+$$ 
+
+The two boundary contributions at $x = p$ cancel because $\varphi$ is continuous there, and those at $x = 0$ and $x = L$ vanish because $\varphi(0) = \varphi(L) = 0$. Therefore
+
+$$
+A_n = \frac{2}{Lk}\int_0^L \varphi'(x)\cos kx\,\mathrm{d}x,
+\qquad
+\varphi'(x) = \begin{cases} h/p, & 0 < x < p,\\ -h/(L-p), & p < x < L. \end{cases}
+$$ 
+
+Using $\sin kL = \sin n\pi = 0$, 
+$$
+\begin{aligned}
+A_n &= \frac{2}{Lk}\left[\int_0^p \frac{h}{p}\cos kx\,\mathrm{d}x - \int_p^L \frac{h}{L-p}\cos kx\,\mathrm{d}x\right] \\
+&= \frac{2}{Lk}\left[\frac{h}{p}\cdot\frac{\sin kp}{k} - \frac{h}{L-p}\cdot\frac{\sin kL - \sin kp}{k}\right] \\
+&= \frac{2}{Lk}\left(\frac{h}{p} + \frac{h}{L-p}\right)\frac{\sin kp}{k}.
+\end{aligned}
+$$ 
+
+Since 
+$$
+\frac{h}{p} + \frac{h}{L-p} = \frac{h(L-p) + hp}{p(L-p)} = \frac{hL}{p(L-p)},
+$$ 
+
+we obtain 
+$$
+A_n = \frac{2h\sin kp}{p(L-p)\,k^2} = \frac{2hL^2}{n^2\pi^2\,p(L-p)}\sin\left(\frac{n\pi p}{L}\right).
+$$ {#eq-pluck-coefficients}
+
+### Proving uniforming convergence of the series
+
+To show that the series is indeed uniform converging and the swapping of integraion and sums in @eq-coefficients are justified, we apply the Weierstrass M-test on our series.
+From @eq-pluck-coefficients and $\left|\sin(n\pi p/L)\right| \le 1$, 
+
+$$
+|A_n| \le \frac{C}{n^2}, \qquad C := \frac{2|h|L^2}{\pi^2\,p(L-p)}.
+$$ 
+
+Let $f_n(x,t) := A_n\sin(n\pi x/L)\cos\omega_n t$ denote the terms of @eq-series. Since $|\sin| \le 1$ and $|\cos| \le 1$ and $\sum{n=1}^{\infty}\frac{1}{n^2} = \frac{\pi^2}{6}$, 
+$$
+|f_n(x,t)| \le M_n := \frac{C}{n^2} \quad \text{for all } (x,t) \in [0,L]\times[0,\infty),
+\qquad
+\sum_{n=1}^{\infty} M_n = \frac{C\pi^2}{6} < \infty.
+$$ 
+
+For $N > K$ and every $(x,t)$, 
+$$
+\left|\sum_{n=K+1}^{N} f_n(x,t)\right| \le \sum_{n=K+1}^{N} M_n,
+$$ 
+
+so the partial sums are Cauchy at each point and converge to $u(x,t)$. Letting $N \to \infty$, 
+$$
+\left|u(x,t) - \sum_{n=1}^{K} f_n(x,t)\right| \le \sum_{n>K} M_n \xrightarrow[K\to\infty]{} 0,
+$$ 
+
+and this bound does not depend on $(x,t)$. Hence @eq-series converges uniformly on $[0,L]\times[0,\infty)$ by the Weierstrass M-test, and $u$ is continuous as a uniform limit of continuous functions.
+
+Every term vanishes at $x = 0$ and $x = L$, so $u(0,t) = u(L,t) = 0$, and at $t = 0$ the series reduces to @eq-initial, so $u(x,0) = \varphi(x)$. Generally, the displacement $u(x,t)$ of the plucked string is therefore 
+$$
+u(x,t) = \frac{2hL^2}{\pi^2\,p(L-p)}\sum_{n=1}^{\infty} \frac{1}{n^2}\sin\left(\frac{n\pi p}{L}\right)\sin\left(\frac{n\pi x}{L}\right)\cos\left(\frac{n\pi v}{L}\,t\right).
+$$ {#eq-string-full}
