@@ -153,8 +153,7 @@ plt.show()
 ```
 
 ::: {.callout-note collapse="true"}
-## Watch this for a visual demonstration.
-
+## Watch this for a visual demonstration at around 2:34.
 {{< video https://www.youtube.com/watch?v=cnH2ltfW48U&start=154 >}}
 :::
 
@@ -211,7 +210,6 @@ Hear me out before you get your pitchfork. It's not quite like that. Many of tho
 
 ::: {.callout-note collapse="true"}
 ## Watch this video at 01:46 to see the illusion.
-
 {{< video https://youtu.be/sYdXa_yp0fc?si=hYVm48Ne-3fn7DVE >}}
 :::
 
@@ -897,7 +895,6 @@ $$
 $$ 
 
 The two boundary contributions at $x = p$ cancel because $\varphi$ is continuous there, and those at $x = 0$ and $x = L$ vanish because $\varphi(0) = \varphi(L) = 0$. Therefore
-
 $$
 A_n = \frac{2}{Lk}\int_0^L \varphi'(x)\cos kx\,\mathrm{d}x,
 \qquad

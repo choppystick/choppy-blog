@@ -1,34 +1,27 @@
 ---
 title: "About"
 image: images/profile.png
-about:
-  template: jolla
-  image-shape: round
-  links:
-    - icon: github
-      text: GitHub
-      href: https://github.com/choppystick
+toc: false
+page-layout: full
+body-classes: about-page
 ---
 
-I'm a data scientist and amateur musician. Here is where I write up the math and statistics I'm learning as an educational piece — proofs, derivations, the occasional simulation in Python or R — mostly as a way of forcing myself to actually understand something rather than just recognize it. Right now that means working through Bayesian learning and inference, alongside classical piano and electric guitar on the side.
+:::: {.about-grid}
 
-I also enjoy learning music theory, philosophy, political theory, and theology. Not an expert by any means — I'm mostly interested in how an argument develops and how structure glues together.
+::: {.about-text}
+Hello, I'm Samuel. I'm a data analyst with a background in statistics, and I'm interested in presenting mathematics educationally.
 
-This is mostly a journal, not a polished blog. Expect worked-through problems, half-finished intuitions, and the occasional political or philosophical tangent — posted as I go, not on a schedule.
+The idea is to select niche mathematical topics (physics, statistics, pure maths) and present them such that someone without mathematical experience can find enjoyment, but those with the know-how can get deeper understanding. Mathematics doesn’t have to be boring, we just need to make it palatable.
 
-## Currently working on
+Besides mathematics, I am also interested in philosophy. Writing on philsophy has been a recurring pasttime for me, and if time permits for proofreading (as many essays remain in an embarassingly unreadable state), I may publish some of my personal digests.
 
-- Playing the piano and guitar consistently... 
-- Been reading Nozick's "Anarchy, State and Utopia". It's a slough of a book, but I'm getting there.
-- Econometrics. Thinking of changing career to a quant.
+My personal interests in philosophy (interests doesn't necessarily imply agreement) hover loosely around political theory, metaethics (existentialism and positivism) and theology (Karl Barth, Augustine, Aquinas)
+::: 
 
-## Outside of math
+::: {.about-photo}
+![](images/profile.png){.nolightbox fig-alt="Photo of Samuel"}
+:::
 
-I enjoy watching movies and TV, listening to and playing music (classical, rock, J-Pop, jazz), reading novels, writing short stories, drawing and painting, taking photos, and playing with cats.
+::::
 
-- **Favorite movie:** Schindler's List
-- **Favorite TV show:** Game of Thrones
-- **Favorite J-Pop band:** Zutomayo
-
-See my photos and art on the [Gallery](gallery.qmd) page.
-
+Shoutout to my favorite band **ZUTOMAYO** who created this masterpiece. {{< video https://www.youtube.com/watch?v=ugpywe34_30 >}}

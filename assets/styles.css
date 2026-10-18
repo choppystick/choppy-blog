@@ -244,3 +244,42 @@ div.quarto-post .metadata {
   cursor: text;
 }
 
+
+/* About page: text left, round photo right; stacks on narrow screens */
+.about-grid {
+  display: grid;
+  grid-template-columns: 2.3fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.about-photo img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.about-links a {
+  font-size: 1.4rem;
+  margin-right: 0.75rem;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-photo {
+    order: -1;
+    max-width: 240px;
+    margin: 0 auto;
+  }
+}
+
+/* About page content width, close to nrennie.com (~1140px) */
+.about-page main.content {
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+}
