@@ -25,7 +25,7 @@ f1 = 110.0     # open A string, in Hz
 fs = 44100     # audio sample rate
 ```
 
-Here is a recording of the open A string, plucked three times. Its frequency is 110 Hz.
+Here is a recording of the open A string, plucked three times.
 
 ```{python}
 #| echo: false
@@ -38,7 +38,7 @@ if samples.ndim > 1:
 display(Audio(audio_path))
 ```
 
-However, even though the note is 110 Hz, it actually isn't purely 110 Hz. If it was really just that, it would actually sound more like this pure sine wave instead (You may need headphones for this and careful with the volume):
+However, even though the note's frequency is 110 Hz, it actually isn't just purely one frequency. If it was really just that, it would actually sound more like this pure sine wave instead (You may need headphones for this and careful with the volume):
 
 ```{python}
 #| echo: false
@@ -51,7 +51,7 @@ if soundwave.ndim > 1:
 display(Audio(audio_path))
 ```
 
-The reason why a guitar note sounds the way it does is because of *harmonics*. To see harmonics, we can analyze the frequency components of the sound using a *spectrogram*.
+You may think it's just because the string is imperfect, friction, or air resistance. but the real reason why a guitar note sounds the way it does is because of *harmonics*. To see harmonics, we can analyze the frequency components of the sound using a *spectrogram*.
 
 A spectrogram shows which frequencies are present at each moment, and brighter indicates higher energy. Below is the spectrogram of the plucked string:
 
