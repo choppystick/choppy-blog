@@ -241,7 +241,7 @@ window.Quarto = {
 
 <p>Pluck the open A string on a guitar, and a tuner will tell you it’s 110 Hz, meaning the string swings up and down 110 times every second. This count is called the <em>frequency</em>.</p>
 <p>Here is a recording of the open A string, plucked three times. Its fundamental <span class="math inline">\(f_1\)</span> is 110 Hz, so we expect energy at <span class="math inline">\(f_1, 2f_1, 3f_1, 4f_1, \ldots\)</span>, or at 110, 220, 330, 440 Hz and so on respectively.</p>
-<div id="43118925" class="cell" data-execution_count="2">
+<div id="55b58825" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 
                 <audio controls="controls">
@@ -252,7 +252,7 @@ window.Quarto = {
 </div>
 </div>
 <p>A spectrogram shows which frequencies are present at each moment, and brighter indicates higher energy. The dashed lines mark where the theoretical harmonics should be:</p>
-<div id="6371970e" class="cell" data-execution_count="3">
+<div id="06cf0a57" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -275,7 +275,7 @@ window.Quarto = {
 <p>If you shake it at just the right rhythm, the whole rope swings as one big loop. Shake twice as often and it snaps into two loops, with a point in the middle that stays still. Three times as often gives three loops. At any rates in between, no clean pattern builds up and the rope just jiggles. How often you shake is a frequency, and these special frequencies are exactly the fundamental and its harmonics.</p>
 <p>In physics, these patterns are called <em>modes</em>, and the points that never move, including the two ends, are called <em>nodes</em>. An up-loop followed by a down-loop makes one full wave, and its length is called the <em>wavelength</em> <span class="math inline">\(\lambda\)</span>. So one loop is half a wavelength.</p>
 <p>The figure below shows each mode as a snapshot. In reality, each loop keeps flipping between up and down, while the dots stay perfectly still.</p>
-<div id="57357173" class="cell" data-execution_count="5">
+<div id="78b0c132" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -304,7 +304,7 @@ window.Quarto = {
 <p>Notice that the frequencies in the graph, 110, 220, 330, 440 Hz, are all multiples of 110. So then, why specifically multiples?</p>
 <p>Suppose the string has length <span class="math inline">\(L\)</span>. Both ends are held fixed on the <em>resting line</em>, the straight line the string lies along when it’s still, so the wave pattern has to start and end on the ends.</p>
 <p>Starting from the resting line at the left end, the pattern only returns to it at the end of each loop. <strong>If the string’s length ended partway through a loop, the right end would be sitting above or below the line</strong>, which is physically impossible, as the ends are fixed.</p>
-<div id="fd452a2a" class="cell" data-execution_count="6">
+<div id="4943513e" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -352,7 +352,7 @@ f_n = \frac{v}{\lambda_n} = \frac{v}{2L/n} = n \cdot \frac{v}{2L} = n f_1,
 </div>
 </div>
 <p>So what does a plucked string really look like? Think about what your finger does. You are not shaking the string. You hook it with your finger, pull and let go. At that moment, the <strong>string forms a triangle</strong>: it is no longer a smooth curve, but two straight lines meeting at a corner, right where your finger is.</p>
-<div id="5635dc57" class="cell" data-execution_count="7">
+<div id="15e72594" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -384,7 +384,7 @@ f_n = \frac{v}{\lambda_n} = \frac{v}{2L/n} = n \cdot \frac{v}{2L} = n f_1,
 </div>
 <p><strong>However, the triangle is not a sine wave.</strong> Furthermore, look at the triangle, its straight sides will not feel any pull; the only bend is at the corner. As a force is only induced at a bend, the corner should start moving while the sides wait, and the triangle wouldn’t keep its shape.</p>
 <p>Let’s test this prediction by releasing two strings side by side: one shaped like the third mode, and one shaped like the triangle.</p>
-<div id="51e140a3" class="cell" data-execution_count="8">
+<div id="53591163" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display" data-execution_count="8">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -570,36 +570,36 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imge1387ecf91b1446099be5aafd62d7694">
+  <img id="_anim_imge053f1d89c824226b642c555903e6bcc">
   <div class="anim-controls">
-    <input id="_anim_slidere1387ecf91b1446099be5aafd62d7694" type="range" class="anim-slider" name="points" min="0" max="1" step="1" value="0" oninput="anime1387ecf91b1446099be5aafd62d7694.set_frame(parseInt(this.value));">
+    <input id="_anim_slidere053f1d89c824226b642c555903e6bcc" type="range" class="anim-slider" name="points" min="0" max="1" step="1" value="0" oninput="anime053f1d89c824226b642c555903e6bcc.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anime1387ecf91b1446099be5aafd62d7694.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anime053f1d89c824226b642c555903e6bcc.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anime1387ecf91b1446099be5aafd62d7694.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anime053f1d89c824226b642c555903e6bcc.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anime1387ecf91b1446099be5aafd62d7694.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anime053f1d89c824226b642c555903e6bcc.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anime1387ecf91b1446099be5aafd62d7694.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anime053f1d89c824226b642c555903e6bcc.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anime1387ecf91b1446099be5aafd62d7694.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anime053f1d89c824226b642c555903e6bcc.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anime1387ecf91b1446099be5aafd62d7694.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anime053f1d89c824226b642c555903e6bcc.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anime1387ecf91b1446099be5aafd62d7694.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anime053f1d89c824226b642c555903e6bcc.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anime1387ecf91b1446099be5aafd62d7694.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anime053f1d89c824226b642c555903e6bcc.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anime1387ecf91b1446099be5aafd62d7694.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anime053f1d89c824226b642c555903e6bcc.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selecte1387ecf91b1446099be5aafd62d7694" class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_e1387ecf91b1446099be5aafd62d7694">
-      <label for="_anim_radio1_e1387ecf91b1446099be5aafd62d7694">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_e1387ecf91b1446099be5aafd62d7694" checked="">
-      <label for="_anim_radio2_e1387ecf91b1446099be5aafd62d7694">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_e1387ecf91b1446099be5aafd62d7694">
-      <label for="_anim_radio3_e1387ecf91b1446099be5aafd62d7694">Reflect</label>
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selecte053f1d89c824226b642c555903e6bcc" class="anim-state">
+      <input type="radio" name="state" value="once" id="_anim_radio1_e053f1d89c824226b642c555903e6bcc">
+      <label for="_anim_radio1_e053f1d89c824226b642c555903e6bcc">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_e053f1d89c824226b642c555903e6bcc" checked="">
+      <label for="_anim_radio2_e053f1d89c824226b642c555903e6bcc">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_e053f1d89c824226b642c555903e6bcc">
+      <label for="_anim_radio3_e053f1d89c824226b642c555903e6bcc">Reflect</label>
     </form>
   </div>
 </div>
@@ -609,9 +609,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imge1387ecf91b1446099be5aafd62d7694";
-    var slider_id = "_anim_slidere1387ecf91b1446099be5aafd62d7694";
-    var loop_select_id = "_anim_loop_selecte1387ecf91b1446099be5aafd62d7694";
+    var img_id = "_anim_imge053f1d89c824226b642c555903e6bcc";
+    var slider_id = "_anim_slidere053f1d89c824226b642c555903e6bcc";
+    var loop_select_id = "_anim_loop_selecte053f1d89c824226b642c555903e6bcc";
     var frames = new Array(60);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAAFACAYAAABEGxgbAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -32535,7 +32535,7 @@ hIiIiIiIxFn+HzEewW35lqWqAAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anime1387ecf91b1446099be5aafd62d7694 = new Animation(frames, img_id, slider_id, 80.0,
+        anime053f1d89c824226b642c555903e6bcc = new Animation(frames, img_id, slider_id, 80.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -32623,7 +32623,7 @@ b_n = \frac{2}{L}\int_0^L \varphi(x)\,\sin\!\left(\frac{n\pi x}{L}\right)dx
 <section id="simulating-the-harmonics" class="level2">
 <h2 class="anchored" data-anchor-id="simulating-the-harmonics">Simulating the harmonics</h2>
 <p>With the general formula, here are the first 16 modes for a string plucked a quarter of the way along, each scaled by its <span class="math inline">\(b_n\)</span>:</p>
-<div id="8fb3b7e6" class="cell" data-execution_count="10">
+<div id="5ca220a7" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -32636,7 +32636,7 @@ b_n = \frac{2}{L}\int_0^L \varphi(x)\,\sin\!\left(\frac{n\pi x}{L}\right)dx
 <p>The fundamental, the blue hump, is the largest, but it peaks in the middle of the string, not at the pluck point. This is where the other modes, or harmonics come into play.</p>
 <p>The 2nd mode, in orange, is much smaller. It is positive on the left half and negative on the right, so it pushes the shape up near the pluck point and down on the far side. The third mode is smaller again, and the higher harmonics shrink quickly. By the 16th they are barely visible.</p>
 <p>Now let see what happens if we add the modes one at a time. Every curve below adds one more mode to the curve before it.</p>
-<div id="806dbd27" class="cell" data-execution_count="11">
+<div id="14405e8c" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -32649,7 +32649,7 @@ b_n = \frac{2}{L}\int_0^L \varphi(x)\,\sin\!\left(\frac{n\pi x}{L}\right)dx
 <p>The fundamental alone is a poor match for the triangle, but adding the 2nd mode pulls the peak towards the pluck point. Every mode after that makes a smaller adjustment, which slowly pulls the string to the side of the triangle.</p>
 <p>The last part to form is the corner. Even with 16 modes, the peak is still slightly rounded. Whereas the smooth sides of the triangle need only a few modes, the sharp corner needs many high modes working together. This was the heart of Euler and d’Alembert’s objection: no finite number of smooth sine waves can ever make a perfectly sharp corner. At the same time, we see that we are getting closer to a triangle.</p>
 <p>But <span class="math inline">\(b_n\)</span> also depend on where the string is plucked. Change where you pluck and you change how much of each mode contributes to the triangle.</p>
-<div id="6a283fbc" class="cell" data-execution_count="12">
+<div id="d0a89b8c" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -32663,7 +32663,7 @@ b_n = \frac{2}{L}\int_0^L \varphi(x)\,\sin\!\left(\frac{n\pi x}{L}\right)dx
 <p>Pluck an open string right next to the bridge and you get a harsh, pinched, twangy “eeee”. The reason being that pluck point excites lots of high harmonics as the sharp corner is at the end of the string. The fundamental carries a smaller share of the shape, and the higher harmonics carry much more, which together forms harshness.</p>
 <p>Now pluck the same string over the 12th fret, exactly halfway along. The sound is dominated by the fundamental with little odds harmonics, and the curves settle onto the triangle almost immediately: this leads to a softer, rounder, hollow sound.</p>
 <p>Remember that Fourier’s claim is we must take the sum to infinite terms to make it exactly equal, so let’s take his advice to heart and sum the terms to infinity. Of course, it is obvious that we cannot compute an infinite amount of modes, but we can just take it to a large enough term, say 100, 1,000 and 10,000 terms:</p>
-<div id="1638462f" class="cell" data-execution_count="13">
+<div id="6ab0e824" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -32784,7 +32784,7 @@ m\Big(\bigcup_{i=1}^{\infty} B_i\Big) = \sum_{i=1}^{\infty} m(B_i)
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 <p>We conclude with this beauty here.</p>
-<div id="41198431" class="cell" data-execution_count="14">
+<div id="07dfb665" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display" data-execution_count="14">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -32970,36 +32970,36 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgfa5de4559582418d8cd30110ab5387c6">
+  <img id="_anim_img59f452fd622041808b4c07472b5fc737">
   <div class="anim-controls">
-    <input id="_anim_sliderfa5de4559582418d8cd30110ab5387c6" type="range" class="anim-slider" name="points" min="0" max="1" step="1" value="0" oninput="animfa5de4559582418d8cd30110ab5387c6.set_frame(parseInt(this.value));">
+    <input id="_anim_slider59f452fd622041808b4c07472b5fc737" type="range" class="anim-slider" name="points" min="0" max="1" step="1" value="0" oninput="anim59f452fd622041808b4c07472b5fc737.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="animfa5de4559582418d8cd30110ab5387c6.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim59f452fd622041808b4c07472b5fc737.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="animfa5de4559582418d8cd30110ab5387c6.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim59f452fd622041808b4c07472b5fc737.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="animfa5de4559582418d8cd30110ab5387c6.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim59f452fd622041808b4c07472b5fc737.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="animfa5de4559582418d8cd30110ab5387c6.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim59f452fd622041808b4c07472b5fc737.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="animfa5de4559582418d8cd30110ab5387c6.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim59f452fd622041808b4c07472b5fc737.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="animfa5de4559582418d8cd30110ab5387c6.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim59f452fd622041808b4c07472b5fc737.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="animfa5de4559582418d8cd30110ab5387c6.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim59f452fd622041808b4c07472b5fc737.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="animfa5de4559582418d8cd30110ab5387c6.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim59f452fd622041808b4c07472b5fc737.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="animfa5de4559582418d8cd30110ab5387c6.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim59f452fd622041808b4c07472b5fc737.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectfa5de4559582418d8cd30110ab5387c6" class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_fa5de4559582418d8cd30110ab5387c6">
-      <label for="_anim_radio1_fa5de4559582418d8cd30110ab5387c6">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_fa5de4559582418d8cd30110ab5387c6" checked="">
-      <label for="_anim_radio2_fa5de4559582418d8cd30110ab5387c6">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_fa5de4559582418d8cd30110ab5387c6">
-      <label for="_anim_radio3_fa5de4559582418d8cd30110ab5387c6">Reflect</label>
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select59f452fd622041808b4c07472b5fc737" class="anim-state">
+      <input type="radio" name="state" value="once" id="_anim_radio1_59f452fd622041808b4c07472b5fc737">
+      <label for="_anim_radio1_59f452fd622041808b4c07472b5fc737">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_59f452fd622041808b4c07472b5fc737" checked="">
+      <label for="_anim_radio2_59f452fd622041808b4c07472b5fc737">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_59f452fd622041808b4c07472b5fc737">
+      <label for="_anim_radio3_59f452fd622041808b4c07472b5fc737">Reflect</label>
     </form>
   </div>
 </div>
@@ -33009,9 +33009,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgfa5de4559582418d8cd30110ab5387c6";
-    var slider_id = "_anim_sliderfa5de4559582418d8cd30110ab5387c6";
-    var loop_select_id = "_anim_loop_selectfa5de4559582418d8cd30110ab5387c6";
+    var img_id = "_anim_img59f452fd622041808b4c07472b5fc737";
+    var slider_id = "_anim_slider59f452fd622041808b4c07472b5fc737";
+    var loop_select_id = "_anim_loop_select59f452fd622041808b4c07472b5fc737";
     var frames = new Array(72);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAAIwCAYAAAB+0Q9HAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -95664,7 +95664,7 @@ IYSQikEBQgghhBBCCEGl+P8BmXartAwjqF8AAAAASUVORK5CYII=\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animfa5de4559582418d8cd30110ab5387c6 = new Animation(frames, img_id, slider_id, 59.0,
+        anim59f452fd622041808b4c07472b5fc737 = new Animation(frames, img_id, slider_id, 59.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -95712,6 +95712,29 @@ X''(x) = \sigma X(x), \qquad \Theta''(t) = \sigma v^2\,\Theta(t).
 <p>The boundary conditions give <span class="math inline">\(X(0)\Theta(t) = X(L)\Theta(t) = 0\)</span> for all <span class="math inline">\(t\)</span>. If <span class="math inline">\(\Theta \equiv 0\)</span> then <span class="math inline">\(u \equiv 0\)</span>, so for a non-trivial solution there is some <span class="math inline">\(t\)</span> with <span class="math inline">\(\Theta(t) \neq 0\)</span>, and therefore <span class="math inline">\(X(0) = X(L) = 0\)</span>. Thus <span class="math inline">\(X\)</span> must satisfy <span id="eq-evp"><span class="math display">\[
 X''(x) = \sigma X(x), \qquad X(0) = X(L) = 0.
 \tag{2}\]</span></span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Sturm-Liouville Problem
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>{#eq-evp} is an example of a Sturm-Liouville problem. Generally on a finite interval <span class="math inline">\(\left[a,b\right]\)</span>, we have: <span class="math display">\[
+\frac {\mathrm {d} }{\mathrm {d} x}\left[p(x){\frac {\mathrm {d} y}{\mathrm {d} x}}\right]+q(x)y=-\lambda \,w(x)y
+\]</span></p>
+<p>Put <span class="math inline">\(\lambda = \sigma\)</span> and rewrite <span class="math inline">\(X'' = \sigma X\)</span> as</p>
+<p><span class="math display">\[
+\frac{\mathrm {d} }{\mathrm {d} x}\left[ X'\right] = -\lambda X, \qquad X(0) = X(L) = 0
+\]</span></p>
+<p>This is the Sturm–Liouville form with <span class="math inline">\(p \equiv 1\)</span>, <span class="math inline">\(q \equiv 0\)</span>, <span class="math inline">\(w \equiv 1\)</span> on <span class="math inline">\([0, L]\)</span>.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="the-eigenvalue-problem" class="level3">
 <h3 class="anchored" data-anchor-id="the-eigenvalue-problem">The eigenvalue problem</h3>
