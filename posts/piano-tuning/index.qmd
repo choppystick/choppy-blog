@@ -6,7 +6,7 @@ bibliography: references.bib
 draft: true
 ---
 
-## Introduction 
+## Introduction
 
 Press any C on a piano, then count the keys before you reach the next one. Twelve notes: seven white keys, five black. I've played this layout for decades, and only recently did it strike me as strange. Why twelve? Why not ten, fifteen or even fifty-three *(wink)*?
 
@@ -18,8 +18,9 @@ My suspicion is that the magic number comes from something deeper: hidden within
 
 We must first start by introducing the fundamental unit of music - a note. Physically, a note is just air pressure wobbling back and forth. What sets apart notes are its pitches, measured in **frequency**.
 
-:::{.callout-note collapse="true"}
+::: {.callout-note collapse="true"}
 ### What are frequencies?
+
 Frequency is how many times something repeats each second. A vibrating string swings back and forth, and one full back-and-forth is a *cycle*. The number of cycles per second is measured in *hertz* (Hz). A 3 Hz wave completes 3 cycles every second, and a 6 Hz wave completes 6, so it repeats twice as fast.
 
 ```{python}
@@ -42,7 +43,6 @@ For sound, frequency is pitch: more cycles per second sounds higher. The A strin
 :::
 
 But a note is never one frequency. If you pluck the open A string on a guitar, a tuner will tell you it's 110 Hz. But run the same sound through a spectrum analyzer, and odds are you will be surprised. It turns out that there are multiple frequencies in a note, not just 110 Hz, but 220, 330 Hz, and so on. The lowest of these, 110 Hz, is the *fundamental*, and it sets the pitch you hear. The rest, at whole-number multiples of it, are the *harmonics*, or overtones.
-
 
 ```{python}
 #| echo: false
@@ -102,13 +102,15 @@ plt.show()
 
 Two things stand out:
 
-1. **The bands sit on the dashed lines.** Energy is concentrated at whole-number multiples of 110 Hz, just as predicted.
+1.  **The bands sit on the dashed lines.** Energy is concentrated at whole-number multiples of 110 Hz, just as predicted.
 
-   :::{.callout-note collapse="true"}
-   ## Real strings are not perfectly elastic!
-   Real harmonics roughly follow $f_n \approx n \cdot f_0 \cdot \sqrt{1 + B n^2}$, where $B$ is the inharmonicity coefficient. Dashed lines may not be perfectly alligned with the peaks.
-   :::
+    ::: {.callout-note collapse="true"}
+    ## Real strings are not perfectly elastic!
 
-2. **Higher harmonics are weaker and shorter-lived.** Most of the energy sits below about 1000 Hz, and the upper bands fade within a second or so while the low ones ring on.
+    Real harmonics roughly follow $f_n \approx n \cdot f_0 \cdot \sqrt{1 + B n^2}$, where $B$ is the inharmonicity coefficient. Dashed lines may not be perfectly alligned with the peaks.
+    :::
+
+2.  **Higher harmonics are weaker and shorter-lived.** Most of the energy sits below about 1000 Hz, and the upper bands fade within a second or so while the low ones ring on.
 
 For why harmonics exist, see my writing on the physics of harmonics in [On Harmonics](../harmonics/index.qmd).
+

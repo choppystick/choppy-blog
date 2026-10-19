@@ -25,7 +25,7 @@ f1 = 110.0     # open A string, in Hz
 fs = 44100     # audio sample rate
 ```
 
-Here is a recording of the open A string, plucked three times. Its fundamental $f_1$ is 110 Hz, so we expect energy at $f_1, 2f_1, 3f_1, 4f_1, \ldots$, or at 110, 220, 330, 440 Hz and so on respectively.
+Here is a recording of the open A string, plucked three times. Its frequency is 110 Hz.
 
 ```{python}
 #| echo: false
@@ -38,37 +38,68 @@ if samples.ndim > 1:
 display(Audio(audio_path))
 ```
 
-A spectrogram shows which frequencies are present at each moment, and brighter indicates higher energy. The dashed lines mark where the theoretical harmonics should be:
+However, even though the note is 110 Hz, it actually isn't purely 110 Hz. If it was really just that, it would actually sound more like this pure sine wave instead (You may need headphones for this and careful with the volume):
+
+```{python}
+#| echo: false
+#| warning: false
+audio_path = "110-hz-soundwave.mp3"
+soundwave, record_sw = sf.read(audio_path, always_2d=False)
+if soundwave.ndim > 1:
+    soundwave = soundwave.mean(axis=1)
+
+display(Audio(audio_path))
+```
+
+The reason why a guitar note sounds the way it does is because of *harmonics*. To see harmonics, we can analyze the frequency components of the sound using a *spectrogram*.
+
+A spectrogram shows which frequencies are present at each moment, and brighter indicates higher energy. Below is the spectrogram of the plucked string:
+
+```{python}
+#| echo: false
+#| warning: false
+def plot_spectrogram(x, sample_rate, f0=110, fmax=4000, vmin=None, vmax=None):
+    freqs, t, Sxx = signal.spectrogram(x, fs=sample_rate, nperseg=4096, noverlap=3072, window="hann")
+    Sxx_db = 10 * np.log10(Sxx + 1e-12)
+
+    fig, ax = plt.subplots(figsize=(8, 4))
+    mesh = ax.pcolormesh(
+        t, freqs, Sxx_db, shading="gouraud", cmap="magma",
+        vmin=np.percentile(Sxx_db, 25) if vmin is None else vmin,
+        vmax=Sxx_db.max() if vmax is None else vmax,
+    )
+
+    ax.set_ylim(0, fmax)
+    ax.set_xlabel("Time (s)")
+    ax.set_ylabel("Frequency (Hz)")
+    fig.colorbar(mesh, ax=ax, label="Energy (dB)")
+
+    for n in range(1, int(fmax / f0) + 1):
+        ax.axhline(n * f0, color="white", linestyle="--", linewidth=0.6, alpha=0.5)
+        ax.text(t[-1], n * f0, f"  {n}×f0", color="white", va="center", fontsize=7)
+
+    plt.show()
+```
 
 ```{python}
 #| echo: false
 #| warning: false
 #| fig-cap: "Spectrogram of the recorded A string. Dashed lines mark the fundamental $f_1$ and harmonics $f_k = kf_1$."
-freqs, t, Sxx = signal.spectrogram(samples, fs=record_fs, nperseg=4096, noverlap=3072, window="hann")
-Sxx_db = 10 * np.log10(Sxx + 1e-12)
-f0 = 110
-
-fig, ax = plt.subplots(figsize=(8, 4))
-mesh = ax.pcolormesh(
-    t, freqs, Sxx_db, shading="gouraud", cmap="magma",
-    vmin=np.percentile(Sxx_db, 25), vmax=Sxx_db.max(),
-)
-
-ax.set_ylim(0, 4000)
-ax.set_xlabel("Time (s)")
-ax.set_ylabel("Frequency (Hz)")
-fig.colorbar(mesh, ax=ax, label="Energy (dB)")
-
-for n in range(1, int(4000 / f0) + 1):
-    ax.axhline(n * f0, color="white", linestyle="--", linewidth=0.6, alpha=0.5)
-    ax.text(t[-1], n * f0, f"  {n}×f0", color="white", va="center", fontsize=7)
-
-plt.show()
+plot_spectrogram(samples, record_fs)
 ```
 
-The lowest of these, 110 Hz, is the *fundamental*, and it sets the pitch you hear. The rest, at whole-number multiples of it, are the *harmonics*.
+For comparison, here is the spectrogram of the pure 110 Hz sine wave. Only the fundamental shows up:
 
-This naturally raises two questions:
+```{python}
+#| echo: false
+#| warning: false
+#| fig-cap: "Spectrogram of the pure 110 Hz sine wave. All the energy sits at the fundamental."
+plot_spectrogram(soundwave, record_sw, fmax=1000)
+```
+
+The lowest of these, 110 Hz, is the *fundamental*, which sets the tone we hear, and both spectrograms share it. However, the plucked string differs by having energy level at frequencies not just at the fundamental, these frequencies are called *harmonics*. A property of harmonics is that they occur at whole-number multiples of the fundamental, our original note.
+
+So here's two questions that you may naturally raise:
 
 1.  **Why are the harmonics whole-number multiples of the fundamental?**
 
