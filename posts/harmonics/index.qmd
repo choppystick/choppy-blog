@@ -731,6 +731,23 @@ $$
 X''(x) = \sigma X(x), \qquad X(0) = X(L) = 0.
 $$ {#eq-evp}
 
+:::{.callout-note collapse="false"}
+
+## Sturm-Liouville Problem
+{#eq-evp} is an example of a Sturm-Liouville problem. Generally on a finite interval $\left[a,b\right]$, we have:
+$$
+\frac {\mathrm {d} }{\mathrm {d} x}\left[p(x){\frac {\mathrm {d} y}{\mathrm {d} x}}\right]+q(x)y=-\lambda \,w(x)y
+$$
+
+Put $\lambda = \sigma$ and rewrite $X'' = \sigma X$ as
+
+$$
+\frac{\mathrm {d} }{\mathrm {d} x}\left[ X'\right] = -\lambda X, \qquad X(0) = X(L) = 0
+$$
+
+This is the Sturm–Liouville form with $p \equiv 1$, $q \equiv 0$, $w \equiv 1$ on $[0, L]$.
+:::
+
 ### The eigenvalue problem
 @eq-evp always has the trivial solution $X \equiv 0$, but that gives $u \equiv 0$, a string that never moves. 
 
