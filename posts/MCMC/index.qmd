@@ -6,8 +6,11 @@ categories: [statistics, probability]
 # bibliography: references.bib
 ---
 
-I still remembered my Intro to Bayesian Analysis course, and that period was a fond memory. It was spring 2024 and right outside the dorm, I could always see the cherry blossoms. A whole forest of them. They were part of a landscaping project, by the generosity of an alumni, and have now became a university's staple. The student newspaper would track the blossom dates meticulously and the NJ state news would report on it whenever the blossom happens. And one day, the blossoms had started. It was a wonderful full bloom. They were pink and vibrant. Even smelled great too. Looking at them from the window gave me a sense of longing - of how nice it must be to share that patch under the tree with another person. But there isn't anyone at the time and the only person who would was too far.
+I still remembered my Intro to Bayesian Analysis course, and that period was a fond memory. It was spring and right outside the dorm, there are the cherry trees. A whole forest of them. They were part of this landscaping project started by the generosity of an alumni, and have now became a university's staple. The student newspaper would track the blossom dates meticulously and everyone would just come to this part of the campus to look at the trees. They were all waiting, and I was too. And one day, the blossoms had started. It was a full bloom. They were pink and vibrant. Even smelled great too. Looking at them from the window gave me a sense of longing - of how nice it must be to share that patch under the tree with another person. But there isn't anyone at the time and the only person who would was too far.
 
-But the beauty about mathematics is that it proceeds with or without anyone. 
+## Introduction
+
+
+
 
 
