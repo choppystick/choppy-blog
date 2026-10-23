@@ -1,13 +1,13 @@
 ---
-title: "Markov Chain Monte Carlo."
+title: "An Introduction to Markov Chain Monte Carlo."
 subtitle: "'Arise, walk through the length and the breadth of the land, for I will give it to you.' Gen 13:17 (ESV)"
 # date: 2026-10-15
 categories: [statistics, probability]
 # bibliography: references.bib
 ---
 
-In Monaco there is a casino where cards are dealt, dice are rolled, and every sort of vice is served alongside the champagne. Somewhere in the room, someone has just hit the blackjack that he was praying for. At the next table, another has lost everything on the river. By any metric, the room looks lawless and depraved. But do not be misled: a prince presides over the air, and everyone in the establishment worships him. He decides the next card, the next roll, who goes bust and who goes home rich. There is no bargaining or pleading with him; he does not even notice that you are praying. **In the Casino de Monte-Carlo, that god is Chance** and he doesn't care about you.
+I still remembered my Intro to Bayesian Analysis course, and that period was a fond memory. It was spring 2024 and right outside the dorm, I could always see the cherry blossoms. A whole forest of them. They were part of a landscaping project, by the generosity of an alumni, and have now became a university's staple. The student newspaper would track the blossom dates meticulously and the NJ state news would report on it whenever the blossom happens. And one day, the blossoms had started. It was a wonderful full bloom. They were pink and vibrant. Even smelled great too. Looking at them from the window gave me a sense of longing - of how nice it must be to share that patch under the tree with another person. But there isn't anyone at the time and the only person who would was too far.
 
-
+But the beauty about mathematics is that it proceeds with or without anyone. 
 
 
