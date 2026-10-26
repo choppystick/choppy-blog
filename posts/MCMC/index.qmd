@@ -10,7 +10,10 @@ I still remembered my Intro to Bayesian Analysis course, and that period was a f
 
 ## Introduction
 
+Here's a simple question: "What is the chance that it will rain tomorrow?"
 
+You might think that this is an easy question to answer. Open your weather app and there it is: 55%.
 
+But what does that 55% mean? To understand that we need a coin.
 
-
+Think about how we usually make sense of probability. Suppose we want to know what is the probability of flipping a head.
