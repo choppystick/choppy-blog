@@ -4,6 +4,9 @@ subtitle: "'Arise, walk through the length and the breadth of the land, for I wi
 # date: 2026-10-15
 categories: [statistics, probability]
 # bibliography: references.bib
+execute:
+  echo: false
+  warning: false
 ---
 
 I still remembered my Intro to Bayesian Analysis course, and that period of my life was a fond memory. It was spring and right outside the dorm, there are the cherry trees. A whole forest of them. They were part of this landscaping project, by virtue of an alumni, and have now became a university's staple. The student newspaper would track the blossom dates meticulously and everyone would just come to this part of the campus to look at the trees. They were all waiting, and I was too. And one day, the blossoms had started. It was a spectacular full bloom. They were pink and vibrant. Even smelled great too. Looking at them from the window gave me a sense of longing - of how nice it must be to share that patch under the tree with another person. But there isn't anyone at the time and the only person who would was too far.
@@ -29,32 +32,36 @@ $$
 :::
 
 ```{python}
-#| echo: false
-#| warning: false
 #| fig-cap: "Proportion of heads over 10,000 flips of a fair coin."
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+from IPython.display import HTML
 
-plt.rcParams.update({"figure.dpi": 110, "axes.spines.top": False, "axes.spines.right": False})
+plt.rcParams.update({
+    "figure.dpi": 110,
+    "figure.autolayout": True,
+    "axes.spines.top": False,
+    "axes.spines.right": False,
+    "axes.titlesize": 9,
+})
 
-rng = np.random.default_rng(4)
-n_flips = 10_000
-flips = rng.integers(0, 2, size=n_flips) # 1 = head, 0 = tail
-n = np.arange(1, n_flips + 1)
-running_ratio = np.cumsum(flips) / n
+def proportion_plot(xlabel, ylabel):
+    fig, ax = plt.subplots(figsize=(7, 4))
+    ax.set(xscale="log", xlabel=xlabel, ylabel=ylabel)
+    ax.xaxis.set_major_formatter("{x:,.0f}")
+    ax.yaxis.set_major_formatter("{x:.0%}")
+    ax.grid(alpha=0.3)
+    return ax
 
-fig, ax = plt.subplots(figsize=(7, 4))
-ax.plot(n, running_ratio, color="blue", linewidth=1.5, label="Proportion of heads")
+flips = np.random.default_rng(4).integers(0, 2, size=10_000)  # 1 = head, 0 = tail
+n = np.arange(1, flips.size + 1)
+
+ax = proportion_plot("Number of flips (log scale)", "Proportion of heads")
+ax.plot(n, flips.cumsum() / n, color="blue", linewidth=1.5, label="Proportion of heads")
 ax.axhline(0.5, color="gray", linestyle="--", linewidth=1, label="50%")
-ax.set_xscale("log")
-ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:,.0f}"))
 ax.set_ylim(0, 1)
-ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f"{y:.0%}"))
-ax.set_xlabel("Number of flips (log scale)")
-ax.set_ylabel("Proportion of heads")
-ax.grid(alpha=0.3)
 ax.legend(frameon=False)
-plt.tight_layout()
 plt.show()
 ```
 
@@ -67,22 +74,12 @@ The problem comes when we try to answer the question from earlier:
 First, tomorrow can happen exactly once. Second, it either rains, or it doesn't. So not only are there no other tomorrows to be repeated, there is no other answer beyond yes or no. So what does the $75\%$ mean?
 
 ```{python}
-#| echo: false
-#| warning: false
 #| fig-cap: "Proportion of rainy tomorrows, over all the tomorrows we can observe."
-fig, ax = plt.subplots(figsize=(7, 4))
-ax.plot([1], [1.0], marker="o", markersize=8, color="blue", linestyle="none", label="Proportion of rainy tomorrows")
+ax = proportion_plot("Number of tomorrows observed (log scale)", "Proportion of rainy tomorrows")
+ax.plot(1, 1, "o", markersize=8, color="blue", label="Proportion of rainy tomorrows")
 ax.axhline(0.75, color="gray", linestyle="--", linewidth=1, label="75% (weather app)")
-ax.set_xscale("log")
-ax.set_xlim(0.7, 10_000)
-ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:,.0f}"))
-ax.set_ylim(0, 1.05)
-ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f"{y:.0%}"))
-ax.set_xlabel("Number of tomorrows observed (log scale)")
-ax.set_ylabel("Proportion of rainy tomorrows")
-ax.grid(alpha=0.3)
+ax.set(xlim=(0.7, 10_000), ylim=(0, 1.05))
 ax.legend(frameon=False, loc="lower right")
-plt.tight_layout()
 plt.show()
 ```
 
@@ -108,89 +105,85 @@ To see why it works, we’ll first look at how Bayesian probability turns a hunc
 
 ## Making Sense of Bayes
 ```{python}
-#| echo: false
-#| warning: false
-theta = np.linspace(0, 1, 101) # 0%, 1%, ..., 100%
-weather = "RRDRRRRDRR" "RDRRRRRDRR" "RRDRRDRRRD" # 23 rain, 7 dry
+theta = np.linspace(0, 1, 101)  # 0%, 1%, ..., 100%
+weather = "RRDRRRRDRRRDRRRRRDRRRRDRRDRRRD"  # 23 rain, 7 dry
+prior = np.full_like(theta, 1 / theta.size)
 
 def update(prior, days):
     rain = days.count("R")
-    dry = len(days) - rain
-    unnormalised = prior * theta**rain * (1 - theta)**dry
+    unnormalised = prior * theta**rain * (1 - theta)**(len(days) - rain)
     Z = unnormalised.sum()
     return unnormalised / Z, Z
 
-prior = np.full_like(theta, 1 / theta.size)
-likelihood = theta**weather.count("R") * (1 - theta)**weather.count("D")
-after_one_day, _ = update(prior, weather[0])
-posterior, Z = update(prior, weather)
-forecast = (theta * posterior).sum()
-ymax = posterior.max() * 1.1
+posterior, _ = update(prior, weather)
+ymax = posterior.max() * 1.15
 
-def plot_candidates(values, colour, title, ymax=None):
-    fig, ax = plt.subplots(figsize=(5, 3.2))
-    ax.bar(theta, values, width=0.008, color=colour)
-    ax.set_title(title, fontsize=9)
-    ax.set_xlim(0, 1)
-    if ymax is not None:
-        ax.set_ylim(0, ymax)
-    ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:.0%}"))
-    ax.set_xlabel(r"$\theta$, chance of rain on an October day")
-    ax.set_yticks([])
+def plot_candidates(values, colour, title, ymax=None, ax=None):
+    ax = ax or plt.subplots(figsize=(5, 3))[1]
+    ax.bar(theta, values, width=0.007, color=colour)
+    ax.set(title=title, xlim=(0, 1), ylim=(0, ymax), yticks=[],
+           xlabel=r"$\theta$, chance of rain on an October day")
+    ax.xaxis.set_major_formatter("{x:.0%}")
     return ax
+
+def set_heights(bars, heights):
+    for bar, h in zip(bars, heights):
+        bar.set_height(h)
+
+def animate(fig, draw, steps, hold=3):
+    draw(steps[-1])
+    fig.tight_layout()
+    fig.set_layout_engine("none")
+    anim = FuncAnimation(fig, draw, frames=[*steps] + [steps[-1]] * hold, interval=500)
+    plt.close(fig)
+    return HTML(anim.to_jshtml(default_mode="loop"))
 ```
 
-Let's start small. Forget tomorrow for a moment, and suppose you've just moved to a new city at the start of October. You know nothing about its weather and it could very well be anything. Does it rain seven out of ten days? Or one in ten?
+Let's start small. Forget tomorrow for a moment, and suppose you've just moved to a new city at the start of October. You know nothing about its weather and it could very well be anything. I hear you ask: Does it rain seven out of ten days? Or one in ten? Let's try to answer that.
 
 Call that unknown $\theta$ (theta): the share of October days that rain, in the long run. It's a property of the city's climate, like its average temperature, and seven in ten would be $\theta = 70\%$.
 
-But there's a problem when trying to measure the probability of $\theta$. $\theta$ is a fixed fact, and to a frequentist a fixed fact can't have a probability. Either it is 70% or it isn't. So we have to reinterpret it under a Bayesian view. You don't *know* $\theta$, and that's uncertainty. Remember that in the Bayesian view, probability is a measure of uncertainty.
+But there's a problem when trying to measure the probability of $\theta$. $\theta$ is a fixed fact, and to a frequentist a fixed fact can't have a probability. Either it is 70% or it isn't. So we have to reinterpret it under a Bayesian view. You don't *know* $\theta$, and that's uncertainty. Since in Bayesian view, probability is a measure of uncertainty, $\theta$ can have a probability now.
 
 So what does your uncertainty about $\theta$ look like? It isn't a single number. It's a spread of plausibility over every value $\theta$ could take. To keep things simple, let's only consider whole percents: $\theta$ could be $0\%$, $1\%$, $2\%$, and so on up to $100\%$. That's 101 candidates, and your belief is just how much plausibility you give to each one.
 
 Since you genuinely have no idea, the honest place to start is to spread your belief evenly, giving each of the 101 candidates an equal share. This starting belief is called the *prior*.
 
 ```{python}
-#| echo: false
-#| warning: false
-#| fig-cap: "Each bar is one of the 101 candidates. As all candidates are equally likely, the prior is flat."
-plot_candidates(prior, "gray", "Prior", ymax=posterior.max() * 1.1)
-plt.tight_layout()
+#| fig-cap: "Each bar is one of the 101 candidates. As all candidates are equally likely, the prior is flat. Such a graph is also called a distribution."
+plot_candidates(prior, "gray", "Prior", ymax=ymax)
 plt.show()
 ```
 
 ### Updating our prior with evidence
 
-Suppose on the first day of October, it actually rained. How should your belief change?
+Suppose on the first day of October, it actually rained. How does that change our belief?
 
-Ask every candidate the same question: *if this was the true $\theta$, how surprised would I be by a rainy day?* 
+We first ask every candidate the same question: *if this was the true $\theta$, how surprised would I be by a rainy day?* 
 
-If $\theta = 90\%$, hardly at all, since rain was $90\%$ likely. If $\theta = 10\%$, quite surprised, since rain was only $10\%$ likely. To put a number on our surprise, we can rate each candidate. After a rainy day, each value of $\theta$ gets a rating of $\theta$. After a dry day, it gets $1-\theta$. We call this rating the *likelihood*: how well each candidate predicted what you actually saw.
+If $\theta = 90\%$, hardly at all, since rain was $90\%$ likely. If $\theta = 10\%$, quite surprised, since rain was only $10\%$ likely. To put a number on our surprise, we rate each candidate. After a rainy day, each value of $\theta$ gets a rating of $\theta$. After a dry day, it gets $1-\theta$. We call this rating the *likelihood*: how well each candidate predicted what you actually saw.
 
-:::{.callout-tip collapse="false"}
-## Why is it $1-\theta$ for not raining?
-Dry day happens with probability $1-\theta$ because rain is a binary event that either happens or doesn't. If it was supposed to rain with a $90\%$ probability, then it is also supposed to not rain with a $10\%$ probability. 
+::: {.callout-tip collapse="false"}
+## Why is it $1-\theta$ for a dry day?
+Each day either rains or it doesn't, so the two chances must add up to 100%. If rain has a 90% chance, a dry day has a 10% chance. In general, $P(\text{dry}) = 1 - P(\text{rain}) = 1 - \theta$.
 :::
 
 For every candidate, you now hold two numbers: how plausible it seemed **before** the rain, and how well it predicted the rain. And we combine them to update our belief.
 
-Imagine 10,100 copies of the city, 100 for each candidate, and let the first of October happen in all of them. Where $\theta = 90\%$, about 90 cities get rain; where $\theta = 10\%$, about 10 do. Since it did rain, cross out every dry city. The two candidates were tied before, but now $\theta = 90\%$ is nine times likelier. 
+Imagine 10,100 copies of the city, 100 for each candidate, and let the first of October happen in all of them. Where $\theta = 90\%$, about 90 cities get rain; where $\theta = 10\%$, about 10 do. Since it did rain, cross out every dry city. The two candidates were tied before, but now $\theta = 90\%$ is nine times likelier.
 
 Its 90 survivors are $90/10{,}100 \approx 0.89\%$ of all cities, which is exactly its prior ($1/101$) times its likelihood ($0.9$). In general, each candidate's share of surviving cities is prior $\times$ likelihood, and we call this the *unnormalized posterior*.
 
 ```{python}
-#| echo: false
-#| warning: false
 #| fig-cap: 'After one rainy day, each candidate keeps prior $\times$ likelihood of all the cities. $\theta=0%$ is ruled out as it has no wet days.'
 ax = plot_candidates(theta * prior, "green", "Unnormalized posterior - in one day")
 ax.yaxis.set_major_locator(plt.MultipleLocator(0.005))
-ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f"{y:.1%}"))
+ax.yaxis.set_major_formatter("{x:.1%}")
 ax.set_ylabel("share of all cities")
-plt.tight_layout()
 plt.show()
 ```
 
-There's one last bit of bookkeeping. These shares don't add up to $100\%$. They add up to $50\%$, because half the cities were crossed out. So this isn't a belief yet (A probabilty is strictly $0\%$ to $100\%$). To make it one, divide every share by the total that survived with:
+There's one last bit of bookkeeping. These shares don't add up to $100\%$. Instead they add up to $50\%$, as half the cities were crossed out. So this isn't a belief yet (A probabilty is strictly $0\%$ to $100\%$). To make it one, divide every share by the total that survived with:
 
 $$
 Z = \sum_{k=0}^{100} \text{prior}_k \times \text{likelihood}_k = 0.5.
@@ -199,14 +192,11 @@ $$
 $Z$ is called the *normalizing constant*, or the *evidence*. It's the fraction of cities that saw what you saw. Dividing by it gives the *posterior*:
 
 ```{python}
-#| echo: false
-#| warning: false
 #| fig-cap: 'Updated belief after seeing one rainy day.'
-ax = plot_candidates(after_one_day, "blue", "Posterior - in one day", ymax=ymax)
+ax = plot_candidates(update(prior, weather[0])[0], "blue", "Posterior - in one day", ymax=ymax)
 ax.yaxis.set_major_locator(plt.MultipleLocator(0.01))
-ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f"{y:.0%}"))
+ax.yaxis.set_major_formatter("{x:.0%}")
 ax.set_ylabel("belief")
-plt.tight_layout()
 plt.show()
 ```
 
@@ -218,25 +208,20 @@ $$
 p(D \mid \theta) = \theta^{23}\,(1-\theta)^{7},
 $$
 
-where $D$ stands for the data, those 30 days of weather.
+where $D$ stands for the data, those 30 days of weather. Only the candidates that predicted the whole month reasonably well have cities left. Your belief narrows into a hump around $75\%$.
 
-```{python}
-#| echo: false
-#| warning: false
+<!-- ```{python}
 #| fig-cap: "The likelihood of 23 rainy days out of 30, for each candidate."
+likelihood = theta**23 * (1 - theta)**7
 plot_candidates(likelihood / likelihood.max(), "darkorange", "Likelihood - after a month")
-plt.tight_layout()
 plt.show()
-```
+``` -->
 
-Only the candidates that predicted the whole month reasonably well have cities left. Your belief narrows into a hump around $75\%$.
+<!-- Only the candidates that predicted the whole month reasonably well have cities left. Your belief narrows into a hump around $75\%$. -->
 
 ```{python}
-#| echo: false
-#| warning: false
-#| fig-cap: "The posterior after 30 days. It's so *normal*."
+#| fig-cap: "The posterior after 30 days. It's so *normal*, **or is it actually?**"
 plot_candidates(posterior, "blue", "posterior - after a month", ymax=ymax)
-plt.tight_layout()
 plt.show()
 ```
 
@@ -247,77 +232,183 @@ $$
 = \frac{\overbrace{p(D \mid \theta)}^{\text{likelihood}} \times \overbrace{p(\theta)}^{\text{prior}}}{\underbrace{Z}_{\text{evidence}}}
 ,
 \qquad
-Z = \sum_{k=0}^{100} p(D \mid \theta_k)\, p(\theta_k),
+Z = \sum_{k=0}^{100} p(D \mid \theta_k)\, p(\theta_k)
 $$
 
 And here is how the whole system evolve:
 
 ```{python}
-#| echo: false
-#| fig-cap: "Prior: today's prior is yesterday's posterior. Likelihood: how good is the prediction given an observation. prior x likelihood: the unnormalized posterior, current total adds up to $Z$ so it is not a belief yet. Posterior: the new updated belief given an observation."
-from matplotlib.animation import FuncAnimation, PillowWriter
-from IPython.display import HTML
-
-final_posterior, _ = update(prior, weather)
-belief_max = final_posterior.max() * 1.15
-
+#| fig-cap: "Prior: today's prior is yesterday's posterior. Likelihood: how good is the prediction given an observation. prior x likelihood: the unnormalized posterior, current total adds up to $Z$ so it is not a belief yet. Posterior: the new updated belief given an observation, normalized by $Z$."
 fig, axes = plt.subplots(2, 2, figsize=(7, 5.5), sharex=True)
-panels = {
-    "prior":        (axes[0, 0], "gray"),
-    "likelihood":   (axes[0, 1], "darkorange"),
-    "unnormalised": (axes[1, 0], "purple"),
-    "posterior":    (axes[1, 1], "blue"),
-}
-bars = {name: ax.bar(theta, np.zeros_like(theta), width=0.008, color=colour)
-        for name, (ax, colour) in panels.items()}
-
-for name, (ax, _) in panels.items():
-    ax.set_xlim(0, 1)
-    ax.set_ylim(0, 1.1 if name == "likelihood" else belief_max)
-    ax.set_yticks([0, 1] if name == "likelihood" else [])
-    ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:.0%}"))
-for ax in axes[1]:
-    ax.set_xlabel(r"$\theta$, chance of rain on an October day")
-# forecast_line = axes[1, 1].axvline(0.5, color="black", linestyle="--", linewidth=1)
-# forecast_text = axes[1, 1].text(0, belief_max * 0.9, "", ha="right", fontsize=9)
+for ax, colour in zip(axes.flat, ["gray", "darkorange", "purple", "blue"]):
+    plot_candidates(np.zeros_like(theta), colour, "", ymax=ymax, ax=ax)
+for ax in axes[0]:
+    ax.set_xlabel("")
+axes[0, 1].set(ylim=(0, 1.1), yticks=[0, 1])
+axes[1, 1].set_title("Posterior: divided each by Z, adds up to 1")
 header = fig.suptitle("", fontsize=10)
 
 def draw(n):
+    rainy = weather[n - 1] == "R"
     before, _ = update(prior, weather[:n - 1])
-    today = weather[n - 1]
-    likelihood = theta if today == "R" else 1 - theta
-    unnormalised = before * likelihood
-    Z = unnormalised.sum()
-    after = unnormalised / Z
-    forecast = (theta * after).sum()
+    likelihood = theta if rainy else 1 - theta
+    after, Z = update(before, weather[n - 1])
+    for ax, values in zip(axes.flat, [before, likelihood, before * likelihood, after]):
+        set_heights(ax.containers[0], values)
+    axes[0, 0].set_title(f"Prior: belief after day {n - 1}")
+    axes[0, 1].set_title(f"Likelihood of a {'rainy' if rainy else 'dry'} day: "
+                         + (r"$\theta$" if rainy else r"$1-\theta$"))
+    axes[1, 0].set_title(f"Prior × likelihood: adds up to Z = {Z:.2f}")
+    rain = weather[:n].count("R")
+    header.set_text(f"Day {n} ({'rain' if rainy else 'dry'}):  {rain} rainy, {n - rain} dry so far")
 
-    for name, values in [("prior", before), ("likelihood", likelihood),
-                         ("unnormalised", unnormalised), ("posterior", after)]:
-        for bar, h in zip(bars[name], values):
-            bar.set_height(h)
-
-    word = "rain" if today == "R" else "dry"
-    panels["prior"][0].set_title(f"Prior: belief after day {n - 1}", fontsize=9)
-    panels["likelihood"][0].set_title(
-        f"Likelihood of a {'rainy' if today == 'R' else 'dry'} day: "
-        + (r"$\theta$" if today == "R" else r"$1-\theta$"), fontsize=9)
-    panels["unnormalised"][0].set_title(f"Prior × likelihood: adds up to Z = {Z:.2f}", fontsize=9)
-    panels["posterior"][0].set_title("Posterior: divided each by Z, adds up to 1", fontsize=9)
-    # forecast_line.set_xdata([forecast, forecast])
-    # forecast_text.set_position((forecast - 0.02, belief_max * 0.9))
-    # forecast_text.set_text(f"forecast {forecast:.0%}")
-    rain_so_far = weather[:n].count("R")
-    header.set_text(f"Day {n} ({word}):  {rain_so_far} rainy, {n - rain_so_far} dry so far")
-
-frames = list(range(1, len(weather) + 1)) + [len(weather)] * 2
-anim = FuncAnimation(fig, draw, frames=frames, interval=500)
-plt.tight_layout(rect=(0, 0, 1, 0.94), h_pad=2)
-plt.close(fig)
-HTML(anim.to_jshtml(default_mode="loop"))
+animate(fig, draw, range(1, len(weather) + 1), hold=2)
 ```
 
 :::{.callout-note collapse=true}
-## The mathematics
+## The mathematics behind our calculations.
+**Setup.** The candidates and the flat prior:
 
+$$
+\Theta = \{0, 0.01, \dots, 1\}, \qquad \theta_k = \frac{k}{100}, \quad k = 0, \dots, 100,
+\qquad
+\theta \sim \mathrm{Unif}(\Theta) \;\Rightarrow\; p(\theta_k) = \frac{1}{101}.
+$$
 
+The weather on day $t$ is $x_t \in \{0, 1\}$ for $t = 1, \dots, 30$, with $x_t = 1$ for rain and $x_t = 0$ for no rain. Given $\theta_k$, the days are independent and each is a Bernoulli trial, so our likelihood is $x_t \mid \theta_k \sim \mathrm{Bern}(\theta_k)$:
+
+$$
+p(x_t \mid \theta_k) = \theta_k^{x_t}(1-\theta_k)^{1-x_t},
+\qquad
+p(x_1, \dots, x_n \mid \theta_k) = \prod_{i=1}^{n} p(x_i \mid \theta_k).
+$$
+
+The unnormalized posterior, the normalizing constant and the posterior are
+
+$$
+\begin{aligned}
+\tilde p(\theta_k \mid x_1, \dots, x_n) &= p(x_1, \dots, x_n \mid \theta_k)\, p(\theta_k), \\
+Z &= \sum_{k=0}^{100} p(x_1, \dots, x_n \mid \theta_k)\, p(\theta_k), \\
+p(\theta_k \mid x_1, \dots, x_n) &= \frac{\tilde p(\theta_k \mid x_1, \dots, x_n)}{Z}.
+\end{aligned}
+$$
+
+**Day 1: rain ($x_1 = 1$).**
+
+$$
+\begin{aligned}
+\text{Prior:} \quad & p(\theta_k) = \frac{1}{101} \\
+\text{Likelihood:} \quad & p(x_1 \mid \theta_k) = \theta_k^{1}(1-\theta_k)^{0} = \theta_k = \frac{k}{100} \\
+\text{Unnormalized posterior:} \quad & \tilde p(\theta_k \mid x_1) = p(x_1 \mid \theta_k)\, p(\theta_k) = \frac{k}{100} \cdot \frac{1}{101} = \frac{k}{10100} \\
+\text{Normalizing constant:} \quad & Z = \sum_{k=0}^{100} \frac{k}{10100} = \frac{1}{10100} \sum_{k=0}^{100} k = \frac{1}{10100} \left( \frac{100 \cdot 101}{2} \right) = 0.5 \\
+\text{Posterior:} \quad & p(\theta_k \mid x_1) = \frac{\tilde p(\theta_k \mid x_1)}{Z} = \frac{k}{5050}
+\end{aligned}
+$$
+
+**Day 2: rain ($x_2 = 1$).** Yesterday's posterior is today's prior.
+
+$$
+\begin{aligned}
+\text{Prior:} \quad & p(\theta_k \mid x_1) = \frac{k}{5050} \\
+\text{Likelihood:} \quad & p(x_2 \mid \theta_k) = \theta_k^{1}(1-\theta_k)^{0} = \theta_k = \frac{k}{100} \\
+\text{Unnormalized posterior:} \quad & \tilde p(\theta_k \mid x_1, x_2) = p(x_2 \mid \theta_k)\, p(\theta_k \mid x_1) = \frac{k}{100} \cdot \frac{k}{5050} = \frac{k^2}{505000} \\
+\text{Normalizing constant:} \quad & Z = \sum_{k=0}^{100} \frac{k^2}{505000} = \frac{1}{505000} \left( \frac{100 \cdot 101 \cdot 201}{6} \right) = 0.67 \\
+\text{Posterior:} \quad & p(\theta_k \mid x_1, x_2) = \frac{\tilde p(\theta_k \mid x_1, x_2)}{Z} = \frac{k^2}{338350}
+\end{aligned}
+$$
+
+The same posterior also follows from the flat prior and both days at once. Substitute $p(\theta_k \mid x_1) = p(x_1 \mid \theta_k)\,p(\theta_k)/p(x_1)$, and $p(x_1)$ cancels:
+
+$$
+\begin{aligned}
+p(\theta_k \mid x_1, x_2)
+&= \frac{p(x_2 \mid \theta_k)\, p(\theta_k \mid x_1)}{\sum_{j=0}^{100} p(x_2 \mid \theta_j)\, p(\theta_j \mid x_1)} \\
+&= \frac{p(x_2 \mid \theta_k)\, p(x_1 \mid \theta_k)\, p(\theta_k) \,/\, \cancel{p(x_1)}}{\sum_{j=0}^{100} p(x_2 \mid \theta_j)\, p(x_1 \mid \theta_j)\, p(\theta_j) \,/\, \cancel{p(x_1)}}.
+\end{aligned}
+$$
+
+**Day $n$.** The prior is $p(\theta_k \mid x_1, \dots, x_{n-1})$ and the likelihood is $p(x_n \mid \theta_k)$, so
+
+$$
+\begin{aligned}
+p(\theta_k \mid D)
+&= \frac{p(x_n \mid \theta_k)\, p(\theta_k \mid x_1, \dots, x_{n-1})}{\sum_{j=0}^{100} p(x_n \mid \theta_j)\, p(\theta_j \mid x_1, \dots, x_{n-1})} \\
+&= \frac{p(x_n \mid \theta_k)\, p(x_1, \dots, x_{n-1} \mid \theta_k)\, p(\theta_k) \,/\, \cancel{p(x_1, \dots, x_{n-1})}}{\sum_{j=0}^{100} p(x_n \mid \theta_j)\, p(x_1, \dots, x_{n-1} \mid \theta_j)\, p(\theta_j) \,/\, \cancel{p(x_1, \dots, x_{n-1})}} \\
+&= \frac{\prod_{i=1}^{n} p(x_i \mid \theta_k)\; p(\theta_k)}{\sum_{j=0}^{100} \left( \prod_{i=1}^{n} p(x_i \mid \theta_j) \right) p(\theta_j)}.
+\end{aligned}
+$$
+
+In general, the posterior is
+
+$$
+p(\theta_k \mid D) = \frac{L(\theta_k; D)\, p(\theta_k)}{\sum_{j=0}^{100} L(\theta_j; D)\, p(\theta_j)},
+\qquad
+L(\theta_k; D) = p(D \mid \theta_k) = \prod_{i=1}^{n} p(x_i \mid \theta_k) \text{ by independence}.
+$$
+
+Take $n = 30$ and we recover our distribution.
 :::
+
+### From a belief to a forecast
+
+Back to the question we actually care about: will it rain tomorrow given we have observed 30 days of data?
+
+To make a forecast, we treat each candidate as an expert and ask them for the chance of rain. The $\theta = 60\%$ expert says 60%, the $\theta = 90\%$ expert says 90%, and so on. However, it would be a mistake to trust all candidates equally because not all of them are equally likely to be right. 
+
+To account for this, we rely on the posterior which tells us how much to believe each candidate, given the data. So we weight every expert's answer by our belief in them and add them up. Since the weights add up to 100%, we get a weighted average which is our forecast. This is also called a *posterior predictive distribution*:
+
+$$
+P(\text{rain tomorrow at day 31} \mid D) = \sum_{k=0}^{100} \underbrace{p(\text{rain tomorrow at day 31} \mid \theta_k)}_{\theta_k} \; p(\theta_k \mid D) = 0.75
+$$
+
+:::{.callout-tip collapse="true"}
+## Where the forecast formula comes from?
+We write $\tilde y$ for tomorrow's weather, day 31. We have that tomorrow's weather depends on which climate is true, so split over the candidates using the law of total probability
+
+$$
+P(\tilde y = \text{rain} \mid D) = \sum_{k=0}^{100} P(\tilde y = \text{rain} \mid \theta_k, D)\; p(\theta_k \mid D).
+$$
+
+We treats days as independent given the climate, i.e once you know $\theta_k$, the past month tells you nothing more about tomorrow. So $P(\tilde y = \text{rain} \mid \theta_k, D) = P(\tilde y = \text{rain} \mid \theta_k)$.
+
+Like every other day, tomorrow is a Bernoulli trial with success probability $\theta_k$, so $P(\tilde y = \text{rain} \mid \theta_k) = \theta_k$. 
+
+In general, for continuous $\theta$:
+
+$$
+p(\tilde y \mid D) = \int p(\tilde y \mid \theta)\, p(\theta \mid D)\, d\theta.
+$$
+:::
+
+Doing the calculation, we get a forecast that answers our question naturally: *Given what we have observed for the past 30 days, there is a 75% chance that it will rain tomorrow.* Isn't Bayesian simply wonderful?
+
+```{python}
+#| fig-cap: "Left: the posterior day by day, with the forecast as a dashed line. Right: how the forecast for tomorrow moves as new observations are added."
+forecasts = [(theta * update(prior, weather[:n])[0]).sum() for n in range(len(weather) + 1)]
+
+fig, (ax_post, ax_fc) = plt.subplots(1, 2, figsize=(7, 3))
+bars = plot_candidates(prior, "blue", "", ymax=ymax, ax=ax_post).containers[0]
+forecast_line = ax_post.axvline(0.5, color="black", linestyle="--", linewidth=1)
+forecast_text = ax_post.text(0, ymax * 0.9, "", ha="right", fontsize=9)
+
+line, = ax_fc.plot([], [], color="blue")
+dot, = ax_fc.plot([], [], "o", color="blue")
+label = ax_fc.text(0, 0, "", fontsize=9, ha="center", va="bottom")
+ax_fc.set(xlim=(-2, len(weather) + 1), ylim=(0, 1),
+          xlabel="days observed", ylabel="forecast for tomorrow")
+ax_fc.yaxis.set_major_formatter("{x:.0%}")
+
+def draw(n):
+    f = forecasts[n]
+    set_heights(bars, update(prior, weather[:n])[0])
+    forecast_line.set_xdata([f, f])
+    forecast_text.set(position=(f - 0.02, ymax * 0.9), text=f"forecast {f:.0%}")
+    ax_post.set_title(f"Posterior after day {n}" if n else "Prior")
+
+    line.set_data(range(n + 1), forecasts[:n + 1])
+    dot.set_data([n], [f])
+    label.set(position=(n, f + 0.04), text=f"{f:.0%}")
+    ax_fc.set_title(f"Forecast after day {n}" if n else "Forecast before any data")
+
+animate(fig, draw, range(len(weather) + 1))
+```
