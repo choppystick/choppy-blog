@@ -1,15 +1,15 @@
 ---
 title: "An Introduction to Markov Chain Monte Carlo."
 subtitle: "'Arise, walk through the length and the breadth of the land, for I will give it to you.' Gen 13:17 (ESV)"
-# date: 2026-10-15
+date: 2026-11-02
 categories: [statistics, probability]
-# bibliography: references.bib
+bibliography: references.bib
 execute:
   echo: false
   warning: false
 ---
-
-I still remembered my Intro to Bayesian Analysis course, and that period of my life was a fond memory. It was spring and right outside the dorm, there are the cherry trees. A whole forest of them. They were part of this landscaping project, by virtue of an alumni, and have now became a university's staple. The student newspaper would track the blossom dates meticulously and everyone would just come to this part of the campus to look at the trees. They were all waiting, and I was too. And one day, the blossoms had started. It was a spectacular full bloom. They were pink and vibrant. Even smelled great too. Looking at them from the window gave me a sense of longing - of how nice it must be to share that patch under the tree with another person. But there isn't anyone at the time and the only person who would was too far.
+<!-- 
+I still remembered my Intro to Bayesian Analysis course, and that period of my life was a fond memory. It was spring and right outside the dorm, there are the cherry trees. A whole forest of them. They were part of this landscaping project, by virtue of an alumni, and have now became a university's staple. The student newspaper would track the blossom dates meticulously and everyone would just come to this part of the campus to look at the trees. They were all waiting, and I was too. And one day, the blossoms had started. It was a spectacular full bloom. They were pink and vibrant. Even smelled great too. Looking at them from the window gave me a sense of longing - of how nice it must be to share that patch under the tree with another person. But there isn't anyone at the time and the only person who would was too far. -->
 
 ## Introduction
 
@@ -17,9 +17,9 @@ Here's a simple question: *"What is the probability that it will rain tomorrow?"
 
 ![It's gonna be a wet week.](weather.png)
 
-You might think that this is a no-brainer. Open your weather app and there it is: **$75\%$**. But what does that $75\%$ actually mean?
+You might think that this is a no-brainer. Open your weather app and there it is: **75%**. But what does that 75% actually mean?
 
-Think about how we usually make sense of probability. When we say a fair coin has a $50\%$ chance of landing heads, we mean that if we flip it hundreds or thousands of times, roughly half the flips will be heads. This is the definition behind the statistics most of us met in Stats 101, with its z-tables and p-values: probability is how often something happens when you repeat it. We call this *frequentist probability*.
+Think about how we usually make sense of probability. When we say a fair coin has a 50% chance of landing heads, we mean that if we flip it hundreds or thousands of times, roughly half the flips will be heads. This is the definition behind the statistics most of us met in Stats 101, with its z-tables and p-values: probability is how often something happens when you repeat it. We call this *frequentist probability*.
 
 :::{.callout-note collapse="false"}
 ## The frequentist definition of probability
@@ -65,13 +65,13 @@ ax.legend(frameon=False)
 plt.show()
 ```
 
-That $50\%$ doesn’t promise a clean half in any particular batch. Ten flips could give seven heads; a thousand might give 480. What it promises is that the more you flip, the closer the proportion drifts toward $50\%$. On this view, probability is a statement about the long run. That makes it intuitive for coins, dice and cards, where we can repeat the experiment as often as we like.
+That 50% doesn’t promise a clean half in any particular batch. Ten flips could give seven heads; a thousand might give 480. What it promises is that the more you flip, the closer the proportion drifts toward 50%. On this view, probability is a statement about the long run. That makes it intuitive for coins, dice and cards, where we can repeat the experiment as often as we like.
 
 The problem comes when we try to answer the question from earlier:
 
 *"What is the probability that it will rain tomorrow?"*
 
-First, tomorrow can happen exactly once. Second, it either rains, or it doesn't. So not only are there no other tomorrows to be repeated, there is no other answer beyond yes or no. So what does the $75\%$ mean?
+First, tomorrow can happen exactly once. Second, it either rains, or it doesn't. So not only are there no other tomorrows to be repeated, there is no other answer beyond yes or no. So what does the 75% mean?
 
 ```{python}
 #| fig-cap: "Proportion of rainy tomorrows, over all the tomorrows we can observe."
@@ -89,9 +89,9 @@ The usual workaround is to rephrase the question:
 
 But which days count as **“like tomorrow”**? Days in October? Days with clouds this thick? October days with clouds this thick and wind from the east? Each choice gives a different answer, and theory doesn't tell you which is right.
 
-Yet, when the app shows $75\%$, we understand it perfectly well. Think about how we interpret the usual weather report: Nobody pictures a thousand imaginary tomorrows. What we instead think of is **how sure we should be that it will rain on the one tomorrow we’re actually going to get.**
+Yet, when the app shows 75%, we understand it perfectly well. Think about how we interpret the usual weather report: Nobody pictures a thousand imaginary tomorrows. What we instead think of is **how sure we should be that it will rain on the one tomorrow we’re actually going to get.**
 
-This is a different idea of probability: it's a degree of certainty, which involves having a prior knowledge and a certainty that shifts as new evidence comes in. Wake up to dark clouds, and your $75\%$ might creep up to $90\%$. Check the radar and see the storm veering away, and it drops.
+This is a different idea of probability: it's a degree of certainty, which involves having a prior knowledge and a certainty that shifts as new evidence comes in. Wake up to dark clouds, and your 75% might creep up to 90%. Check the radar and see the storm veering away, and it drops.
 
 This idea goes back to the 1760s, to an English minister named Thomas Bayes, and was developed further by the French mathematician Pierre-Simon Laplace. Today it carries Bayes’s name: *Bayesian probability*.
 
@@ -147,7 +147,7 @@ Call that unknown $\theta$ (theta): the share of October days that rain, in the 
 
 But there's a problem when trying to measure the probability of $\theta$. $\theta$ is a fixed fact, and to a frequentist a fixed fact can't have a probability. Either it is 70% or it isn't. So we have to reinterpret it under a Bayesian view. You don't *know* $\theta$, and that's uncertainty. Since in Bayesian view, probability is a measure of uncertainty, $\theta$ can have a probability now.
 
-So what does your uncertainty about $\theta$ look like? It isn't a single number. It's a spread of plausibility over every value $\theta$ could take. To keep things simple, let's only consider whole percents: $\theta$ could be $0\%$, $1\%$, $2\%$, and so on up to $100\%$. That's 101 candidates, and your belief is just how much plausibility you give to each one.
+So what does your uncertainty about $\theta$ look like? It isn't a single number. It's a spread of plausibility over every value $\theta$ could take. To keep things simple, let's only consider whole percents: $\theta$ could be 0%, 1%, 2%, and so on up to 100%. That's 101 candidates, and your belief is just how much plausibility you give to each one.
 
 Since you genuinely have no idea, the honest place to start is to spread your belief evenly, giving each of the 101 candidates an equal share. This starting belief is called the *prior*.
 
@@ -163,7 +163,7 @@ Suppose on the first day of October, it actually rained. How does that change ou
 
 We first ask every candidate the same question: *if this was the true $\theta$, how surprised would I be by a rainy day?* 
 
-If $\theta = 90\%$, hardly at all, since rain was $90\%$ likely. If $\theta = 10\%$, quite surprised, since rain was only $10\%$ likely. To put a number on our surprise, we rate each candidate. After a rainy day, each value of $\theta$ gets a rating of $\theta$. After a dry day, it gets $1-\theta$. We call this rating the *likelihood*: how well each candidate predicted what you actually saw.
+If $\theta = 90\%$, hardly at all, since rain was 90% likely. If $\theta = 10\%$, quite surprised, since rain was only 10% likely. To put a number on our surprise, we rate each candidate. After a rainy day, each value of $\theta$ gets a rating of $\theta$. After a dry day, it gets $1-\theta$. We call this rating the *likelihood*: how well each candidate predicted what you actually saw.
 
 ::: {.callout-tip collapse="false"}
 ## Why is it $1-\theta$ for a dry day?
@@ -185,7 +185,7 @@ ax.set_ylabel("share of all cities")
 plt.show()
 ```
 
-There's one last bit of bookkeeping. These shares don't add up to $100\%$. Instead they add up to $50\%$, as half the cities were crossed out. So this isn't a belief yet (A probabilty is strictly $0\%$ to $100\%$). To make it one, divide every share by the total that survived with:
+There's one last bit of bookkeeping. These shares don't add up to 100%. Instead they add up to 50%, as half the cities were crossed out. So this isn't a belief yet (A probabilty is strictly 0% to 100%). To make it one, divide every share by the total that survived with:
 
 $$
 Z = \sum_{k=0}^{100} \text{prior}_k \times \text{likelihood}_k = 0.5.
@@ -210,7 +210,7 @@ $$
 p(D \mid \theta) = \theta^{23}\,(1-\theta)^{7},
 $$
 
-where $D$ stands for the data, those 30 days of weather. Only the candidates that predicted the whole month reasonably well have cities left. Your belief narrows into a hump around $75\%$.
+where $D$ stands for the data, those 30 days of weather. Only the candidates that predicted the whole month reasonably well have cities left. Your belief narrows into a hump around 75%.
 
 <!-- ```{python}
 #| fig-cap: "The likelihood of 23 rainy days out of 30, for each candidate."
@@ -219,7 +219,7 @@ plot_candidates(likelihood / likelihood.max(), "darkorange", "Likelihood - after
 plt.show()
 ``` -->
 
-<!-- Only the candidates that predicted the whole month reasonably well have cities left. Your belief narrows into a hump around $75\%$. -->
+<!-- Only the candidates that predicted the whole month reasonably well have cities left. Your belief narrows into a hump around 75%. -->
 
 ```{python}
 #| fig-cap: "The posterior after 30 days. It's so *normal*, **or is it actually?**"
@@ -357,17 +357,24 @@ Back to the question we actually care about: will it rain tomorrow given we have
 
 To make a forecast, we treat each candidate as an expert and ask them for the chance of rain. The $\theta = 60\%$ expert says 60%, the $\theta = 90\%$ expert says 90%, and so on. However, it would be a mistake to trust all candidates equally because not all of them are equally likely to be right. 
 
-To account for this, we rely on the posterior which tells us how much to believe each candidate, given the data. So we weight every expert's answer by our belief in them and add them up. Since the weights add up to 100%, we get a weighted average which is our forecast. This is also called a *posterior predictive distribution*:
+To account for this, we rely on the posterior which tells us how much to believe each candidate, given the data. So we weight every expert's answer by our belief in them. This gets us a new distribution called the *posterior predictive distribution*. We can then add up all the belief, amd since the weights add up to 100%, we get a weighted average which is our forecast.
 
 $$
 P(\text{rain tomorrow at day 31} \mid D) = \sum_{k=0}^{100} \underbrace{p(\text{rain tomorrow at day 31} \mid \theta_k)}_{\theta_k} \; p(\theta_k \mid D) = 0.75
 $$
 
 ```{python}
-ax = plot_candidates(theta*posterior, "purple", "posterior predictive distribution")
-ax.yaxis.set_major_locator(plt.MultipleLocator(0.005))
-ax.yaxis.set_major_formatter("{x:.1%}")
-ax.set_ylabel("share of all cities")
+#| fig-cap: 'Blue: the posterior, adds up to 100%. Purple: each candidate''s vote for rain, $\theta_k \times p(\theta_k \mid D)$, adds up to the 75% forecast.'
+ax = plot_candidates(posterior, "blue", "Posterior vs. posterior predictive", ymax=ymax)
+for bar in ax.containers[0]:
+    bar.set_alpha(0.3)
+ax.containers[0].set_label(f"posterior (sum = {posterior.sum():.0%})")
+plot_candidates(theta * posterior, "purple", "Posterior vs. posterior predictive", ymax=ymax, ax=ax)
+ax.containers[1].set_label(f"posterior predictive (sum = {(theta * posterior).sum():.0%})")
+ax.yaxis.set_major_locator(plt.MultipleLocator(0.01))
+ax.yaxis.set_major_formatter("{x:.0%}")
+ax.set_ylabel("belief")
+ax.legend(frameon=False, loc="upper left")
 plt.show()
 ```
 
@@ -376,7 +383,7 @@ plt.show()
 We write $\tilde y$ for tomorrow's weather, day 31. We have that tomorrow's weather depends on which climate is true, so split over the candidates using the law of total probability
 
 $$
-P(\tilde y = \text{rain} \mid D) = \sum_{k=0}^{100} P(\tilde y = \text{rain} \mid \theta_k, D)\; p(\theta_k \mid D).
+P(\tilde y = \text{rain} \mid D) = \sum_{k=0}^{100} P(\tilde y = \text{rain} \mid \theta_k, D)\; p(\theta_k \mid D)
 $$
 
 We treats days as independent given the climate, i.e once you know $\theta_k$, the past month tells you nothing more about tomorrow. So $P(\tilde y = \text{rain} \mid \theta_k, D) = P(\tilde y = \text{rain} \mid \theta_k)$.
@@ -386,11 +393,11 @@ Like every other day, tomorrow is a Bernoulli trial with success probability $\t
 In general, for continuous $\theta$:
 
 $$
-p(\tilde y \mid D) = \int p(\tilde y \mid \theta)\, p(\theta \mid D)\, d\theta.
+p(\tilde y \mid D) = \int p(\tilde y \mid \theta)\, p(\theta \mid D)\, d\theta
 $$
 :::
 
-Doing the calculation, we get a forecast that answers our question naturally: *Given what we have observed for the past 30 days, there is a 75% chance that it will rain tomorrow.* Isn't Bayesian simply wonderful?
+Doing the calculation, we get a forecast that answers our question naturally: *Given what we have observed for the past 30 days, there is a 75% chance that it will rain tomorrow.*
 
 ```{python}
 #| fig-cap: "Left: the posterior day by day, with the forecast as a dashed line. Right: how the forecast for tomorrow moves as new observations are added."
@@ -427,5 +434,114 @@ animate(fig, draw, range(len(weather) + 1))
 For why we did not use the maximum of the posterior distribution but compute the weighted average instead, see Appendix A.
 :::
 
-### The numerator problem
+The forecast is a single number, but the posterior holds far more than that. You can ask it which climates are still plausible, how sure you can be that this is a rainy city, and how many rainy days to expect next week.
+
+Start with the first. To find the range of climates you're 95% sure contains the true one, cut 2.5% of belief from each end of the posterior. Starting from $\theta = 0$, add up belief until you reach 2.5%: that's the lower bound. Keep going until you reach 97.5%: that's the upper bound. The middle holds 95% of your belief, and here it runs from **59% to 88%**.
+
+```{python}
+#| echo: false
+#| warning: false
+#| fig-cap: 'The 95% credible interval holds the middle 95% of your belief about $\theta$. The dashed lines mark where cumulative belief reaches 2.5% and 97.5%, at $\theta$ = 59% and 88%.'
+cdf = np.cumsum(posterior)
+lo, hi = theta[np.searchsorted(cdf, 0.025)], theta[np.searchsorted(cdf, 0.975)]
+inside = (theta >= lo) & (theta <= hi)
+
+fig, ax = plt.subplots(figsize=(7, 3.4))
+ax.bar(theta[~inside], posterior[~inside], width=0.008, color="lightsteelblue")
+ax.bar(theta[inside], posterior[inside], width=0.008, color="blue")
+for x in (lo, hi):
+    ax.axvline(x, color="black", linestyle="--", linewidth=0.5)
+ax.set_xlim(0, 1)
+ax.set_ylim(0, ymax * 1.1)
+ax.set_yticks([])
+ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:.0%}"))
+ax.set_xlabel(r"$\theta$, chance of rain on an October day")
+plt.tight_layout()
+plt.show()
+```
+
+The interval is wide, it's almost 30 percentage point. Well given that we only observed 30 days of weather, being convinced that the city is likely to be rainy but not being able to pin how wet down exactly makes sense.
+
+The interval also means exactly what it sounds like. A 95% credible interval states there's a 95% probability that $\theta$ lies betweeen 59% and 88%. This sounds obvious but the confidence interval, that we learned in Stats 101, can't tell you that.
+
+::: {.callout-note collapse="true"}
+## Credible intervals vs confidence intervals
+
+A 95% **confidence interval** is a statement about a *procedure*. If you repeated the experiment many times and built an interval with lower bound $L(X)$ and upper bound $U(X)$ each time, 95% of those intervals would contain the true $\theta$. Any single interval you've computed either contains $\theta$ or it doesn't, so its probability is 0 or 1. What's random is the interval but $\theta$ is fixed.
+
+$$
+P_\theta\big(L(X) \le \theta \le U(X)\big) \ge 0.95 \quad \text{for every } \theta
+$$
+
+A 95% **credible interval** reverses that. It is a statement about *this* interval, given *this* data:
+
+$$
+P(0.59 \le \theta \le 0.88 \mid D) = \sum_{k:\ 0.59 \le \theta_k \le 0.88} p(\theta_k \mid D) \approx 0.95
+$$
+
+With this method, we find that we have a 95% probability of where $\theta$ is. The interval is fixed but $\theta$ is random.
+
+Most people read confidence intervals as if they were credible intervals. With plenty of data and a mild prior, the two are often numerically close, a result known as the Bernstein–von Mises theorem [@van1998], which is why the misreading rarely causes trouble. You would be wrong in principle to read a confidence interval as "$\theta$ has a 95% chance to be in this interval", but usually it doesn't matter. However with little data or a strong prior, they can differ substantially.
+:::
+
+Suppose now, you want to know whether this is a city where it rains more often than not. In other words, is $\theta$ above 50%? The posterior can answer that directly. We add up the belief on every candidate above 50%:
+
+$$
+P(\theta > 50\% \mid D) = \sum_{k:\ \theta_k > 0.5} p(\theta_k \mid D) \approx 99.8\%
+$$
+
+So you can be practically sure it's a rainy city. A narrower question, whether $\theta$ is above 80%, comes out at about 25%: possible, but you shouldn't bet on it.
+
+```{python}
+#| fig-cap: 'Left: belief that $\theta > 50\%$, the city rains more often than not. Right: belief that $\theta > 80\%$, the city is very wet. Vertical lines show the cuttoff at $\theta = 0.5 \text{ and } 0.8$ respectively.'
+fig, axes = plt.subplots(1, 2, figsize=(7, 3), sharey=True)
+for ax, cutoff in zip(axes, [0.5, 0.8]):
+    above = theta > cutoff
+    plot_candidates(np.where(above, 0, posterior), "lightsteelblue", "", ymax=ymax, ax=ax)
+    ax.bar(theta[above], posterior[above], width=0.007, color="blue")
+    ax.axvline(cutoff, color="black", linestyle="--", linewidth=1)
+    ax.set_title(rf"$P(\theta > {cutoff * 100:.0f}\% \mid D) = {posterior[above].sum() * 100:.1f}\%$")
+plt.show()
+```
+
+This looks like the question a *p-value* answers, but it isn't. A p-value asks: *if* $\theta$ were exactly 50%, how often would a month look at least this rainy? Here the answer is about 0.3%. 
+
+It's tempting to read that as "a 0.3% chance the city isn't rainy," but that isn't what it says. The p-value assumes the hypothesis and asks about the data. The posterior does the reverse: it takes the data as given and tells you how plausible the hypothesis is. With it, we can justifiably say there's a 0.2% chance that the city isn't rainy. 
+
+::: {.callout-note collapse="true"}
+## Confused by p-value? Read this. 
+A *p-value* starts from a *null hypothesis*, $H_0: \theta \leq 0.5$, against an *alternative hypothesis*, $H_1: \theta > 0.5$. It also needs a test statistic, $T(X)$, the number of rainy days. The p-value is the probability, assuming $H_0$ is true, of seeing data at least as extreme as what you actually saw:
+
+$$
+p = P_{\theta \leq 0.5}\big(T(X) \ge T(x)\big) = \sum_{k=23}^{30} \binom{30}{k} (0.5)^{30} \approx 0.0026.
+$$
+
+In other words: if rain really fell on exactly half of October days, a month with 23 or more rainy days would turn up only about 0.26% of the time. That's well below the conventional threshold of 0.05, so we reject $H_0$ and conclude the city is quite the rainy one.
+
+Note what p-value doesn't conclude. It doesn't say there's a 0.26% chance that $\theta = 0.5$, or a 99.74% chance that the city is rainy. It only makes a statement about the **data, assuming the hypothesis**!
+
+<!-- This might sound complicated, so here's an analogy.
+
+![*Plucked from the Fairy Circle* by T. H. Thomas [@sikes1880, p. 74].](fairycircle.png)
+
+You wake up to find a perfect ring of mushrooms in your backyard. Folklore says fairies dance in circles and leave rings like this behind. Is there a fairy in your backyard?
+
+A p-value approaches the question by assuming the boring explanation: *there is no fairy*. This is your **null hypothesis**. It then asks: if there really is no fairy, how often would a ring at least this perfect appear anyway, from fungi growing outward in a circle, as they often do?
+
+Suppose you survey the forest and find that fungi alone produce a ring this neat about 40% of the time. That's your p-value, $p = 0.40$. A ring like this is exactly what you'd expect to stumble across with no fairy involved, so it gives you no reason to abandon the boring explanation. You **fail to reject** the null hypothesis.
+
+Note what that does and doesn't mean. Failing to reject isn't the same as accepting. You haven't shown there's no fairy; you've only shown that this ring doesn't need one. By convention, the null is rejected only when $p$ falls below a threshold, usually 0.05, meaning the data would be genuinely surprising if the boring explanation were true. -->
+
+The posterior probability reverses that:
+
+$$
+P(\theta \le 0.5 \mid D) = \sum_{k:\ \theta_k \le 0.5} p(\theta_k \mid D) \approx 0.002
+$$
+
+Here the data are fixed, and the probability is your belief about $\theta$. Unlike the p-value, we can say there's a 0.2% chance that $\theta \leq 0.5$, or a 99.8% chance that the city is rainy. This is because the posterior makes a statement about the **hypothesis, given the data**.
+
+The two numbers happen to be close here. For a one-sided question with a flat prior, they often are. But they answer different questions, and they can disagree badly. For a sharp hypothesis such as "$\theta$ is *exactly* 50%", a small p-value can sit alongside a high posterior probability that the hypothesis is true, a result known as Lindley's paradox [@lindley1957].
+:::
+
+## The numerator problem
 
