@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-11-02">
 
 <title>An Introduction to Markov Chain Monte Carlo. – Choppy Waters</title>
 <style>
@@ -194,6 +195,12 @@ window.Quarto = {
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 2, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -203,7 +210,8 @@ window.Quarto = {
 </header>
 
 
-<p>I still remembered my Intro to Bayesian Analysis course, and that period of my life was a fond memory. It was spring and right outside the dorm, there are the cherry trees. A whole forest of them. They were part of this landscaping project, by virtue of an alumni, and have now became a university’s staple. The student newspaper would track the blossom dates meticulously and everyone would just come to this part of the campus to look at the trees. They were all waiting, and I was too. And one day, the blossoms had started. It was a spectacular full bloom. They were pink and vibrant. Even smelled great too. Looking at them from the window gave me a sense of longing - of how nice it must be to share that patch under the tree with another person. But there isn’t anyone at the time and the only person who would was too far.</p>
+<!-- 
+I still remembered my Intro to Bayesian Analysis course, and that period of my life was a fond memory. It was spring and right outside the dorm, there are the cherry trees. A whole forest of them. They were part of this landscaping project, by virtue of an alumni, and have now became a university's staple. The student newspaper would track the blossom dates meticulously and everyone would just come to this part of the campus to look at the trees. They were all waiting, and I was too. And one day, the blossoms had started. It was a spectacular full bloom. They were pink and vibrant. Even smelled great too. Looking at them from the window gave me a sense of longing - of how nice it must be to share that patch under the tree with another person. But there isn't anyone at the time and the only person who would was too far. -->
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>Here’s a simple question: <em>“What is the probability that it will rain tomorrow?”</em></p>
@@ -234,7 +242,7 @@ P(A) = \lim_{n \to \infty} \frac{N_A(n)}{n}
 </div>
 </div>
 </div>
-<div id="6d941460" class="cell" data-execution_count="1">
+<div id="0e5522d9" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -248,7 +256,7 @@ P(A) = \lim_{n \to \infty} \frac{N_A(n)}{n}
 <p>The problem comes when we try to answer the question from earlier:</p>
 <p><em>“What is the probability that it will rain tomorrow?”</em></p>
 <p>First, tomorrow can happen exactly once. Second, it either rains, or it doesn’t. So not only are there no other tomorrows to be repeated, there is no other answer beyond yes or no. So what does the <span class="math inline">\(75\%\)</span> mean?</p>
-<div id="4a39fc95" class="cell" data-execution_count="2">
+<div id="d27f61e1" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -282,7 +290,7 @@ P(A) = \lim_{n \to \infty} \frac{N_A(n)}{n}
 <p>But there’s a problem when trying to measure the probability of <span class="math inline">\(\theta\)</span>. <span class="math inline">\(\theta\)</span> is a fixed fact, and to a frequentist a fixed fact can’t have a probability. Either it is 70% or it isn’t. So we have to reinterpret it under a Bayesian view. You don’t <em>know</em> <span class="math inline">\(\theta\)</span>, and that’s uncertainty. Since in Bayesian view, probability is a measure of uncertainty, <span class="math inline">\(\theta\)</span> can have a probability now.</p>
 <p>So what does your uncertainty about <span class="math inline">\(\theta\)</span> look like? It isn’t a single number. It’s a spread of plausibility over every value <span class="math inline">\(\theta\)</span> could take. To keep things simple, let’s only consider whole percents: <span class="math inline">\(\theta\)</span> could be <span class="math inline">\(0\%\)</span>, <span class="math inline">\(1\%\)</span>, <span class="math inline">\(2\%\)</span>, and so on up to <span class="math inline">\(100\%\)</span>. That’s 101 candidates, and your belief is just how much plausibility you give to each one.</p>
 <p>Since you genuinely have no idea, the honest place to start is to spread your belief evenly, giving each of the 101 candidates an equal share. This starting belief is called the <em>prior</em>.</p>
-<div id="79ca2d0d" class="cell" data-execution_count="4">
+<div id="6611ce00" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -316,7 +324,7 @@ P(A) = \lim_{n \to \infty} \frac{N_A(n)}{n}
 <p>For every candidate, you now hold two numbers: how plausible it seemed <strong>before</strong> the rain, and how well it predicted the rain. And we combine them to update our belief.</p>
 <p>Imagine 10,100 copies of the city, 100 for each candidate, and let the first of October happen in all of them. Where <span class="math inline">\(\theta = 90\%\)</span>, about 90 cities get rain; where <span class="math inline">\(\theta = 10\%\)</span>, about 10 do. Since it did rain, cross out every dry city. The two candidates were tied before, but now <span class="math inline">\(\theta = 90\%\)</span> is nine times likelier.</p>
 <p>Its 90 survivors are <span class="math inline">\(90/10{,}100 \approx 0.89\%\)</span> of all cities, which is exactly its prior (<span class="math inline">\(1/101\)</span>) times its likelihood (<span class="math inline">\(0.9\)</span>). In general, each candidate’s share of surviving cities is prior <span class="math inline">\(\times\)</span> likelihood, and we call this the <em>unnormalized posterior</em>.</p>
-<div id="8cd335d6" class="cell" data-execution_count="5">
+<div id="75c69f44" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -331,7 +339,7 @@ P(A) = \lim_{n \to \infty} \frac{N_A(n)}{n}
 Z = \sum_{k=0}^{100} \text{prior}_k \times \text{likelihood}_k = 0.5.
 \]</span></p>
 <p><span class="math inline">\(Z\)</span> is called the <em>normalizing constant</em>, or the <em>evidence</em>. It’s the fraction of cities that saw what you saw. Dividing by it gives the <em>posterior</em>:</p>
-<div id="44020bac" class="cell" data-execution_count="6">
+<div id="5fb4ff6b" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -356,7 +364,7 @@ plot_candidates(likelihood / likelihood.max(), "darkorange", "Likelihood - after
 plt.show()
 ``` -->
 <!-- Only the candidates that predicted the whole month reasonably well have cities left. Your belief narrows into a hump around $75\%$. -->
-<div id="38ac9b4f" class="cell" data-execution_count="7">
+<div id="1f81e76a" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -375,7 +383,7 @@ plt.show()
 Z = \sum_{k=0}^{100} p(D \mid \theta_k)\, p(\theta_k)
 \]</span></p>
 <p>And here is how the whole system evolve:</p>
-<div id="032cb479" class="cell" data-execution_count="8">
+<div id="7991f473" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display" data-execution_count="8">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -561,36 +569,36 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgfe8e7c39aa3448f49cb0ea27b43e05b4">
+  <img id="_anim_img58b6537bf9c141768b3df589ddac2af3">
   <div class="anim-controls">
-    <input id="_anim_sliderfe8e7c39aa3448f49cb0ea27b43e05b4" type="range" class="anim-slider" name="points" min="0" max="1" step="1" value="0" oninput="animfe8e7c39aa3448f49cb0ea27b43e05b4.set_frame(parseInt(this.value));">
+    <input id="_anim_slider58b6537bf9c141768b3df589ddac2af3" type="range" class="anim-slider" name="points" min="0" max="1" step="1" value="0" oninput="anim58b6537bf9c141768b3df589ddac2af3.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="animfe8e7c39aa3448f49cb0ea27b43e05b4.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim58b6537bf9c141768b3df589ddac2af3.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="animfe8e7c39aa3448f49cb0ea27b43e05b4.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim58b6537bf9c141768b3df589ddac2af3.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="animfe8e7c39aa3448f49cb0ea27b43e05b4.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim58b6537bf9c141768b3df589ddac2af3.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="animfe8e7c39aa3448f49cb0ea27b43e05b4.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim58b6537bf9c141768b3df589ddac2af3.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="animfe8e7c39aa3448f49cb0ea27b43e05b4.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim58b6537bf9c141768b3df589ddac2af3.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="animfe8e7c39aa3448f49cb0ea27b43e05b4.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim58b6537bf9c141768b3df589ddac2af3.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="animfe8e7c39aa3448f49cb0ea27b43e05b4.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim58b6537bf9c141768b3df589ddac2af3.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="animfe8e7c39aa3448f49cb0ea27b43e05b4.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim58b6537bf9c141768b3df589ddac2af3.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="animfe8e7c39aa3448f49cb0ea27b43e05b4.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim58b6537bf9c141768b3df589ddac2af3.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectfe8e7c39aa3448f49cb0ea27b43e05b4" class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_fe8e7c39aa3448f49cb0ea27b43e05b4">
-      <label for="_anim_radio1_fe8e7c39aa3448f49cb0ea27b43e05b4">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_fe8e7c39aa3448f49cb0ea27b43e05b4" checked="">
-      <label for="_anim_radio2_fe8e7c39aa3448f49cb0ea27b43e05b4">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_fe8e7c39aa3448f49cb0ea27b43e05b4">
-      <label for="_anim_radio3_fe8e7c39aa3448f49cb0ea27b43e05b4">Reflect</label>
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select58b6537bf9c141768b3df589ddac2af3" class="anim-state">
+      <input type="radio" name="state" value="once" id="_anim_radio1_58b6537bf9c141768b3df589ddac2af3">
+      <label for="_anim_radio1_58b6537bf9c141768b3df589ddac2af3">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_58b6537bf9c141768b3df589ddac2af3" checked="">
+      <label for="_anim_radio2_58b6537bf9c141768b3df589ddac2af3">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_58b6537bf9c141768b3df589ddac2af3">
+      <label for="_anim_radio3_58b6537bf9c141768b3df589ddac2af3">Reflect</label>
     </form>
   </div>
 </div>
@@ -600,9 +608,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgfe8e7c39aa3448f49cb0ea27b43e05b4";
-    var slider_id = "_anim_sliderfe8e7c39aa3448f49cb0ea27b43e05b4";
-    var loop_select_id = "_anim_loop_selectfe8e7c39aa3448f49cb0ea27b43e05b4";
+    var img_id = "_anim_img58b6537bf9c141768b3df589ddac2af3";
+    var slider_id = "_anim_slider58b6537bf9c141768b3df589ddac2af3";
+    var loop_select_id = "_anim_loop_select58b6537bf9c141768b3df589ddac2af3";
     var frames = new Array(32);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAwIAAAJcCAYAAABKTxOLAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -14433,7 +14441,7 @@ AADgIAIBAAAAwEEEAgAAAICDCAQAAAAABxEIAAAAAA4iEAAAAAAcRCAAAAAAOIhAAAAAADDu+T+2\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animfe8e7c39aa3448f49cb0ea27b43e05b4 = new Animation(frames, img_id, slider_id, 500.0,
+        anim58b6537bf9c141768b3df589ddac2af3 = new Animation(frames, img_id, slider_id, 500.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -14529,7 +14537,7 @@ L(\theta_k; D) = p(D \mid \theta_k) = \prod_{i=1}^{n} p(x_i \mid \theta_k) \text
 <p><span class="math display">\[
 P(\text{rain tomorrow at day 31} \mid D) = \sum_{k=0}^{100} \underbrace{p(\text{rain tomorrow at day 31} \mid \theta_k)}_{\theta_k} \; p(\theta_k \mid D) = 0.75
 \]</span></p>
-<div id="dd3de0df" class="cell" data-execution_count="9">
+<div id="e0054b63" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -14565,7 +14573,7 @@ p(\tilde y \mid D) = \int p(\tilde y \mid \theta)\, p(\theta \mid D)\, d\theta.
 </div>
 </div>
 <p>Doing the calculation, we get a forecast that answers our question naturally: <em>Given what we have observed for the past 30 days, there is a 75% chance that it will rain tomorrow.</em> Isn’t Bayesian simply wonderful?</p>
-<div id="68b93bc7" class="cell" data-execution_count="10">
+<div id="e00e47f2" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display" data-execution_count="10">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -14751,36 +14759,36 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img2757b345e1bf4eed9439ec9c8949344f">
+  <img id="_anim_img895d431e427d43f19c6669799a37f2e3">
   <div class="anim-controls">
-    <input id="_anim_slider2757b345e1bf4eed9439ec9c8949344f" type="range" class="anim-slider" name="points" min="0" max="1" step="1" value="0" oninput="anim2757b345e1bf4eed9439ec9c8949344f.set_frame(parseInt(this.value));">
+    <input id="_anim_slider895d431e427d43f19c6669799a37f2e3" type="range" class="anim-slider" name="points" min="0" max="1" step="1" value="0" oninput="anim895d431e427d43f19c6669799a37f2e3.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim2757b345e1bf4eed9439ec9c8949344f.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim895d431e427d43f19c6669799a37f2e3.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim2757b345e1bf4eed9439ec9c8949344f.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim895d431e427d43f19c6669799a37f2e3.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim2757b345e1bf4eed9439ec9c8949344f.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim895d431e427d43f19c6669799a37f2e3.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim2757b345e1bf4eed9439ec9c8949344f.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim895d431e427d43f19c6669799a37f2e3.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim2757b345e1bf4eed9439ec9c8949344f.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim895d431e427d43f19c6669799a37f2e3.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim2757b345e1bf4eed9439ec9c8949344f.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim895d431e427d43f19c6669799a37f2e3.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim2757b345e1bf4eed9439ec9c8949344f.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim895d431e427d43f19c6669799a37f2e3.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim2757b345e1bf4eed9439ec9c8949344f.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim895d431e427d43f19c6669799a37f2e3.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim2757b345e1bf4eed9439ec9c8949344f.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim895d431e427d43f19c6669799a37f2e3.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select2757b345e1bf4eed9439ec9c8949344f" class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_2757b345e1bf4eed9439ec9c8949344f">
-      <label for="_anim_radio1_2757b345e1bf4eed9439ec9c8949344f">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_2757b345e1bf4eed9439ec9c8949344f" checked="">
-      <label for="_anim_radio2_2757b345e1bf4eed9439ec9c8949344f">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_2757b345e1bf4eed9439ec9c8949344f">
-      <label for="_anim_radio3_2757b345e1bf4eed9439ec9c8949344f">Reflect</label>
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select895d431e427d43f19c6669799a37f2e3" class="anim-state">
+      <input type="radio" name="state" value="once" id="_anim_radio1_895d431e427d43f19c6669799a37f2e3">
+      <label for="_anim_radio1_895d431e427d43f19c6669799a37f2e3">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_895d431e427d43f19c6669799a37f2e3" checked="">
+      <label for="_anim_radio2_895d431e427d43f19c6669799a37f2e3">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_895d431e427d43f19c6669799a37f2e3">
+      <label for="_anim_radio3_895d431e427d43f19c6669799a37f2e3">Reflect</label>
     </form>
   </div>
 </div>
@@ -14790,9 +14798,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img2757b345e1bf4eed9439ec9c8949344f";
-    var slider_id = "_anim_slider2757b345e1bf4eed9439ec9c8949344f";
-    var loop_select_id = "_anim_loop_select2757b345e1bf4eed9439ec9c8949344f";
+    var img_id = "_anim_img895d431e427d43f19c6669799a37f2e3";
+    var slider_id = "_anim_slider895d431e427d43f19c6669799a37f2e3";
+    var loop_select_id = "_anim_loop_select895d431e427d43f19c6669799a37f2e3";
     var frames = new Array(34);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAwIAAAFKCAYAAACuKOiQAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -31793,7 +31801,7 @@ he3s/wAAAABJRU5ErkJggg==\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim2757b345e1bf4eed9439ec9c8949344f = new Animation(frames, img_id, slider_id, 500.0,
+        anim895d431e427d43f19c6669799a37f2e3 = new Animation(frames, img_id, slider_id, 500.0,
                                  loop_select_id);
     }, 0);
   })()
