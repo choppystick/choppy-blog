@@ -91,7 +91,9 @@ But which days count as **“like tomorrow”**? Days in October? Days with clou
 
 Yet, when the app shows $75\%$, we understand it perfectly well. Think about how we interpret the usual weather report: Nobody pictures a thousand imaginary tomorrows. What we instead think of is **how sure we should be that it will rain on the one tomorrow we’re actually going to get.**
 
-This is a different idea of probability: it's a degree of certainty, which involves having a prior knowledge and a certainty that shifts as new evidence comes in. Wake up to dark clouds, and your $75\%$ might creep up to $90\%$. Check the radar and see the storm veering away, and it drops. This idea goes back to the 1760s, to an English minister named Thomas Bayes, and was developed further by the French mathematician Pierre-Simon Laplace. Today it carries Bayes’s name: *Bayesian probability*.
+This is a different idea of probability: it's a degree of certainty, which involves having a prior knowledge and a certainty that shifts as new evidence comes in. Wake up to dark clouds, and your $75\%$ might creep up to $90\%$. Check the radar and see the storm veering away, and it drops.
+
+This idea goes back to the 1760s, to an English minister named Thomas Bayes, and was developed further by the French mathematician Pierre-Simon Laplace. Today it carries Bayes’s name: *Bayesian probability*.
 
 ![How good is your pastor with mathematics?](bayes.webp)
 
@@ -361,6 +363,14 @@ $$
 P(\text{rain tomorrow at day 31} \mid D) = \sum_{k=0}^{100} \underbrace{p(\text{rain tomorrow at day 31} \mid \theta_k)}_{\theta_k} \; p(\theta_k \mid D) = 0.75
 $$
 
+```{python}
+ax = plot_candidates(theta*posterior, "purple", "posterior predictive distribution")
+ax.yaxis.set_major_locator(plt.MultipleLocator(0.005))
+ax.yaxis.set_major_formatter("{x:.1%}")
+ax.set_ylabel("share of all cities")
+plt.show()
+```
+
 :::{.callout-tip collapse="true"}
 ## Where the forecast formula comes from?
 We write $\tilde y$ for tomorrow's weather, day 31. We have that tomorrow's weather depends on which climate is true, so split over the candidates using the law of total probability
@@ -412,3 +422,10 @@ def draw(n):
 
 animate(fig, draw, range(len(weather) + 1))
 ```
+
+:::{.callout-note collapse='false'}
+For why we did not use the maximum of the posterior distribution but compute the weighted average instead, see Appendix A.
+:::
+
+### The numerator problem
+
