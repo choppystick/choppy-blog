@@ -27,7 +27,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -172,8 +192,8 @@ window.Quarto = {
   <li><a href="#updating-our-prior-with-evidence" id="toc-updating-our-prior-with-evidence" class="nav-link" data-scroll-target="#updating-our-prior-with-evidence">Updating our prior with evidence</a></li>
   <li><a href="#a-month-of-weather" id="toc-a-month-of-weather" class="nav-link" data-scroll-target="#a-month-of-weather">A month of weather</a></li>
   <li><a href="#from-a-belief-to-a-forecast" id="toc-from-a-belief-to-a-forecast" class="nav-link" data-scroll-target="#from-a-belief-to-a-forecast">From a belief to a forecast</a></li>
-  <li><a href="#the-numerator-problem" id="toc-the-numerator-problem" class="nav-link" data-scroll-target="#the-numerator-problem">The numerator problem</a></li>
   </ul></li>
+  <li><a href="#the-numerator-problem" id="toc-the-numerator-problem" class="nav-link" data-scroll-target="#the-numerator-problem">The numerator problem</a></li>
   </ul>
 </nav>
     </div>
@@ -221,8 +241,8 @@ I still remembered my Intro to Bayesian Analysis course, and that period of my l
 <figcaption>It’s gonna be a wet week.</figcaption>
 </figure>
 </div>
-<p>You might think that this is a no-brainer. Open your weather app and there it is: <strong><span class="math inline">\(75\%\)</span></strong>. But what does that <span class="math inline">\(75\%\)</span> actually mean?</p>
-<p>Think about how we usually make sense of probability. When we say a fair coin has a <span class="math inline">\(50\%\)</span> chance of landing heads, we mean that if we flip it hundreds or thousands of times, roughly half the flips will be heads. This is the definition behind the statistics most of us met in Stats 101, with its z-tables and p-values: probability is how often something happens when you repeat it. We call this <em>frequentist probability</em>.</p>
+<p>You might think that this is a no-brainer. Open your weather app and there it is: <strong>75%</strong>. But what does that 75% actually mean?</p>
+<p>Think about how we usually make sense of probability. When we say a fair coin has a 50% chance of landing heads, we mean that if we flip it hundreds or thousands of times, roughly half the flips will be heads. This is the definition behind the statistics most of us met in Stats 101, with its z-tables and p-values: probability is how often something happens when you repeat it. We call this <em>frequentist probability</em>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -242,7 +262,7 @@ P(A) = \lim_{n \to \infty} \frac{N_A(n)}{n}
 </div>
 </div>
 </div>
-<div id="0e5522d9" class="cell" data-execution_count="1">
+<div id="a0b0fcc3" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -252,11 +272,11 @@ P(A) = \lim_{n \to \infty} \frac{N_A(n)}{n}
 </div>
 </div>
 </div>
-<p>That <span class="math inline">\(50\%\)</span> doesn’t promise a clean half in any particular batch. Ten flips could give seven heads; a thousand might give 480. What it promises is that the more you flip, the closer the proportion drifts toward <span class="math inline">\(50\%\)</span>. On this view, probability is a statement about the long run. That makes it intuitive for coins, dice and cards, where we can repeat the experiment as often as we like.</p>
+<p>That 50% doesn’t promise a clean half in any particular batch. Ten flips could give seven heads; a thousand might give 480. What it promises is that the more you flip, the closer the proportion drifts toward 50%. On this view, probability is a statement about the long run. That makes it intuitive for coins, dice and cards, where we can repeat the experiment as often as we like.</p>
 <p>The problem comes when we try to answer the question from earlier:</p>
 <p><em>“What is the probability that it will rain tomorrow?”</em></p>
-<p>First, tomorrow can happen exactly once. Second, it either rains, or it doesn’t. So not only are there no other tomorrows to be repeated, there is no other answer beyond yes or no. So what does the <span class="math inline">\(75\%\)</span> mean?</p>
-<div id="d27f61e1" class="cell" data-execution_count="2">
+<p>First, tomorrow can happen exactly once. Second, it either rains, or it doesn’t. So not only are there no other tomorrows to be repeated, there is no other answer beyond yes or no. So what does the 75% mean?</p>
+<div id="4d952a82" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -269,8 +289,8 @@ P(A) = \lim_{n \to \infty} \frac{N_A(n)}{n}
 <p>The usual workaround is to rephrase the question:</p>
 <p><em>“What is the probability that it will rain on days <strong>like</strong> tomorrow?”</em></p>
 <p>But which days count as <strong>“like tomorrow”</strong>? Days in October? Days with clouds this thick? October days with clouds this thick and wind from the east? Each choice gives a different answer, and theory doesn’t tell you which is right.</p>
-<p>Yet, when the app shows <span class="math inline">\(75\%\)</span>, we understand it perfectly well. Think about how we interpret the usual weather report: Nobody pictures a thousand imaginary tomorrows. What we instead think of is <strong>how sure we should be that it will rain on the one tomorrow we’re actually going to get.</strong></p>
-<p>This is a different idea of probability: it’s a degree of certainty, which involves having a prior knowledge and a certainty that shifts as new evidence comes in. Wake up to dark clouds, and your <span class="math inline">\(75\%\)</span> might creep up to <span class="math inline">\(90\%\)</span>. Check the radar and see the storm veering away, and it drops.</p>
+<p>Yet, when the app shows 75%, we understand it perfectly well. Think about how we interpret the usual weather report: Nobody pictures a thousand imaginary tomorrows. What we instead think of is <strong>how sure we should be that it will rain on the one tomorrow we’re actually going to get.</strong></p>
+<p>This is a different idea of probability: it’s a degree of certainty, which involves having a prior knowledge and a certainty that shifts as new evidence comes in. Wake up to dark clouds, and your 75% might creep up to 90%. Check the radar and see the storm veering away, and it drops.</p>
 <p>This idea goes back to the 1760s, to an English minister named Thomas Bayes, and was developed further by the French mathematician Pierre-Simon Laplace. Today it carries Bayes’s name: <em>Bayesian probability</em>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -288,9 +308,9 @@ P(A) = \lim_{n \to \infty} \frac{N_A(n)}{n}
 <p>Let’s start small. Forget tomorrow for a moment, and suppose you’ve just moved to a new city at the start of October. You know nothing about its weather and it could very well be anything. I hear you ask: Does it rain seven out of ten days? Or one in ten? Let’s try to answer that.</p>
 <p>Call that unknown <span class="math inline">\(\theta\)</span> (theta): the share of October days that rain, in the long run. It’s a property of the city’s climate, like its average temperature, and seven in ten would be <span class="math inline">\(\theta = 70\%\)</span>.</p>
 <p>But there’s a problem when trying to measure the probability of <span class="math inline">\(\theta\)</span>. <span class="math inline">\(\theta\)</span> is a fixed fact, and to a frequentist a fixed fact can’t have a probability. Either it is 70% or it isn’t. So we have to reinterpret it under a Bayesian view. You don’t <em>know</em> <span class="math inline">\(\theta\)</span>, and that’s uncertainty. Since in Bayesian view, probability is a measure of uncertainty, <span class="math inline">\(\theta\)</span> can have a probability now.</p>
-<p>So what does your uncertainty about <span class="math inline">\(\theta\)</span> look like? It isn’t a single number. It’s a spread of plausibility over every value <span class="math inline">\(\theta\)</span> could take. To keep things simple, let’s only consider whole percents: <span class="math inline">\(\theta\)</span> could be <span class="math inline">\(0\%\)</span>, <span class="math inline">\(1\%\)</span>, <span class="math inline">\(2\%\)</span>, and so on up to <span class="math inline">\(100\%\)</span>. That’s 101 candidates, and your belief is just how much plausibility you give to each one.</p>
+<p>So what does your uncertainty about <span class="math inline">\(\theta\)</span> look like? It isn’t a single number. It’s a spread of plausibility over every value <span class="math inline">\(\theta\)</span> could take. To keep things simple, let’s only consider whole percents: <span class="math inline">\(\theta\)</span> could be 0%, 1%, 2%, and so on up to 100%. That’s 101 candidates, and your belief is just how much plausibility you give to each one.</p>
 <p>Since you genuinely have no idea, the honest place to start is to spread your belief evenly, giving each of the 101 candidates an equal share. This starting belief is called the <em>prior</em>.</p>
-<div id="6611ce00" class="cell" data-execution_count="4">
+<div id="e50b0a0a" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -304,7 +324,7 @@ P(A) = \lim_{n \to \infty} \frac{N_A(n)}{n}
 <h3 class="anchored" data-anchor-id="updating-our-prior-with-evidence">Updating our prior with evidence</h3>
 <p>Suppose on the first day of October, it actually rained. How does that change our belief?</p>
 <p>We first ask every candidate the same question: <em>if this was the true <span class="math inline">\(\theta\)</span>, how surprised would I be by a rainy day?</em></p>
-<p>If <span class="math inline">\(\theta = 90\%\)</span>, hardly at all, since rain was <span class="math inline">\(90\%\)</span> likely. If <span class="math inline">\(\theta = 10\%\)</span>, quite surprised, since rain was only <span class="math inline">\(10\%\)</span> likely. To put a number on our surprise, we rate each candidate. After a rainy day, each value of <span class="math inline">\(\theta\)</span> gets a rating of <span class="math inline">\(\theta\)</span>. After a dry day, it gets <span class="math inline">\(1-\theta\)</span>. We call this rating the <em>likelihood</em>: how well each candidate predicted what you actually saw.</p>
+<p>If <span class="math inline">\(\theta = 90\%\)</span>, hardly at all, since rain was 90% likely. If <span class="math inline">\(\theta = 10\%\)</span>, quite surprised, since rain was only 10% likely. To put a number on our surprise, we rate each candidate. After a rainy day, each value of <span class="math inline">\(\theta\)</span> gets a rating of <span class="math inline">\(\theta\)</span>. After a dry day, it gets <span class="math inline">\(1-\theta\)</span>. We call this rating the <em>likelihood</em>: how well each candidate predicted what you actually saw.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -324,7 +344,7 @@ P(A) = \lim_{n \to \infty} \frac{N_A(n)}{n}
 <p>For every candidate, you now hold two numbers: how plausible it seemed <strong>before</strong> the rain, and how well it predicted the rain. And we combine them to update our belief.</p>
 <p>Imagine 10,100 copies of the city, 100 for each candidate, and let the first of October happen in all of them. Where <span class="math inline">\(\theta = 90\%\)</span>, about 90 cities get rain; where <span class="math inline">\(\theta = 10\%\)</span>, about 10 do. Since it did rain, cross out every dry city. The two candidates were tied before, but now <span class="math inline">\(\theta = 90\%\)</span> is nine times likelier.</p>
 <p>Its 90 survivors are <span class="math inline">\(90/10{,}100 \approx 0.89\%\)</span> of all cities, which is exactly its prior (<span class="math inline">\(1/101\)</span>) times its likelihood (<span class="math inline">\(0.9\)</span>). In general, each candidate’s share of surviving cities is prior <span class="math inline">\(\times\)</span> likelihood, and we call this the <em>unnormalized posterior</em>.</p>
-<div id="75c69f44" class="cell" data-execution_count="5">
+<div id="a43a2861" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -334,12 +354,12 @@ P(A) = \lim_{n \to \infty} \frac{N_A(n)}{n}
 </div>
 </div>
 </div>
-<p>There’s one last bit of bookkeeping. These shares don’t add up to <span class="math inline">\(100\%\)</span>. Instead they add up to <span class="math inline">\(50\%\)</span>, as half the cities were crossed out. So this isn’t a belief yet (A probabilty is strictly <span class="math inline">\(0\%\)</span> to <span class="math inline">\(100\%\)</span>). To make it one, divide every share by the total that survived with:</p>
+<p>There’s one last bit of bookkeeping. These shares don’t add up to 100%. Instead they add up to 50%, as half the cities were crossed out. So this isn’t a belief yet (A probabilty is strictly 0% to 100%). To make it one, divide every share by the total that survived with:</p>
 <p><span class="math display">\[
 Z = \sum_{k=0}^{100} \text{prior}_k \times \text{likelihood}_k = 0.5.
 \]</span></p>
 <p><span class="math inline">\(Z\)</span> is called the <em>normalizing constant</em>, or the <em>evidence</em>. It’s the fraction of cities that saw what you saw. Dividing by it gives the <em>posterior</em>:</p>
-<div id="5fb4ff6b" class="cell" data-execution_count="6">
+<div id="03e5e9fa" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -356,15 +376,15 @@ Z = \sum_{k=0}^{100} \text{prior}_k \times \text{likelihood}_k = 0.5.
 <p><span class="math display">\[
 p(D \mid \theta) = \theta^{23}\,(1-\theta)^{7},
 \]</span></p>
-<p>where <span class="math inline">\(D\)</span> stands for the data, those 30 days of weather. Only the candidates that predicted the whole month reasonably well have cities left. Your belief narrows into a hump around <span class="math inline">\(75\%\)</span>.</p>
+<p>where <span class="math inline">\(D\)</span> stands for the data, those 30 days of weather. Only the candidates that predicted the whole month reasonably well have cities left. Your belief narrows into a hump around 75%.</p>
 <!-- ```{python}
 #| fig-cap: "The likelihood of 23 rainy days out of 30, for each candidate."
 likelihood = theta**23 * (1 - theta)**7
 plot_candidates(likelihood / likelihood.max(), "darkorange", "Likelihood - after a month")
 plt.show()
 ``` -->
-<!-- Only the candidates that predicted the whole month reasonably well have cities left. Your belief narrows into a hump around $75\%$. -->
-<div id="1f81e76a" class="cell" data-execution_count="7">
+<!-- Only the candidates that predicted the whole month reasonably well have cities left. Your belief narrows into a hump around 75%. -->
+<div id="3dbbe8da" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -383,7 +403,7 @@ plt.show()
 Z = \sum_{k=0}^{100} p(D \mid \theta_k)\, p(\theta_k)
 \]</span></p>
 <p>And here is how the whole system evolve:</p>
-<div id="7991f473" class="cell" data-execution_count="8">
+<div id="9718ff69" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display" data-execution_count="8">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -569,36 +589,36 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img58b6537bf9c141768b3df589ddac2af3">
+  <img id="_anim_img4b90d6800a064fd1adbeaaa75de9e269">
   <div class="anim-controls">
-    <input id="_anim_slider58b6537bf9c141768b3df589ddac2af3" type="range" class="anim-slider" name="points" min="0" max="1" step="1" value="0" oninput="anim58b6537bf9c141768b3df589ddac2af3.set_frame(parseInt(this.value));">
+    <input id="_anim_slider4b90d6800a064fd1adbeaaa75de9e269" type="range" class="anim-slider" name="points" min="0" max="1" step="1" value="0" oninput="anim4b90d6800a064fd1adbeaaa75de9e269.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim58b6537bf9c141768b3df589ddac2af3.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim4b90d6800a064fd1adbeaaa75de9e269.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim58b6537bf9c141768b3df589ddac2af3.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim4b90d6800a064fd1adbeaaa75de9e269.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim58b6537bf9c141768b3df589ddac2af3.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim4b90d6800a064fd1adbeaaa75de9e269.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim58b6537bf9c141768b3df589ddac2af3.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim4b90d6800a064fd1adbeaaa75de9e269.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim58b6537bf9c141768b3df589ddac2af3.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim4b90d6800a064fd1adbeaaa75de9e269.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim58b6537bf9c141768b3df589ddac2af3.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim4b90d6800a064fd1adbeaaa75de9e269.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim58b6537bf9c141768b3df589ddac2af3.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim4b90d6800a064fd1adbeaaa75de9e269.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim58b6537bf9c141768b3df589ddac2af3.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim4b90d6800a064fd1adbeaaa75de9e269.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim58b6537bf9c141768b3df589ddac2af3.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim4b90d6800a064fd1adbeaaa75de9e269.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select58b6537bf9c141768b3df589ddac2af3" class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_58b6537bf9c141768b3df589ddac2af3">
-      <label for="_anim_radio1_58b6537bf9c141768b3df589ddac2af3">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_58b6537bf9c141768b3df589ddac2af3" checked="">
-      <label for="_anim_radio2_58b6537bf9c141768b3df589ddac2af3">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_58b6537bf9c141768b3df589ddac2af3">
-      <label for="_anim_radio3_58b6537bf9c141768b3df589ddac2af3">Reflect</label>
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select4b90d6800a064fd1adbeaaa75de9e269" class="anim-state">
+      <input type="radio" name="state" value="once" id="_anim_radio1_4b90d6800a064fd1adbeaaa75de9e269">
+      <label for="_anim_radio1_4b90d6800a064fd1adbeaaa75de9e269">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_4b90d6800a064fd1adbeaaa75de9e269" checked="">
+      <label for="_anim_radio2_4b90d6800a064fd1adbeaaa75de9e269">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_4b90d6800a064fd1adbeaaa75de9e269">
+      <label for="_anim_radio3_4b90d6800a064fd1adbeaaa75de9e269">Reflect</label>
     </form>
   </div>
 </div>
@@ -608,9 +628,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img58b6537bf9c141768b3df589ddac2af3";
-    var slider_id = "_anim_slider58b6537bf9c141768b3df589ddac2af3";
-    var loop_select_id = "_anim_loop_select58b6537bf9c141768b3df589ddac2af3";
+    var img_id = "_anim_img4b90d6800a064fd1adbeaaa75de9e269";
+    var slider_id = "_anim_slider4b90d6800a064fd1adbeaaa75de9e269";
+    var loop_select_id = "_anim_loop_select4b90d6800a064fd1adbeaaa75de9e269";
     var frames = new Array(32);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAwIAAAJcCAYAAABKTxOLAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -14441,7 +14461,7 @@ AADgIAIBAAAAwEEEAgAAAICDCAQAAAAABxEIAAAAAA4iEAAAAAAcRCAAAAAAOIhAAAAAADDu+T+2\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim58b6537bf9c141768b3df589ddac2af3 = new Animation(frames, img_id, slider_id, 500.0,
+        anim4b90d6800a064fd1adbeaaa75de9e269 = new Animation(frames, img_id, slider_id, 500.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -14537,7 +14557,7 @@ L(\theta_k; D) = p(D \mid \theta_k) = \prod_{i=1}^{n} p(x_i \mid \theta_k) \text
 <p><span class="math display">\[
 P(\text{rain tomorrow at day 31} \mid D) = \sum_{k=0}^{100} \underbrace{p(\text{rain tomorrow at day 31} \mid \theta_k)}_{\theta_k} \; p(\theta_k \mid D) = 0.75
 \]</span></p>
-<div id="e0054b63" class="cell" data-execution_count="9">
+<div id="3b81fe56" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -14561,19 +14581,19 @@ P(\text{rain tomorrow at day 31} \mid D) = \sum_{k=0}^{100} \underbrace{p(\text{
 <div class="callout-body-container callout-body">
 <p>We write <span class="math inline">\(\tilde y\)</span> for tomorrow’s weather, day 31. We have that tomorrow’s weather depends on which climate is true, so split over the candidates using the law of total probability</p>
 <p><span class="math display">\[
-P(\tilde y = \text{rain} \mid D) = \sum_{k=0}^{100} P(\tilde y = \text{rain} \mid \theta_k, D)\; p(\theta_k \mid D).
+P(\tilde y = \text{rain} \mid D) = \sum_{k=0}^{100} P(\tilde y = \text{rain} \mid \theta_k, D)\; p(\theta_k \mid D)
 \]</span></p>
 <p>We treats days as independent given the climate, i.e once you know <span class="math inline">\(\theta_k\)</span>, the past month tells you nothing more about tomorrow. So <span class="math inline">\(P(\tilde y = \text{rain} \mid \theta_k, D) = P(\tilde y = \text{rain} \mid \theta_k)\)</span>.</p>
 <p>Like every other day, tomorrow is a Bernoulli trial with success probability <span class="math inline">\(\theta_k\)</span>, so <span class="math inline">\(P(\tilde y = \text{rain} \mid \theta_k) = \theta_k\)</span>.</p>
 <p>In general, for continuous <span class="math inline">\(\theta\)</span>:</p>
 <p><span class="math display">\[
-p(\tilde y \mid D) = \int p(\tilde y \mid \theta)\, p(\theta \mid D)\, d\theta.
+p(\tilde y \mid D) = \int p(\tilde y \mid \theta)\, p(\theta \mid D)\, d\theta
 \]</span></p>
 </div>
 </div>
 </div>
-<p>Doing the calculation, we get a forecast that answers our question naturally: <em>Given what we have observed for the past 30 days, there is a 75% chance that it will rain tomorrow.</em> Isn’t Bayesian simply wonderful?</p>
-<div id="e00e47f2" class="cell" data-execution_count="10">
+<p>Doing the calculation, we get a forecast that answers our question naturally: <em>Given what we have observed for the past 30 days, there is a 75% chance that it will rain tomorrow.</em></p>
+<div id="290e80fb" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display" data-execution_count="10">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -14759,36 +14779,36 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img895d431e427d43f19c6669799a37f2e3">
+  <img id="_anim_imgb759e4e5e89442c2ad4494f71f9ad5cd">
   <div class="anim-controls">
-    <input id="_anim_slider895d431e427d43f19c6669799a37f2e3" type="range" class="anim-slider" name="points" min="0" max="1" step="1" value="0" oninput="anim895d431e427d43f19c6669799a37f2e3.set_frame(parseInt(this.value));">
+    <input id="_anim_sliderb759e4e5e89442c2ad4494f71f9ad5cd" type="range" class="anim-slider" name="points" min="0" max="1" step="1" value="0" oninput="animb759e4e5e89442c2ad4494f71f9ad5cd.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim895d431e427d43f19c6669799a37f2e3.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="animb759e4e5e89442c2ad4494f71f9ad5cd.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim895d431e427d43f19c6669799a37f2e3.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="animb759e4e5e89442c2ad4494f71f9ad5cd.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim895d431e427d43f19c6669799a37f2e3.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="animb759e4e5e89442c2ad4494f71f9ad5cd.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim895d431e427d43f19c6669799a37f2e3.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="animb759e4e5e89442c2ad4494f71f9ad5cd.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim895d431e427d43f19c6669799a37f2e3.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="animb759e4e5e89442c2ad4494f71f9ad5cd.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim895d431e427d43f19c6669799a37f2e3.play_animation()">
+      <button title="Play" aria-label="Play" onclick="animb759e4e5e89442c2ad4494f71f9ad5cd.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim895d431e427d43f19c6669799a37f2e3.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="animb759e4e5e89442c2ad4494f71f9ad5cd.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim895d431e427d43f19c6669799a37f2e3.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="animb759e4e5e89442c2ad4494f71f9ad5cd.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim895d431e427d43f19c6669799a37f2e3.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="animb759e4e5e89442c2ad4494f71f9ad5cd.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select895d431e427d43f19c6669799a37f2e3" class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_895d431e427d43f19c6669799a37f2e3">
-      <label for="_anim_radio1_895d431e427d43f19c6669799a37f2e3">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_895d431e427d43f19c6669799a37f2e3" checked="">
-      <label for="_anim_radio2_895d431e427d43f19c6669799a37f2e3">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_895d431e427d43f19c6669799a37f2e3">
-      <label for="_anim_radio3_895d431e427d43f19c6669799a37f2e3">Reflect</label>
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectb759e4e5e89442c2ad4494f71f9ad5cd" class="anim-state">
+      <input type="radio" name="state" value="once" id="_anim_radio1_b759e4e5e89442c2ad4494f71f9ad5cd">
+      <label for="_anim_radio1_b759e4e5e89442c2ad4494f71f9ad5cd">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_b759e4e5e89442c2ad4494f71f9ad5cd" checked="">
+      <label for="_anim_radio2_b759e4e5e89442c2ad4494f71f9ad5cd">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_b759e4e5e89442c2ad4494f71f9ad5cd">
+      <label for="_anim_radio3_b759e4e5e89442c2ad4494f71f9ad5cd">Reflect</label>
     </form>
   </div>
 </div>
@@ -14798,9 +14818,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img895d431e427d43f19c6669799a37f2e3";
-    var slider_id = "_anim_slider895d431e427d43f19c6669799a37f2e3";
-    var loop_select_id = "_anim_loop_select895d431e427d43f19c6669799a37f2e3";
+    var img_id = "_anim_imgb759e4e5e89442c2ad4494f71f9ad5cd";
+    var slider_id = "_anim_sliderb759e4e5e89442c2ad4494f71f9ad5cd";
+    var loop_select_id = "_anim_loop_selectb759e4e5e89442c2ad4494f71f9ad5cd";
     var frames = new Array(34);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAwIAAAFKCAYAAACuKOiQAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -31801,7 +31821,7 @@ he3s/wAAAABJRU5ErkJggg==\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim895d431e427d43f19c6669799a37f2e3 = new Animation(frames, img_id, slider_id, 500.0,
+        animb759e4e5e89442c2ad4494f71f9ad5cd = new Animation(frames, img_id, slider_id, 500.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -31825,15 +31845,117 @@ Note
 </div>
 </div>
 </div>
+<p>The forecast is a single number, but the posterior holds far more than that. You can ask it which climates are still plausible, how sure you can be that this is a rainy city, and how many rainy days to expect next week.</p>
+<p>Start with the first. To find the range of climates you’re 95% sure contains the true one, cut 2.5% of belief from each end of the posterior. Starting from <span class="math inline">\(\theta = 0\)</span>, add up belief until you reach 2.5%: that’s the lower bound. Keep going until you reach 97.5%: that’s the upper bound. The middle holds 95% of your belief, and here it runs from <strong>59% to 88%</strong>.</p>
+<div id="7bbc8bf2" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="index_files/figure-html/cell-12-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="The 95% credible interval holds the middle 95% of your belief about \theta. The dashed lines mark where cumulative belief reaches 2.5% and 97.5%, at \theta = 59% and 88%."><img src="index_files/figure-html/cell-12-output-1.png" width="758" height="360" alt="The 95% credible interval holds the middle 95% of your belief about \theta. The dashed lines mark where cumulative belief reaches 2.5% and 97.5%, at \theta = 59% and 88%." class="figure-img"></a></p>
+<figcaption>The 95% credible interval holds the middle 95% of your belief about <span class="math inline">\(\theta\)</span>. The dashed lines mark where cumulative belief reaches 2.5% and 97.5%, at <span class="math inline">\(\theta\)</span> = 59% and 88%.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The interval is wide, it’s almost 30 percentage point. Well given that we only observed 30 days of weather, being convinced that the city is likely to be rainy but not being able to pin how wet down exactly makes sense.</p>
+<p>The interval also means exactly what it sounds like. A 95% credible interval states there’s a 95% probability that <span class="math inline">\(\theta\)</span> lies betweeen 59% and 88%. This sounds obvious but the confidence interval, that we learned in Stats 101, can’t tell you that.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Credible intervals vs confidence intervals
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A 95% <strong>confidence interval</strong> is a statement about a <em>procedure</em>. If you repeated the experiment many times and built an interval with lower bound <span class="math inline">\(L(X)\)</span> and upper bound <span class="math inline">\(U(X)\)</span> each time, 95% of those intervals would contain the true <span class="math inline">\(\theta\)</span>. Any single interval you’ve computed either contains <span class="math inline">\(\theta\)</span> or it doesn’t, so its probability is 0 or 1. What’s random is the interval but <span class="math inline">\(\theta\)</span> is fixed.</p>
+<p><span class="math display">\[
+P_\theta\big(L(X) \le \theta \le U(X)\big) \ge 0.95 \quad \text{for every } \theta
+\]</span></p>
+<p>A 95% <strong>credible interval</strong> reverses that. It is a statement about <em>this</em> interval, given <em>this</em> data:</p>
+<p><span class="math display">\[
+P(0.59 \le \theta \le 0.88 \mid D) = \sum_{k:\ 0.59 \le \theta_k \le 0.88} p(\theta_k \mid D) \approx 0.95
+\]</span></p>
+<p>With this method, we find that we have a 95% probability of where <span class="math inline">\(\theta\)</span> is. The interval is fixed but <span class="math inline">\(\theta\)</span> is random.</p>
+<p>Most people read confidence intervals as if they were credible intervals. With plenty of data and a mild prior, the two are often numerically close, a result known as the Bernstein–von Mises theorem <span class="citation" data-cites="van1998"><a href="#ref-van1998" role="doc-biblioref">[1]</a></span>, which is why the misreading rarely causes trouble. You would be wrong in principle to read a confidence interval as “<span class="math inline">\(\theta\)</span> has a 95% chance to be in this interval”, but usually it doesn’t matter. However with little data or a strong prior, they can differ substantially.</p>
+</div>
+</div>
+</div>
+<p>Suppose now, you want to know whether this is a city where it rains more often than not. In other words, is <span class="math inline">\(\theta\)</span> above 50%? The posterior can answer that directly. We add up the belief on every candidate above 50%:</p>
+<p><span class="math display">\[
+P(\theta &gt; 50\% \mid D) = \sum_{k:\ \theta_k &gt; 0.5} p(\theta_k \mid D) \approx 99.8\%
+\]</span></p>
+<p>So you can be practically sure it’s a rainy city. A narrower question, whether <span class="math inline">\(\theta\)</span> is above 80%, comes out at about 25%: possible, but you shouldn’t bet on it.</p>
+<div id="f25e4a59" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="index_files/figure-html/cell-13-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Left: belief that \theta > 50\%, the city rains more often than not. Right: belief that \theta > 80\%, the city is very wet. Vertical lines show the cuttoff at \theta = 0.5 \text{ and } 0.8 respectively."><img src="index_files/figure-html/cell-13-output-1.png" width="758" height="319" alt="Left: belief that \theta > 50\%, the city rains more often than not. Right: belief that \theta > 80\%, the city is very wet. Vertical lines show the cuttoff at \theta = 0.5 \text{ and } 0.8 respectively." class="figure-img"></a></p>
+<figcaption>Left: belief that <span class="math inline">\(\theta &gt; 50\%\)</span>, the city rains more often than not. Right: belief that <span class="math inline">\(\theta &gt; 80\%\)</span>, the city is very wet. Vertical lines show the cuttoff at <span class="math inline">\(\theta = 0.5 \text{ and } 0.8\)</span> respectively.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>This looks like the question a <em>p-value</em> answers, but it isn’t. A p-value asks: <em>if</em> <span class="math inline">\(\theta\)</span> were exactly 50%, how often would a month look at least this rainy? Here the answer is about 0.3%.</p>
+<p>It’s tempting to read that as “a 0.3% chance the city isn’t rainy,” but that isn’t what it says. The p-value assumes the hypothesis and asks about the data. The posterior does the reverse: it takes the data as given and tells you how plausible the hypothesis is. With it, we can justifiably say there’s a 0.2% chance that the city isn’t rainy.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Confused by p-value? Read this.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A <em>p-value</em> starts from a <em>null hypothesis</em>, <span class="math inline">\(H_0: \theta \leq 0.5\)</span>, against an <em>alternative hypothesis</em>, <span class="math inline">\(H_1: \theta &gt; 0.5\)</span>. It also needs a test statistic, <span class="math inline">\(T(X)\)</span>, the number of rainy days. The p-value is the probability, assuming <span class="math inline">\(H_0\)</span> is true, of seeing data at least as extreme as what you actually saw:</p>
+<p><span class="math display">\[
+p = P_{\theta \leq 0.5}\big(T(X) \ge T(x)\big) = \sum_{k=23}^{30} \binom{30}{k} (0.5)^{30} \approx 0.0026.
+\]</span></p>
+<p>In other words: if rain really fell on exactly half of October days, a month with 23 or more rainy days would turn up only about 0.26% of the time. That’s well below the conventional threshold of 0.05, so we reject <span class="math inline">\(H_0\)</span> and conclude the city is quite the rainy one.</p>
+<p>Note what p-value doesn’t conclude. It doesn’t say there’s a 0.26% chance that <span class="math inline">\(\theta = 0.5\)</span>, or a 99.74% chance that the city is rainy. It only makes a statement about the <strong>data, assuming the hypothesis</strong>!</p>
+<!-- This might sound complicated, so here's an analogy.
+
+![*Plucked from the Fairy Circle* by T. H. Thomas [@sikes1880, p. 74].](fairycircle.png)
+
+You wake up to find a perfect ring of mushrooms in your backyard. Folklore says fairies dance in circles and leave rings like this behind. Is there a fairy in your backyard?
+
+A p-value approaches the question by assuming the boring explanation: *there is no fairy*. This is your **null hypothesis**. It then asks: if there really is no fairy, how often would a ring at least this perfect appear anyway, from fungi growing outward in a circle, as they often do?
+
+Suppose you survey the forest and find that fungi alone produce a ring this neat about 40% of the time. That's your p-value, $p = 0.40$. A ring like this is exactly what you'd expect to stumble across with no fairy involved, so it gives you no reason to abandon the boring explanation. You **fail to reject** the null hypothesis.
+
+Note what that does and doesn't mean. Failing to reject isn't the same as accepting. You haven't shown there's no fairy; you've only shown that this ring doesn't need one. By convention, the null is rejected only when $p$ falls below a threshold, usually 0.05, meaning the data would be genuinely surprising if the boring explanation were true. -->
+<p>The posterior probability reverses that:</p>
+<p><span class="math display">\[
+P(\theta \le 0.5 \mid D) = \sum_{k:\ \theta_k \le 0.5} p(\theta_k \mid D) \approx 0.002
+\]</span></p>
+<p>Here the data are fixed, and the probability is your belief about <span class="math inline">\(\theta\)</span>. Unlike the p-value, we can say there’s a 0.2% chance that <span class="math inline">\(\theta \leq 0.5\)</span>, or a 99.8% chance that the city is rainy. This is because the posterior makes a statement about the <strong>hypothesis, given the data</strong>.</p>
+<p>The two numbers happen to be close here. For a one-sided question with a flat prior, they often are. But they answer different questions, and they can disagree badly. For a sharp hypothesis such as “<span class="math inline">\(\theta\)</span> is <em>exactly</em> 50%”, a small p-value can sit alongside a high posterior probability that the hypothesis is true, a result known as Lindley’s paradox <span class="citation" data-cites="lindley1957"><a href="#ref-lindley1957" role="doc-biblioref">[2]</a></span>.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="the-numerator-problem" class="level3">
-<h3 class="anchored" data-anchor-id="the-numerator-problem">The numerator problem</h3>
+</section>
+<section id="the-numerator-problem" class="level2">
+
+
 
 
 </section>
-</section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">The numerator problem</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-van1998" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">A. W. van der Vaart, <em>Asymptotic statistics</em>. in Cambridge series in statistical and probabilistic mathematics. Cambridge: Cambridge University Press, 1998. doi: <a href="https://doi.org/10.1017/CBO9780511802256">10.1017/CBO9780511802256</a>.</div>
+</div>
+<div id="ref-lindley1957" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">D. V. Lindley, <span>“A statistical paradox,”</span> <em>Biometrika</em>, vol. 44, no. 1–2, pp. 187–192, 1957, doi: <a href="https://doi.org/10.1093/biomet/44.1-2.187">10.1093/biomet/44.1-2.187</a>.</div>
+</div>
+</div></section></div></main> <!-- /main -->
 <script>
 
 (function () {
