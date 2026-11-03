@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://choppystick.github.io/choppy-blog/posts/harmonics/index.html</loc>
-    <lastmod>2026-10-19T13:55:27.354Z</lastmod>
+    <loc>https://choppystick.github.io/choppy-blog/posts/Left Hanging Behind/index.html</loc>
+    <lastmod>2026-11-03T12:19:14.002Z</lastmod>
   </url>
   <url>
-    <loc>https://choppystick.github.io/choppy-blog/index.html</loc>
-    <lastmod>2026-10-14T18:04:41.221Z</lastmod>
+    <loc>https://choppystick.github.io/choppy-blog/gallery.html</loc>
+    <lastmod>2026-10-14T18:04:41.215Z</lastmod>
   </url>
   <url>
     <loc>https://choppystick.github.io/choppy-blog/about.html</loc>
     <lastmod>2026-10-18T18:59:16.709Z</lastmod>
   </url>
   <url>
-    <loc>https://choppystick.github.io/choppy-blog/gallery.html</loc>
-    <lastmod>2026-10-14T18:04:41.215Z</lastmod>
+    <loc>https://choppystick.github.io/choppy-blog/index.html</loc>
+    <lastmod>2026-10-14T18:04:41.221Z</lastmod>
+  </url>
+  <url>
+    <loc>https://choppystick.github.io/choppy-blog/posts/harmonics/index.html</loc>
+    <lastmod>2026-10-19T13:55:27.354Z</lastmod>
   </url>
   <url>
     <loc>https://choppystick.github.io/choppy-blog/posts/MCMC/index.html</loc>
