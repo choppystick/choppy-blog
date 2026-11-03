@@ -241,7 +241,7 @@ window.Quarto = {
 
 <p>Pluck the open A string on a guitar, and a tuner will tell you it’s 110 Hz, meaning the string swings up and down 110 times every second. This count is called the <em>frequency</em>.</p>
 <p>Here is a recording of the open A string, plucked three times.</p>
-<div id="09b45aca" class="cell" data-execution_count="2">
+<div id="21aa1ece" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 
                 <audio controls="controls">
@@ -252,7 +252,7 @@ window.Quarto = {
 </div>
 </div>
 <p>However, even though the note’s frequency is 110 Hz, it actually isn’t just purely one frequency. If it was really just that, it would actually sound more like this pure sine wave instead (You may need headphones for this and careful with the volume):</p>
-<div id="a688a38c" class="cell" data-execution_count="3">
+<div id="1bff7920" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 
                 <audio controls="controls">
@@ -264,7 +264,7 @@ window.Quarto = {
 </div>
 <p>You may think it’s just because the string is imperfect, friction, or air resistance. but the real reason why a guitar note sounds the way it does is because of <em>harmonics</em>. To see harmonics, we can analyze the frequency components of the sound using a <em>spectrogram</em>.</p>
 <p>A spectrogram shows which frequencies are present at each moment, and brighter indicates higher energy. Below is the spectrogram of the plucked string:</p>
-<div id="f3691498" class="cell" data-execution_count="5">
+<div id="b53add6a" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -275,7 +275,7 @@ window.Quarto = {
 </div>
 </div>
 <p>For comparison, here is the spectrogram of the pure 110 Hz sine wave. Only the fundamental shows up:</p>
-<div id="9f7ebfd6" class="cell" data-execution_count="6">
+<div id="b33e64d1" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -298,7 +298,7 @@ window.Quarto = {
 <p>If you shake it at just the right rhythm, the whole rope swings as one big loop. Shake twice as often and it snaps into two loops, with a point in the middle that stays still. Three times as often gives three loops. At any rates in between, no clean pattern builds up and the rope just jiggles. How often you shake is a frequency, and these special frequencies are exactly the fundamental and its harmonics.</p>
 <p>In physics, these patterns are called <em>modes</em>, and the points that never move, including the two ends, are called <em>nodes</em>. An up-loop followed by a down-loop makes one full wave, and its length is called the <em>wavelength</em> <span class="math inline">\(\lambda\)</span>. So one loop is half a wavelength.</p>
 <p>The figure below shows each mode as a snapshot. In reality, each loop keeps flipping between up and down, while the dots stay perfectly still.</p>
-<div id="f7b30bd0" class="cell" data-execution_count="8">
+<div id="509901e9" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -327,7 +327,7 @@ window.Quarto = {
 <p>Notice that the frequencies in the graph, 110, 220, 330, 440 Hz, are all multiples of 110. So then, why specifically multiples?</p>
 <p>Suppose the string has length <span class="math inline">\(L\)</span>. Both ends are held fixed on the <em>resting line</em>, the straight line the string lies along when it’s still, so the wave pattern has to start and end on the ends.</p>
 <p>Starting from the resting line at the left end, the pattern only returns to it at the end of each loop. <strong>If the string’s length ended partway through a loop, the right end would be sitting above or below the line</strong>, which is physically impossible, as the ends are fixed.</p>
-<div id="3fcd654c" class="cell" data-execution_count="9">
+<div id="cd53f9d6" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -375,7 +375,7 @@ f_n = \frac{v}{\lambda_n} = \frac{v}{2L/n} = n \cdot \frac{v}{2L} = n f_1,
 </div>
 </div>
 <p>So what does a plucked string really look like? Think about what your finger does. You are not shaking the string. You hook it with your finger, pull and let go. At that moment, the <strong>string forms a triangle</strong>: it is no longer a smooth curve, but two straight lines meeting at a corner, right where your finger is.</p>
-<div id="d16b9898" class="cell" data-execution_count="10">
+<div id="ebedf3bb" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -407,7 +407,7 @@ f_n = \frac{v}{\lambda_n} = \frac{v}{2L/n} = n \cdot \frac{v}{2L} = n f_1,
 </div>
 <p><strong>However, the triangle is not a sine wave.</strong> Furthermore, look at the triangle, its straight sides will not feel any pull; the only bend is at the corner. As a force is only induced at a bend, the corner should start moving while the sides wait, and the triangle wouldn’t keep its shape.</p>
 <p>Let’s test this prediction by releasing two strings side by side: one shaped like the third mode, and one shaped like the triangle.</p>
-<div id="2289d5e4" class="cell" data-execution_count="11">
+<div id="8c1c5456" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display" data-execution_count="11">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -593,36 +593,36 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img6e131440d63d4f6c8f62ba68207541f4">
+  <img id="_anim_img33927d0ebdc54212a0af891bc40b522e">
   <div class="anim-controls">
-    <input id="_anim_slider6e131440d63d4f6c8f62ba68207541f4" type="range" class="anim-slider" name="points" min="0" max="1" step="1" value="0" oninput="anim6e131440d63d4f6c8f62ba68207541f4.set_frame(parseInt(this.value));">
+    <input id="_anim_slider33927d0ebdc54212a0af891bc40b522e" type="range" class="anim-slider" name="points" min="0" max="1" step="1" value="0" oninput="anim33927d0ebdc54212a0af891bc40b522e.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim6e131440d63d4f6c8f62ba68207541f4.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim33927d0ebdc54212a0af891bc40b522e.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim6e131440d63d4f6c8f62ba68207541f4.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim33927d0ebdc54212a0af891bc40b522e.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim6e131440d63d4f6c8f62ba68207541f4.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim33927d0ebdc54212a0af891bc40b522e.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim6e131440d63d4f6c8f62ba68207541f4.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim33927d0ebdc54212a0af891bc40b522e.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim6e131440d63d4f6c8f62ba68207541f4.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim33927d0ebdc54212a0af891bc40b522e.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim6e131440d63d4f6c8f62ba68207541f4.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim33927d0ebdc54212a0af891bc40b522e.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim6e131440d63d4f6c8f62ba68207541f4.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim33927d0ebdc54212a0af891bc40b522e.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim6e131440d63d4f6c8f62ba68207541f4.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim33927d0ebdc54212a0af891bc40b522e.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim6e131440d63d4f6c8f62ba68207541f4.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim33927d0ebdc54212a0af891bc40b522e.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select6e131440d63d4f6c8f62ba68207541f4" class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_6e131440d63d4f6c8f62ba68207541f4">
-      <label for="_anim_radio1_6e131440d63d4f6c8f62ba68207541f4">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_6e131440d63d4f6c8f62ba68207541f4" checked="">
-      <label for="_anim_radio2_6e131440d63d4f6c8f62ba68207541f4">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_6e131440d63d4f6c8f62ba68207541f4">
-      <label for="_anim_radio3_6e131440d63d4f6c8f62ba68207541f4">Reflect</label>
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select33927d0ebdc54212a0af891bc40b522e" class="anim-state">
+      <input type="radio" name="state" value="once" id="_anim_radio1_33927d0ebdc54212a0af891bc40b522e">
+      <label for="_anim_radio1_33927d0ebdc54212a0af891bc40b522e">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_33927d0ebdc54212a0af891bc40b522e" checked="">
+      <label for="_anim_radio2_33927d0ebdc54212a0af891bc40b522e">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_33927d0ebdc54212a0af891bc40b522e">
+      <label for="_anim_radio3_33927d0ebdc54212a0af891bc40b522e">Reflect</label>
     </form>
   </div>
 </div>
@@ -632,9 +632,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img6e131440d63d4f6c8f62ba68207541f4";
-    var slider_id = "_anim_slider6e131440d63d4f6c8f62ba68207541f4";
-    var loop_select_id = "_anim_loop_select6e131440d63d4f6c8f62ba68207541f4";
+    var img_id = "_anim_img33927d0ebdc54212a0af891bc40b522e";
+    var slider_id = "_anim_slider33927d0ebdc54212a0af891bc40b522e";
+    var loop_select_id = "_anim_loop_select33927d0ebdc54212a0af891bc40b522e";
     var frames = new Array(60);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAAFACAYAAABEGxgbAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -35334,7 +35334,7 @@ iIg8hgEIERERERF5DAMQIiIiIiIST/n/AFhLOnYpW8UvAAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim6e131440d63d4f6c8f62ba68207541f4 = new Animation(frames, img_id, slider_id, 80.0,
+        anim33927d0ebdc54212a0af891bc40b522e = new Animation(frames, img_id, slider_id, 80.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -35422,7 +35422,7 @@ b_n = \frac{2}{L}\int_0^L \varphi(x)\,\sin\!\left(\frac{n\pi x}{L}\right)dx
 <section id="simulating-the-harmonics" class="level2">
 <h2 class="anchored" data-anchor-id="simulating-the-harmonics">Simulating the harmonics</h2>
 <p>With the general formula, here are the first 16 modes for a string plucked a quarter of the way along, each scaled by its <span class="math inline">\(b_n\)</span>:</p>
-<div id="b136e330" class="cell" data-execution_count="13">
+<div id="0eee4c8e" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -35435,7 +35435,7 @@ b_n = \frac{2}{L}\int_0^L \varphi(x)\,\sin\!\left(\frac{n\pi x}{L}\right)dx
 <p>The fundamental, the blue hump, is the largest, but it peaks in the middle of the string, not at the pluck point. This is where the other modes, or harmonics come into play.</p>
 <p>The 2nd mode, in orange, is much smaller. It is positive on the left half and negative on the right, so it pushes the shape up near the pluck point and down on the far side. The third mode is smaller again, and the higher harmonics shrink quickly. By the 16th they are barely visible.</p>
 <p>Now let see what happens if we add the modes one at a time. Every curve below adds one more mode to the curve before it.</p>
-<div id="f0bdd80f" class="cell" data-execution_count="14">
+<div id="11720a87" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -35448,7 +35448,7 @@ b_n = \frac{2}{L}\int_0^L \varphi(x)\,\sin\!\left(\frac{n\pi x}{L}\right)dx
 <p>The fundamental alone is a poor match for the triangle, but adding the 2nd mode pulls the peak towards the pluck point. Every mode after that makes a smaller adjustment, which slowly pulls the string to the side of the triangle.</p>
 <p>The last part to form is the corner. Even with 16 modes, the peak is still slightly rounded. Whereas the smooth sides of the triangle need only a few modes, the sharp corner needs many high modes working together. This was the heart of Euler and d’Alembert’s objection: no finite number of smooth sine waves can ever make a perfectly sharp corner. At the same time, we see that we are getting closer to a triangle.</p>
 <p>But <span class="math inline">\(b_n\)</span> also depend on where the string is plucked. Change where you pluck and you change how much of each mode contributes to the triangle.</p>
-<div id="e97925ae" class="cell" data-execution_count="15">
+<div id="6ee0361b" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -35462,7 +35462,7 @@ b_n = \frac{2}{L}\int_0^L \varphi(x)\,\sin\!\left(\frac{n\pi x}{L}\right)dx
 <p>Pluck an open string right next to the bridge and you get a harsh, pinched, twangy “eeee”. The reason being that pluck point excites lots of high harmonics as the sharp corner is at the end of the string. The fundamental carries a smaller share of the shape, and the higher harmonics carry much more, which together forms harshness.</p>
 <p>Now pluck the same string over the 12th fret, exactly halfway along. The sound is dominated by the fundamental with little odds harmonics, and the curves settle onto the triangle almost immediately: this leads to a softer, rounder, hollow sound.</p>
 <p>Remember that Fourier’s claim is we must take the sum to infinite terms to make it exactly equal, so let’s take his advice to heart and sum the terms to infinity. Of course, it is obvious that we cannot compute an infinite amount of modes, but we can just take it to a large enough term, say 100, 1,000 and 10,000 terms:</p>
-<div id="22f3c17b" class="cell" data-execution_count="16">
+<div id="39a57f5e" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -35583,7 +35583,7 @@ m\Big(\bigcup_{i=1}^{\infty} B_i\Big) = \sum_{i=1}^{\infty} m(B_i)
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 <p>We conclude with this beauty here.</p>
-<div id="aa98378a" class="cell" data-execution_count="17">
+<div id="9772c395" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-display" data-execution_count="17">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -35769,36 +35769,36 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img1e51d867dd5c4306924a8da94732d4c3">
+  <img id="_anim_img23d96bbbe62549439d7f29d66d8bd254">
   <div class="anim-controls">
-    <input id="_anim_slider1e51d867dd5c4306924a8da94732d4c3" type="range" class="anim-slider" name="points" min="0" max="1" step="1" value="0" oninput="anim1e51d867dd5c4306924a8da94732d4c3.set_frame(parseInt(this.value));">
+    <input id="_anim_slider23d96bbbe62549439d7f29d66d8bd254" type="range" class="anim-slider" name="points" min="0" max="1" step="1" value="0" oninput="anim23d96bbbe62549439d7f29d66d8bd254.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim1e51d867dd5c4306924a8da94732d4c3.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim23d96bbbe62549439d7f29d66d8bd254.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim1e51d867dd5c4306924a8da94732d4c3.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim23d96bbbe62549439d7f29d66d8bd254.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim1e51d867dd5c4306924a8da94732d4c3.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim23d96bbbe62549439d7f29d66d8bd254.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim1e51d867dd5c4306924a8da94732d4c3.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim23d96bbbe62549439d7f29d66d8bd254.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim1e51d867dd5c4306924a8da94732d4c3.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim23d96bbbe62549439d7f29d66d8bd254.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim1e51d867dd5c4306924a8da94732d4c3.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim23d96bbbe62549439d7f29d66d8bd254.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim1e51d867dd5c4306924a8da94732d4c3.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim23d96bbbe62549439d7f29d66d8bd254.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim1e51d867dd5c4306924a8da94732d4c3.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim23d96bbbe62549439d7f29d66d8bd254.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim1e51d867dd5c4306924a8da94732d4c3.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim23d96bbbe62549439d7f29d66d8bd254.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select1e51d867dd5c4306924a8da94732d4c3" class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_1e51d867dd5c4306924a8da94732d4c3">
-      <label for="_anim_radio1_1e51d867dd5c4306924a8da94732d4c3">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_1e51d867dd5c4306924a8da94732d4c3" checked="">
-      <label for="_anim_radio2_1e51d867dd5c4306924a8da94732d4c3">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_1e51d867dd5c4306924a8da94732d4c3">
-      <label for="_anim_radio3_1e51d867dd5c4306924a8da94732d4c3">Reflect</label>
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select23d96bbbe62549439d7f29d66d8bd254" class="anim-state">
+      <input type="radio" name="state" value="once" id="_anim_radio1_23d96bbbe62549439d7f29d66d8bd254">
+      <label for="_anim_radio1_23d96bbbe62549439d7f29d66d8bd254">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_23d96bbbe62549439d7f29d66d8bd254" checked="">
+      <label for="_anim_radio2_23d96bbbe62549439d7f29d66d8bd254">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_23d96bbbe62549439d7f29d66d8bd254">
+      <label for="_anim_radio3_23d96bbbe62549439d7f29d66d8bd254">Reflect</label>
     </form>
   </div>
 </div>
@@ -35808,9 +35808,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img1e51d867dd5c4306924a8da94732d4c3";
-    var slider_id = "_anim_slider1e51d867dd5c4306924a8da94732d4c3";
-    var loop_select_id = "_anim_loop_select1e51d867dd5c4306924a8da94732d4c3";
+    var img_id = "_anim_img23d96bbbe62549439d7f29d66d8bd254";
+    var slider_id = "_anim_slider23d96bbbe62549439d7f29d66d8bd254";
+    var loop_select_id = "_anim_loop_select23d96bbbe62549439d7f29d66d8bd254";
     var frames = new Array(72);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAAIwCAYAAAB+0Q9HAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -100333,7 +100333,7 @@ ECGEEEIIIUTNkAARQgghhBBCoFb8/44gqBgo3/XvAAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim1e51d867dd5c4306924a8da94732d4c3 = new Animation(frames, img_id, slider_id, 59.0,
+        anim23d96bbbe62549439d7f29d66d8bd254 = new Animation(frames, img_id, slider_id, 59.0,
                                  loop_select_id);
     }, 0);
   })()
