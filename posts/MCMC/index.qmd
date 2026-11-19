@@ -207,7 +207,7 @@ $$
 p(D \mid \theta) = \theta^{23}\,(1-\theta)^{7},
 $$
 
-where $D$ stands for the data, those 30 days of weather. Only the candidates that predicted the whole month reasonably well have cities left. Your belief narrows into a hump around 75%.
+where $D$ stands for the data, those 30 days of weather. Only the candidates that predicted the whole month reasonably well have cities left and your belief narrows into a hump around 75%.
 
 <!-- ```{python}
 #| fig-cap: "The likelihood of 23 rainy days out of 30, for each candidate."
@@ -354,7 +354,7 @@ Back to the question we actually care about: will it rain tomorrow given we have
 
 To make a forecast, we treat each candidate as an expert and ask them for the chance of rain. The $\theta = 60\%$ expert says 60%, the $\theta = 90\%$ expert says 90%, and so on. However, it would be a mistake to trust all candidates equally because not all of them are equally likely to be right. 
 
-To account for this, we rely on the posterior which tells us how much to believe each candidate, given the data. So we weight every expert's answer by our belief in them. This gets us a new distribution called the *posterior predictive distribution*. We can then add up all the belief, amd since the weights add up to 100%, we get a weighted average which is our forecast.
+To account for this, we rely on the posterior which tells us how much to believe each candidate, given the data, and we weight every expert's answer by our belief in them. This gets us a new distribution called the *posterior predictive distribution*. We can then add up all the belief, and since the weights add up to 100%, we get a weighted average which is our forecast.
 
 $$
 P(\text{rain tomorrow at day 31} \mid D) = \sum_{k=0}^{100} \underbrace{p(\text{rain tomorrow at day 31} \mid \theta_k)}_{\theta_k} \; p(\theta_k \mid D) = 0.75
@@ -433,7 +433,11 @@ For why we did not use the maximum of the posterior distribution but compute the
 
 The forecast is a single number, but the posterior holds far more than that. You can ask it which climates are still plausible, how sure you can be that this is a rainy city, and how many rainy days to expect next week.
 
-Start with the first. To find the range of climates you're 95% sure contains the true one, cut 2.5% of belief from each end of the posterior. Starting from $\theta = 0$, add up belief until you reach 2.5%: that's the lower bound. Keep going until you reach 97.5%: that's the upper bound. The middle holds 95% of your belief, and here it runs from **59% to 88%**.
+Start with the first. To find the range of climates you're 95% sure contains the true one, cut 2.5% of belief from each end of the posterior. Starting from $\theta = 0$, add up belief until you reach 2.5%: that's the lower bound. Keep going until you reach 97.5%: that's the upper bound. The middle holds 95% of your belief, and here it lands at **59% to 88%**. This is called a *credible interval*.
+
+$$
+P(0.59 \le \theta \le 0.88 \mid D) = \sum_{k:\ 0.59 \le \theta_k \le 0.88} p(\theta_k \mid D) \approx 0.95
+$$
 
 ```{python}
 #| echo: false
@@ -457,9 +461,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-The interval is wide, it's almost 30 percentage point. Well given that we only observed 30 days of weather, being convinced that the city is likely to be rainy but not being able to pin how wet down exactly makes sense.
-
-The interval also means exactly what it sounds like. A 95% credible interval states there's a 95% probability that $\theta$ lies betweeen 59% and 88%. This sounds obvious but the confidence interval, that we learned in Stats 101, can't tell you that.
+The interval is almost 30 percentage point wide, which makes sense given that we only observed 30 days of weather. In our case, the interval also means exactly what it sounds like. A 95% credible interval states there's a 95% probability that $\theta$ lies betweeen 59% and 88%. This sounds obvious but the confidence interval, that we learned in Stats 101, can't tell you that.
 
 ::: {.callout-note collapse="true"}
 ## Credible intervals vs confidence intervals
@@ -503,7 +505,7 @@ plt.show()
 
 This looks like the question a *p-value* answers, but it isn't. A p-value asks: *if* $\theta$ were exactly 50%, how often would a month look at least this rainy? Here the answer is about 0.3%. 
 
-It's tempting to read that as "a 0.3% chance the city isn't rainy," but that isn't what it says. The p-value assumes the hypothesis and asks about the data. The posterior does the reverse: it takes the data as given and tells you how plausible the hypothesis is. With it, we can justifiably say there's a 0.2% chance that the city isn't rainy. 
+It's tempting to read that as "a 0.3% chance the city isn't rainy," but that isn't what it says. The p-value assumes the hypothesis and asks about the data. The posterior does the reverse: it takes the data as given and tells you how plausible the hypothesis is. With it, we can justifiably say there's a 0.2% chance that the city isn't rainy.
 
 ::: {.callout-note collapse="true"}
 ## What is p-value?
@@ -519,7 +521,7 @@ $$
 
 In other words: if rain really fell on exactly half of November days, a month with 23 or more rainy days would turn up only about 0.26% of the time. That's well below the conventional threshold of 0.05 or 5%, so we reject $H_0$ and conclude the city is likely to be rainy on half the days.
 
-Note what p-value doesn't conclude. It doesn't say there's a 0.26% chance that $\theta = 0.5$, or a 99.74% chance that the city is rainy. It only informs us "how often would a month with 23 or more rainy days turn up." This is a statement about the **data, assuming the hypothesis**, $P(\text{data} \mid H_0)$! 
+Note what p-value doesn't conclude. It doesn't say there's a 0.26% chance that $\theta \leq 0.5$, or a 99.74% chance that the city is rainy. It only informs us "how often would a month with 23 or more rainy days turn up." This is a statement about the **data, assuming the hypothesis**, $P(\text{data} \mid H_0)$! 
 
 <!-- This might sound complicated, so here's an analogy.
 
@@ -544,5 +546,19 @@ Here the data are fixed, and the probability is your belief about $\theta$. Unli
 The two numbers happen to be close here. For a one-sided question with a flat prior, they often are. But they answer different questions, and they can disagree badly. For a sharp hypothesis such as "$\theta$ is *exactly* 50%", a small p-value can sit alongside a high posterior probability that the hypothesis is true, a result known as Lindley's paradox [@lindley1957].
 :::
 
-## The numerator problem
+That's the basics! Isn't Bayesian analysis just wonderful? But unforunately just like anything in life, good things don't come cheap.
+
+## The Denominator Problem
+
+There is a problem that I have hidden from you and it has to do with the posterior and it becomes more obvious when we rewrite our statistics:
+
+$$
+\begin{aligned}
+\text{Will it rain tomorrow?} \quad & P(\tilde y = \text{rain} \mid D) = \sum_{k} \theta_k \, p(\theta_k \mid D) \approx 75\% \\
+\text{Is it a rainy city?} \quad & P(\theta > 0.5 \mid D) = \sum_{k} \mathbb{1}[\theta_k > 0.5] \, p(\theta_k \mid D) \approx 99.8\% \\
+\text{95\% credible interval} \quad & P(0.59 \le \theta \le 0.88 \mid D) = \sum_{k=0}^{100} \mathbb{1}[0.59 \le \theta_k \le 0.88] \, p(\theta_k \mid D) \\
+\end{aligned}
+$$
+
+
 
